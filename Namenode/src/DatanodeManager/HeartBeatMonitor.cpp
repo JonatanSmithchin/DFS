@@ -25,7 +25,6 @@ void HeartBeatMonitor::checkHeartBeat() {
         for (auto &it:m_manager->getDatanodeMap()) {
             auto info = it.second;
             LOG(INFO) << "check status: " << info->id().hostname();
-            //TODO: 判断是否超时未更新信息
             if (info->lastupdate() + CHECK_INTERVAL < now){
                 LOG(INFO) << "remove datanode " << info->id().hostname();
                 dead = info;
