@@ -1,0 +1,147 @@
+syntax="proto3";
+
+import "dfs.proto";
+
+package ClientNamenode;
+
+message GetBlockLocationsRequest{
+	 string src = 1;
+	 uint64 offset = 2;
+	 uint64 length = 3;
+}
+
+message GetBlockLocationResponse{
+	optional LocatedBlocks location = 1;
+}
+
+message GetServerDefaultsRequest{
+	//null
+}
+
+message GetServerDefaultsResponse{
+	 ServerDefaults erverDefaults = 1;
+}
+//����Ϊ�ļ�ϵͳ������RPC�ӿ���Ϣ
+enum CreateFlag{
+	CREATE = 0;
+	OVERWRITE = 1;
+	APPEND = 2;
+}
+
+message CreateRequest{
+	 string src = 1;
+	 string clientName = 2;
+	 CreateFlag flag = 3;
+	 Permission permission = 4;
+	 bool createParent = 5;//�Ƿ���֮�ϴ����˸�Ŀ¼
+	 uint64 blockSize = 6;
+}
+
+message CreateResponse{
+	optional FileStatus status = 1;
+}
+
+message AppendRequest{
+	 string src = 1;
+	 string clientName = 2;
+}
+
+message AppendResponse{
+	optional LocatedBlock block = 1;
+}
+
+message RenameRequest{
+	 string src = 1;
+	 string dst = 2;
+}
+
+message RenameResponse{
+	bool result = 1;
+}
+
+message DeleteRequest{
+	 string src = 1;
+	 bool recursive = 2;//�Ƿ���Ҫ�ݹ�ɾ��
+}
+
+message DeleteResponse{
+	 bool result = 1;
+}
+
+message SetPermissionRequest{
+	 string src = 1;
+	 Permission permission = 2;
+}
+
+message SetPermissionResponse{
+	//null
+}
+
+message SetOwnerRequest{
+	 string src = 1;
+	optional string username = 2;
+	optional string groupname = 3;
+}
+
+message SetOwnerResponse{
+	//null
+}
+
+message AddBlockRequest{
+	string src = 1;
+	string clientName = 2;
+	repeated DatanodeInfo excludeNodes = 4;
+	optional uint64 fileId = 5;
+	repeated string favoredNodes = 6;
+}
+
+message AddBlockResponse{
+	LocatedBlock block = 1;
+}
+
+message mkdirRequest{
+	 string src = 1;
+	 Permission permission = 2;
+	 bool createParent = 3;//�Ƿ���֮�ϴ����˸�Ŀ¼
+}
+
+message mkdirResponse{
+	 bool isSuccess = 1;
+}
+
+message GetListingRequest{
+	 string src = 1;
+	 bytes startAfter = 2;
+	 bool needLocation = 3;
+}
+
+message GetListingResponse{
+	optional DirectoryListing dirList = 1;
+}
+
+message RenewLeaseRequest{
+	 string ClientName = 1;
+}
+
+message RenewLeaseResponse{
+	//null
+}
+//����Ϊdfs����������RPC�ӿ���Ϣ
+
+//����RPC�ӿ�
+service ClientService{
+	//�ļ������ӿ�
+	rpc GetBlockLocation(GetBlockLocationsRequest) returns (GetBlockLocationResponse);
+	rpc GetServerDefaults(GetServerDefaultsRequest) returns (GetServerDefaultsResponse);
+	rpc Create(CreateRequest) returns (CreateResponse);
+	rpc Append(AppendRequest) returns (AppendResponse);
+	rpc Rename(RenameRequest) returns (RenameResponse);
+	rpc Delete(DeleteRequest) returns (DeleteResponse);
+	rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse);
+	rpc SetOwner(SetOwnerRequest) returns (SetOwnerResponse);
+	rpc AddBlock(AddBlockRequest) returns (AddBlockResponse);
+	rpc mkdir(mkdirRequest) returns (mkdirResponse);
+	rpc Listing(GetListingRequest) returns (GetListingResponse);
+	rpc RenewLease(RenewLeaseRequest) returns (RenewLeaseResponse);
+	//dfs�����ӿ�
+}

@@ -1,0 +1,168 @@
+syntax="proto3";
+
+import "dfs.proto";
+
+package DatanodeNamenode;
+
+message DatanodeRegister{
+  DatanodeID id = 1;
+  DatanodeInfo info = 2;
+  string softwareVersion = 3;
+}
+
+message DatanodeCommand{
+  enum Type {
+    BalancerBandwidthCommand = 0;
+    BlockCommand = 1;
+    BlockRecoveryCommand = 2;
+    FinalizeCommand = 3;
+    KeyUpdateCommand = 4;
+    RegisterCommand = 5;
+    UnusedUpgradeCommand = 6;
+    NullDatanodeCommand = 7;
+    BlockIdCommand = 8;
+  }
+
+  Type commandType = 1;
+
+  optional BalanceBandwidth balanceCmd = 2;
+  optional BlockCommand blkCmd = 3;
+  optional BlockRecovery recoveryCmd = 4;
+  optional Finalize finalizeCmd = 5;
+  optional KeyUpdate keyUpdateCmd = 6;
+  optional Register registerCmd = 7;
+  optional BlockId blkIdCmd = 8;
+}
+
+message BalanceBandwidth{
+  uint64 bandwidth = 1;
+}
+
+message BlockCommand{
+  enum Action{
+    TRANSFER = 0;
+    INVALIDATE = 1;
+    SHUTDOWN = 2;
+  }
+
+  Action action = 1;
+  repeated Block blocks = 2;
+  repeated DatanodeInfo targets = 3;
+}
+
+message BlockRecovery{
+
+}
+
+message Finalize{
+
+}
+
+message KeyUpdate{
+
+}
+
+message Register{
+  //void
+}
+
+message BlockId{
+  enum Action{
+    CACHE = 0;
+    UNCACHE = 1;
+  }
+  Action action = 1;
+  repeated uint64 blockIds = 2;
+}
+
+message ReceivedDeletedBlockInfo{
+  enum BlockStatus{
+    RECEIVING = 0;
+    RECEIVED = 1;
+    DELETED = 2;
+  }
+
+  Block block = 1;
+  BlockStatus status = 2;
+}
+
+message RegisterDatanodeRequest{
+  DatanodeRegister registration = 1;
+}
+
+message RegisterDatanodeResponse{
+  DatanodeRegister registration = 1;
+}
+
+message HeartBeatRequest{
+  DatanodeRegister registration = 1;
+  optional uint32 xmitsInProgress = 3;
+  optional uint32 xceiverCount = 4;
+  optional uint32 failedVolums = 5;
+  optional uint64 cacheCapacity = 6;
+  optional uint64 cacheUsed = 7;
+}
+
+message HeartBeatResponse{
+  repeated DatanodeCommand cmds = 1;
+}
+
+message blockReportRequest{
+
+}
+
+message blockReportResponse{
+
+}
+
+message cacheReportRequest{
+
+}
+
+message cacheReportResponse{
+
+}
+
+message BlockReceivedAndDeletedRequest{
+  DatanodeRegister registration = 1;
+  repeated ReceivedDeletedBlockInfo blocks = 2;
+}
+
+message BlockReceivedAndDeletedResponse{
+  //void
+}
+
+message ErrorReportRequest{
+  enum ErrorCode{
+    NOTIFY = 0;
+    DISK_ERROR = 1;
+    INVALID_BLOCK = 2;
+    FATAL_DISK_ERROR = 3;
+  }
+  DatanodeRegister registration = 1;
+  ErrorCode errorCode = 2;
+  string msg = 3;
+}
+
+message ErrorReportResponse{
+  //void
+}
+
+message ReportBadBlockRequest{
+  repeated LocatedBlock blocks = 1;
+}
+
+message ReportBadBlockResponse{
+  //void
+}
+
+service DatanodeService{
+  rpc registerDatanode(RegisterDatanodeRequest) returns(RegisterDatanodeResponse);
+  rpc sendHeartBeat(HeartBeatRequest) returns(HeartBeatResponse);
+  rpc blockReport(blockReportRequest) returns(blockReportResponse);
+  rpc cacheReport(cacheReportRequest) returns(cacheReportResponse);
+  rpc blockReceivedAndDeleted(BlockReceivedAndDeletedRequest) returns(BlockReceivedAndDeletedResponse);
+  rpc errorReport(ErrorReportRequest) returns(ErrorReportResponse);
+  rpc reportBadBlock(ReportBadBlockRequest) returns(ReportBadBlockResponse);
+
+}

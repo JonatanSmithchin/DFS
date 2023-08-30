@@ -1,0 +1,105 @@
+syntax="proto3";
+
+message DatanodeID{
+	 string ipAddr = 1;
+	 string hostName = 2;
+	 string datanodeUuid = 3;
+
+	 uint32 xferPort = 4;//datanode stream�˿ڣ����ڴ�������
+	 uint32 infoPort = 5;//datanode��http�˿ڣ�����չʾdatanode�ڲ���Ϣ
+	 uint32 ipcPort = 6;//���̼�ͨ�Ŷ˿�
+	 uint32 infoSecurePort = 7;
+}
+
+message DatanodeInfo{
+	 DatanodeID id = 1;
+	 uint64 capacity = 2;
+	 uint64 used = 3;
+	 uint64 remaining = 4;
+	 uint64 lastUpdate = 5;
+	 uint32 xceiverCount = 6;
+	 string location = 8;
+	enum AdminState{
+		NORMAL = 0;
+		DECOMMISSION_INPROGRESS = 1;
+		DECOMMISSIONED = 2;
+	}
+	 AdminState adminState = 9;
+
+}
+
+message Permission{
+	 uint32 psermission = 1;
+}
+
+message FileStatus{
+	enum FileType{
+		IS_DIR = 0;
+		IS_FILE = 1;
+		IS_SYMLINK = 2;
+	}
+	 FileType fileType = 1;
+	 string path = 2;
+	 uint64 length = 3;
+	 Permission permission = 4;
+	 string owner = 5;
+	 string group = 6;
+	 uint64 modification_time = 7;
+	 uint64 access_time = 8;
+}
+
+enum ChecksumType{
+	CHECKSUM_CRC32 = 0;//ѭ������У��
+	CHECKSUM_NULL = 1;
+	CHECKSUM_CRC32C = 2;
+}
+
+message ServerDefaults{
+	 uint64 blockSize = 1;
+	 uint32 bytesPerChecksum = 2;//ÿ�����ֽ���Ҫ����У���
+	 uint32 writePacketSize = 3;//ÿ�η������ݰ���С
+	 uint32 replication = 4;
+	 uint32 fileBufferSize = 5;
+	 ChecksumType checksumType = 6;
+}
+
+message DirectoryListing{
+	repeated FileStatus partialListing = 1;
+	 uint32 remainingEntries = 2;//ʣ��δ�г���Ŀ¼
+}
+
+message Block{
+	 uint64 blockId = 1;
+	 uint64 generationStamp = 2;//ʱ���
+	 uint64 size = 3;//��С
+}
+
+message BlockWithLocation{
+	 Block block = 1;
+	repeated string datanodeUuids = 2;
+}
+
+message LocatedBlock{
+	 Block block = 1;
+	 uint64 offset = 2;
+	 repeated DatanodeInfo locs = 3;
+	 bool corrupt = 4;//������ڳ�ͻ�����ݿ飬��Ϊtrue
+}
+
+message LocatedBlocks{
+	 uint64 fileLength = 1;
+	repeated LocatedBlock blocks = 2;
+	 LocatedBlock last = 3;
+	 bool isLastBlockcomplete = 5;
+}
+
+message BlocksWithLocation{
+	repeated Block blocks = 1;
+}
+
+//���ڷ���Block��token
+message BlockKey{
+	 uint32 keyId = 1;
+	 uint64 expiryDate = 2;
+	 bytes keyBytes = 3; //token��Я������Կ
+}

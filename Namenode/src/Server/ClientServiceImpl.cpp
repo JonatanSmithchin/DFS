@@ -1,0 +1,113 @@
+//
+// Created by lxx18 on 2023/8/24.
+//
+
+#include "Server/ClientServiceImpl.h"
+
+ClientServiceImpl::~ClientServiceImpl() {
+
+}
+
+grpc::Status ClientServiceImpl::GetBlockLocation(::grpc::ServerContext *context,
+                                                 const ::ClientNamenode::GetBlockLocationsRequest *request,
+                                                 ::ClientNamenode::GetBlockLocationResponse *response) {
+
+    return Service::GetBlockLocation(context, request, response);
+}
+
+grpc::Status ClientServiceImpl::GetServerDefaults(::grpc::ServerContext *context,
+                                                  const ::ClientNamenode::GetServerDefaultsRequest *request,
+                                                  ::ClientNamenode::GetServerDefaultsResponse *response) {
+    return Service::GetServerDefaults(context, request, response);
+}
+
+grpc::Status ClientServiceImpl::Create(::grpc::ServerContext *context, const ::ClientNamenode::CreateRequest *request,
+                                       ::ClientNamenode::CreateResponse *response) {
+    std::string src = request->src();
+    m_nameSystem->writeLock();
+    auto file = m_nameSystem->addFile(src);
+    m_nameSystem->writeUnlock();
+
+    if (file != nullptr){
+        auto fileStatus = FileStatus();
+        fileStatus.set_path(src);
+        fileStatus.set_length(0);
+        fileStatus.set_owner(request->clientname());
+        fileStatus.set_modification_time(file->getModifiedTime());
+        response->set_allocated_status(&fileStatus);
+        return grpc::Status::OK;
+    }
+
+    return grpc::Status::CANCELLED;
+}
+
+grpc::Status ClientServiceImpl::Append(::grpc::ServerContext *context, const ::ClientNamenode::AppendRequest *request,
+                                       ::ClientNamenode::AppendResponse *response) {
+    const auto& src = request->src();
+    m_nameSystem->writeLock();
+    auto locatedBlock = m_nameSystem->append(src);
+    m_nameSystem->writeUnlock();
+    if (locatedBlock != nullptr){
+        auto block = Block();
+
+        block.set_generationstamp(
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                        std::chrono::system_clock::now().time_since_epoch()).count()
+                );
+
+        locatedBlock->set_allocated_block(&block);
+        response->set_allocated_block(locatedBlock);
+    }
+    return grpc::Status::CANCELLED;
+}
+
+grpc::Status ClientServiceImpl::Rename(::grpc::ServerContext *context, const ::ClientNamenode::RenameRequest *request,
+                                       ::ClientNamenode::RenameResponse *response) {
+    return Service::Rename(context, request, response);
+}
+
+grpc::Status ClientServiceImpl::Delete(::grpc::ServerContext *context, const ::ClientNamenode::DeleteRequest *request,
+                                       ::ClientNamenode::DeleteResponse *response) {
+    return Service::Delete(context, request, response);
+}
+
+grpc::Status
+ClientServiceImpl::SetPermission(::grpc::ServerContext *context, const ::ClientNamenode::SetPermissionRequest *request,
+                                 ::ClientNamenode::SetPermissionResponse *response) {
+    return Service::SetPermission(context, request, response);
+}
+
+grpc::Status
+ClientServiceImpl::SetOwner(::grpc::ServerContext *context, const ::ClientNamenode::SetOwnerRequest *request,
+                            ::ClientNamenode::SetOwnerResponse *response) {
+    return Service::SetOwner(context, request, response);
+}
+
+grpc::Status
+ClientServiceImpl::AddBlock(::grpc::ServerContext *context, const ::ClientNamenode::AddBlockRequest *request,
+                            ::ClientNamenode::AddBlockResponse *response) {
+    return Service::AddBlock(context, request, response);
+}
+
+grpc::Status ClientServiceImpl::mkdir(::grpc::ServerContext *context, const ::ClientNamenode::mkdirRequest *request,
+                                      ::ClientNamenode::mkdirResponse *response) {
+    return Service::mkdir(context, request, response);
+}
+
+grpc::Status
+ClientServiceImpl::Listing(::grpc::ServerContext *context, const ::ClientNamenode::GetListingRequest *request,
+                           ::ClientNamenode::GetListingResponse *response) {
+    return Service::Listing(context, request, response);
+}
+
+grpc::Status
+ClientServiceImpl::RenewLease(::grpc::ServerContext *context, const ::ClientNamenode::RenewLeaseRequest *request,
+                              ::ClientNamenode::RenewLeaseResponse *response) {
+    return Service::RenewLease(context, request, response);
+}
+
+ClientServiceImpl::ClientServiceImpl(NameSystem *nameSystem):m_nameSystem(nameSystem) {
+
+}
+
+
