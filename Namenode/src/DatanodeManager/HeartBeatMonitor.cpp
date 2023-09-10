@@ -5,35 +5,42 @@
 #include <thread>
 #include "glog/logging.h"
 #include "DatanodeManager/HeartBeatMonitor.h"
-#define CHECK_INTERVAL std::chrono::seconds(120).count()
+#define CHECK_INTERVAL std::chrono::seconds(3).count()
 
 HeartBeatMonitor::HeartBeatMonitor(DatanodeManager *manager):m_manager(manager){}
 
 void HeartBeatMonitor::checkHeartBeat() {
     bool isAllAlive = false;
     while (!isAllAlive){
-        LOG(INFO) << "check DataNodes";
 
         DatanodeInfo* dead;
 
-        std::this_thread::sleep_for(std::chrono::seconds(60));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 
         auto now = std::chrono::duration_cast<std::chrono::seconds>(
                 std::chrono::system_clock::now().time_since_epoch())
                         .count();
 
-        for (auto &it:m_manager->getDatanodeMap()) {
+        m_manager->lock();
+        LOG(INFO) << "check DataNodes";
+
+        if (m_manager->getDatanodeMap().empty()){
+            m_manager->unlock();
+            continue;
+        }
+
+        for (const auto& it:m_manager->getDatanodeMap()) {
             auto info = it.second;
             LOG(INFO) << "check status: " << info->id().hostname();
             if (info->lastupdate() + CHECK_INTERVAL < now){
-                LOG(INFO) << "remove datanode " << info->id().hostname();
                 dead = info;
             }
         }
         if (dead != nullptr){
+            LOG(INFO) << "remove datanode " << dead->id().hostname();
             m_manager->removeDatanode(dead);
         }
-
+        m_manager->unlock();
     }
 }
 

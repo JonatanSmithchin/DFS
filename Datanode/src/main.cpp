@@ -6,6 +6,8 @@
 #include <glog/logging.h>
 #include "proto/DatanodeNamenode.grpc.pb.h"
 #include "Client/NamenodeClient.h"
+#include "Server/ClientDatanodeServiceImpl.h"
+#include "Server/RPCServer.h"
 
 
 using grpc::Channel;
@@ -26,6 +28,14 @@ int main(int argc,char** argv) {
     client.registration();
 
     client.run();
+
+    const std::string& work_dir = "/mnt/d/test/";
+
+    ClientDatanodeServiceImpl ClientDatanodeService(work_dir);
+
+    RPCServer server(&ClientDatanodeService);
+
+    server.RunServer();
 
     return 0;
 }

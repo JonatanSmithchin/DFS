@@ -1,0 +1,45 @@
+syntax="proto3";
+
+import "dfs.proto";
+
+package ClientDatanode;
+
+message shutdownDatanodeRequest{
+
+}
+
+message shutdownDatanodeResponse{
+    
+}
+
+enum transferStatus{
+    Unknoen = 1;
+    OK = 2;
+    Failed = 3;
+}
+
+message transferBlockRequest{
+	uint64 blockId = 1;
+	uint64 size = 2;
+	bytes Content = 3;
+    uint32 checkSum = 4;
+}
+
+message transferBlockResponse{
+    transferStatus status = 1;
+}
+
+message downloadBlockRequest{
+    repeated uint64 blockId = 1;
+}
+
+message downloadBlockResponse{
+    bytes Content = 1;
+    uint32 checkSum  = 2;
+    transferStatus status = 3;
+}
+
+service FileService{
+	rpc transferBlock(stream transferBlockRequest) returns (transferBlockResponse);
+    rpc downloadBlock(downloadBlockRequest) returns {stream downloadBlockResponse};
+}

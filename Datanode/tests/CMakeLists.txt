@@ -11,5 +11,5 @@ target_link_libraries(test_get_netInfo gtest gtest_main)
 
 add_test(NAME test_get_netInfo COMMAND test_get_netInfo)
 
-target_link_libraries(test_get_netInfo gtest gtest_main net_utils)
+target_link_libraries(test_get_netInfo gtest gtest_main utils)
 

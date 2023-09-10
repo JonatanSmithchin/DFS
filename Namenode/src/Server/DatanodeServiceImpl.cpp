@@ -23,8 +23,9 @@ grpc::Status DatanodeServiceImpl::registerDatanode(::grpc::ServerContext *contex
     auto id = new DatanodeID();
     id->CopyFrom(datanode->id());
 
+    m_manager->lock();
     m_manager->addDatanode(datanode);
-
+    m_manager->unlock();
     auto registration = new DatanodeNamenode::DatanodeRegister();
     auto retInfo = new DatanodeInfo();
     retInfo->CopyFrom(*datanode);
@@ -41,12 +42,14 @@ DatanodeServiceImpl::sendHeartBeat(::grpc::ServerContext *context, const ::Datan
     auto info = new DatanodeInfo();
     info->CopyFrom(request->registration().info());
 
+
     auto update = new Report(info, request->xmitsinprogress(), request->failedvolums(),
                              request->cachecapacity(), request->cacheused());
 
 
-
+    m_manager->lock();
     auto cmds = m_manager->handleHeartBeat(info->id().datanodeuuid(),update);
+    m_manager->unlock();
 
     delete(update);
 

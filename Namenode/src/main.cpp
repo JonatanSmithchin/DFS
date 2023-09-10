@@ -8,8 +8,7 @@ int main(int argc, char** argv){
     FLAGS_alsologtostderr = 1;
     google::InitGoogleLogging(argv[0]);
 
-    LOG(INFO) << "Starting server";
-
+    LOG(INFO) << "Starting NameNode";
 
     auto datanodeManager = new DatanodeManager();
     auto heartBeatMonitor = new HeartBeatMonitor(datanodeManager);

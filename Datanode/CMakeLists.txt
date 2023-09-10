@@ -28,4 +28,4 @@ target_link_libraries(DataNode PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
 
 target_link_libraries(DataNode PRIVATE glog::glog)
 
-target_link_libraries(DataNode PRIVATE dfsProto Client net_utils)
+target_link_libraries(DataNode PRIVATE dfsProto Client Server utils)

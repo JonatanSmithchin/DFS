@@ -63,6 +63,10 @@ grpc::Status ClientServiceImpl::Append(::grpc::ServerContext *context, const ::C
 
 grpc::Status ClientServiceImpl::Rename(::grpc::ServerContext *context, const ::ClientNamenode::RenameRequest *request,
                                        ::ClientNamenode::RenameResponse *response) {
+    auto src = request->src();
+    auto dest = request->dst();
+    m_nameSystem->writeLock();
+    m_nameSystem->writeUnlock();
     return Service::Rename(context, request, response);
 }
 

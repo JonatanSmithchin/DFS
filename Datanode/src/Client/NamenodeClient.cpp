@@ -114,7 +114,7 @@ void NameNodeClient::run() {
     std::thread heartBeat(&NameNodeClient::heartBeat,this);
     if (heartBeat.joinable()){
         LOG(INFO) << "heartBeat started";
-        heartBeat.join();
+        heartBeat.detach();
     } else{
         LOG(ERROR) << "Cannot start heartBeat";
     }

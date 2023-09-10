@@ -3,6 +3,7 @@ project(tests)
 
 add_subdirectory(../third_party/googletest googletest)
 include_directories(${NAME_NODE_HOME}/third_party/googletest/googletest/include)
+
 set(GTEST_LIB gtest gtest_main)
 
 add_executable(test_add_node DataNodeManager/ConsistentHash/test_add.cpp)
