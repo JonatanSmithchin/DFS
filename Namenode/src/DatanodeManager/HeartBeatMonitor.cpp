@@ -5,7 +5,7 @@
 #include <thread>
 #include "glog/logging.h"
 #include "DatanodeManager/HeartBeatMonitor.h"
-#define CHECK_INTERVAL std::chrono::seconds(3).count()
+#define CHECK_INTERVAL std::chrono::seconds(180).count()
 
 HeartBeatMonitor::HeartBeatMonitor(DatanodeManager *manager):m_manager(manager){}
 
@@ -15,7 +15,7 @@ void HeartBeatMonitor::checkHeartBeat() {
 
         DatanodeInfo* dead;
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(60));
 
         auto now = std::chrono::duration_cast<std::chrono::seconds>(
                 std::chrono::system_clock::now().time_since_epoch())

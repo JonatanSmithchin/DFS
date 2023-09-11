@@ -5,16 +5,16 @@
 #include <random>
 #include "Client/DatanodeClient.h"
 #include "proto/ClientDatanode.pb.h"
-#include "utils/checkSum.h"
+#include "utils/FileUtils.h"
 
 DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel): m_stub(FileService::NewStub(channel)) {
 
 }
 
-void DatanodeClient::upload(const std::string& file) {
+void DatanodeClient::uploadBlock(const std::string& file) {
     transferBlockRequest request;
     transferBlockResponse response;
-    char data[BLOCK_SIZE];
+    char data[CHUNK_SIZE];
     ClientContext context;
 
     std::default_random_engine e;
@@ -26,7 +26,7 @@ void DatanodeClient::upload(const std::string& file) {
     std::unique_ptr<grpc::ClientWriter<transferBlockRequest>> writer(m_stub->transferBlock(&context,&response));
     while (!infile.eof()){
 
-        infile.read(data,BLOCK_SIZE);
+        infile.read(data,CHUNK_SIZE);
 
         long size = infile.gcount();
         request.set_content(data,size);

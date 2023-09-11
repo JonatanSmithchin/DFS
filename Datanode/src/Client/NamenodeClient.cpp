@@ -8,7 +8,6 @@
 #include "utils/net_utils.h"
 #include "proto/dfs.grpc.pb.h"
 
-
 NameNodeClient::NameNodeClient(std::shared_ptr<Channel> channel): m_stub(DatanodeService::NewStub(channel)) {
 }
 

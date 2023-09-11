@@ -5,7 +5,7 @@
 #ifndef DFSCLIENT_DATANODECLIENT_H
 #define DFSCLIENT_DATANODECLIENT_H
 
-#define BLOCK_SIZE 64 * 1024
+#define CHUNK_SIZE 1024 * 1024
 
 #include "proto/ClientDatanode.grpc.pb.h"
 #include <grpcpp/grpcpp.h>
@@ -21,7 +21,7 @@ private:
 public:
     explicit DatanodeClient(std::shared_ptr<grpc::Channel> channel);
 
-    void upload(const std::string& file);
+    void uploadBlock(const std::string& file);
 };
 
 

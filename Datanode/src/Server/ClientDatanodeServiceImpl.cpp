@@ -13,19 +13,23 @@ ClientDatanodeServiceImpl::~ClientDatanodeServiceImpl() {
 grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *context,
                                                       ::grpc::ServerReader<::ClientDatanode::transferBlockRequest> *reader,
                                                       ::ClientDatanode::transferBlockResponse *response) {
+
     ClientDatanode::transferBlockRequest request;
+    const std::string& filename = m_work_dir + std::to_string(request.blockid());
+    std::ofstream outfile;
+    outfile.open(filename,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
     while (reader->Read(&request)){
+
         auto data = request.content().c_str();
         auto size = request.size();
+
         if(request.checksum() != checkSum((const unsigned char* )data,size)){
             return grpc::Status::CANCELLED;
         }
-        const std::string& filename = m_work_dir + std::to_string(request.blockid());
-        std::ofstream outfile;
-        outfile.open(filename,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
+
         outfile.write(data,size);
-        outfile.close();
     }
+    outfile.close();
     return grpc::Status::OK;
 }
 

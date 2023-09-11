@@ -22,7 +22,7 @@ int main(int argc,char** argv){
             "localhost:8501",grpc::InsecureChannelCredentials()
             ));
 
-    client.upload("/mnt/d/cpp-project/DFS/DFSClient/tests/utils/test.txt");
+    client.uploadBlock("/mnt/d/cpp-project/DFS/DFSClient/tests/utils/honkai3.jpg");
 
     return 0;
 }
