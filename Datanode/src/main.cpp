@@ -29,7 +29,7 @@ int main(int argc,char** argv) {
 
     client.run();
 
-    const std::string& work_dir = "/mnt/d/test/";
+    const std::string& work_dir = "/mnt/d/test/rcv/";
 
     ClientDatanodeServiceImpl ClientDatanodeService(work_dir);
 

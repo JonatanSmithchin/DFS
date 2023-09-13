@@ -15,6 +15,7 @@ int main(int argc, char** argv){
     heartBeatMonitor->run();
 
     auto root = new INodeDir();
+    root->setFullPathName("/");
     auto nameSystem = new NameSystem(root,datanodeManager);
 
     ClientServiceImpl ClientService(nameSystem);

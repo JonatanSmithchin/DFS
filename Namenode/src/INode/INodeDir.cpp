@@ -5,6 +5,7 @@
 #include "INode/INodeDir.h"
 
 bool INodeDir::addChild(INode* child) {
+    //TODO: 不能添加相同的child
     children.push_back(child);
     return true;
 }

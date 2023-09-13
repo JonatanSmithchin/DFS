@@ -80,7 +80,7 @@ std::vector<DatanodeCommand> DatanodeManager::handleHeartBeat(const std::string 
         return {};
     }
 
-
+    datanode->set_lastupdate(now());
     std::vector<DatanodeCommand> cmds;
 
 

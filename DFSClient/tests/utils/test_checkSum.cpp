@@ -7,7 +7,7 @@
 
 TEST(TEST_CHECKSUM,test_checkSum1){
     const char *hello = "hello";
-    std::cout << checkSum((const unsigned char*)hello, strlen(hello));
+    std::cout << FileUtils::checkSum((const unsigned char*)hello, strlen(hello));
 }
 
 TEST(TEST_CHECKSUM,test_checkSum2){
@@ -19,7 +19,7 @@ TEST(TEST_CHECKSUM,test_checkSum2){
     while (true){
         infile.read(data,64);
         long size = infile.gcount();
-        std::cout << checkSum((const unsigned char*)data,size) << std::endl;
+        std::cout << FileUtils::checkSum((const unsigned char*)data,size) << std::endl;
         if (infile.eof()){
             break;
         }

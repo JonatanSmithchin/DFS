@@ -28,4 +28,4 @@ target_link_libraries(DFSClient PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
 
 target_link_libraries(DFSClient PRIVATE glog::glog)
 
-target_link_libraries(DFSClient PRIVATE Client dfsProto utils)
+target_link_libraries(DFSClient PRIVATE dfsClient Client dfsProto utils)

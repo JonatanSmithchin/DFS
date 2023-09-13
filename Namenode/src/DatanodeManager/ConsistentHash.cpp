@@ -31,7 +31,8 @@ std::string ConsistentHash::Get(const std::string &key) {
     auto index = std::find_if(keys.begin(), keys.end(),
                              [hash] (std::size_t ele){return ele >= hash;});
 
-    return hashMap.find((*index)%keys.size())->second;
+    auto uuid = hashMap.find(keys[(*index)%keys.size()])->second;
+    return uuid;
 }
 
 void ConsistentHash::Delete(const std::string &key) {

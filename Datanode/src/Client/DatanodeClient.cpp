@@ -48,6 +48,7 @@ int main() {
     std::string uuid = "a1s2d3";
     id->set_hostname(hostname);
     id->set_datanodeuuid(uuid);
+    id->set_xferport(8501);
     info->set_capacity(1024);
     r->set_allocated_id(id);
     r->set_allocated_info(info);

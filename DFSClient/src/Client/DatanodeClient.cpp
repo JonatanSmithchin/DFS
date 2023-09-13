@@ -7,18 +7,16 @@
 #include "proto/ClientDatanode.pb.h"
 #include "utils/FileUtils.h"
 
-DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel): m_stub(FileService::NewStub(channel)) {
+DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel):
+    m_stub(FileService::NewStub(channel)){
 
 }
 
-void DatanodeClient::uploadBlock(const std::string& file) {
+void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
     transferBlockRequest request;
     transferBlockResponse response;
     char data[CHUNK_SIZE];
     ClientContext context;
-
-    std::default_random_engine e;
-    e.seed(time(0));
 
     std::ifstream infile;
 
@@ -31,8 +29,8 @@ void DatanodeClient::uploadBlock(const std::string& file) {
         long size = infile.gcount();
         request.set_content(data,size);
         request.set_size(size);
-        request.set_blockid(e());
-        request.set_checksum(checkSum((const unsigned char*)data,size));
+        request.set_blockid(blockId);
+        request.set_checksum(FileUtils::checkSum((const unsigned char*)data,size));
 
         if (!writer->Write(request)){
             break;
@@ -46,3 +44,5 @@ void DatanodeClient::uploadBlock(const std::string& file) {
         std::cout << status.error_code() << status.error_message();
     }
 }
+
+

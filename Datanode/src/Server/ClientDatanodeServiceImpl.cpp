@@ -15,10 +15,14 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
                                                       ::ClientDatanode::transferBlockResponse *response) {
 
     ClientDatanode::transferBlockRequest request;
+    //第一次先获取blockid创建对应文件
+    reader->Read(&request);
+
     const std::string& filename = m_work_dir + std::to_string(request.blockid());
     std::ofstream outfile;
     outfile.open(filename,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
-    while (reader->Read(&request)){
+
+    do{
 
         auto data = request.content().c_str();
         auto size = request.size();
@@ -28,7 +32,8 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
         }
 
         outfile.write(data,size);
-    }
+    }while (reader->Read(&request));
+
     outfile.close();
     return grpc::Status::OK;
 }

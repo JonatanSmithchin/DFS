@@ -21,7 +21,7 @@ private:
 public:
     explicit DatanodeClient(std::shared_ptr<grpc::Channel> channel);
 
-    void uploadBlock(const std::string& file);
+    void uploadBlock(const std::string& file,uint64_t blockId);
 };
 
 

@@ -39,6 +39,7 @@ void NameNodeClient::registration() {
 
     auto uuid = new std::string {std::to_string(hash(id))};
     id->set_allocated_datanodeuuid(uuid);
+    id->set_xferport(8501);
 
     auto info = new DatanodeInfo();
 

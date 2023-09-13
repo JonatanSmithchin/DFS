@@ -5,6 +5,8 @@
 #include "NameSystem/NameSystem.h"
 #include "sstream"
 
+int blockId = 114514;
+
 vector<std::string> resolvePath(const string& path){
     std::stringstream ss(path);
     char c = '/';
@@ -23,10 +25,13 @@ vector<std::string> resolvePath(const string& path){
 }
 
 std::string getFileName(const string& path){
-    return path.substr(path.find_last_of('/'),-1);
+    return path.substr(path.find_last_of('/')+1,-1);
 }
 
 std::string getPrePath(const std::string& path){
+    if (path.find_last_of('/') == 0){
+        return "/";
+    }
     return path.substr(0,path.find_last_of('/'));
 }
 
@@ -63,6 +68,7 @@ INodeDir *NameSystem::findParent(const string &path) {
 INodeFile *NameSystem::constructFile(const string &path) {
     auto file = new INodeFile();
     file->setFullPathName(path);
+    file->setName(getFileName(path));
     auto now =
             std::chrono::duration_cast<std::chrono::milliseconds>(
                     std::chrono::system_clock::now().time_since_epoch());
@@ -126,11 +132,20 @@ LocatedBlock* NameSystem::append(const string &path) {
     if (file == nullptr){
         return nullptr;
     } else{
+        //TODO: blockManager构建block元数据
+        auto block = new Block();
 
-        auto datanode = m_datanodeManager->chooseDatanode(std::to_string(file->getId()));
+        block->set_blockid(blockId++);
+        block->set_generationstamp(
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                        std::chrono::system_clock::now().time_since_epoch()).count()
+        );
 
+        //选择datanode构造locatedBlock
         auto locatedBlock = new LocatedBlock();
-        datanode = locatedBlock->add_locs();
+        locatedBlock->set_allocated_block(block);
+        auto datanode = locatedBlock->add_locs();
+        datanode->CopyFrom(*m_datanodeManager->chooseDatanode(std::to_string(file->getId())));
 
         return locatedBlock;
     }

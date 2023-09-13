@@ -29,12 +29,12 @@ grpc::Status ClientServiceImpl::Create(::grpc::ServerContext *context, const ::C
     m_nameSystem->writeUnlock();
 
     if (file != nullptr){
-        auto fileStatus = FileStatus();
-        fileStatus.set_path(src);
-        fileStatus.set_length(0);
-        fileStatus.set_owner(request->clientname());
-        fileStatus.set_modification_time(file->getModifiedTime());
-        response->set_allocated_status(&fileStatus);
+        auto fileStatus = new FileStatus();
+        fileStatus->set_path(src);
+        fileStatus->set_length(0);
+        fileStatus->set_owner(request->clientname());
+        fileStatus->set_modification_time(file->getModifiedTime());
+        response->set_allocated_status(fileStatus);
         return grpc::Status::OK;
     }
 
@@ -48,15 +48,9 @@ grpc::Status ClientServiceImpl::Append(::grpc::ServerContext *context, const ::C
     auto locatedBlock = m_nameSystem->append(src);
     m_nameSystem->writeUnlock();
     if (locatedBlock != nullptr){
-        auto block = Block();
 
-        block.set_generationstamp(
-                std::chrono::duration_cast<std::chrono::milliseconds>(
-                        std::chrono::system_clock::now().time_since_epoch()).count()
-                );
-
-        locatedBlock->set_allocated_block(&block);
         response->set_allocated_block(locatedBlock);
+        return grpc::Status::OK;
     }
     return grpc::Status::CANCELLED;
 }
