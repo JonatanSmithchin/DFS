@@ -41,6 +41,42 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
 
 }
 
+struct temp_file{
+    google::protobuf::uint64 offset;
+    std::string file_name;
+    temp_file(int o,std::string& f):offset(o),file_name(f){}
+
+    bool operator<(const temp_file& other) const {
+        return offset < other.offset;
+    }
+};
+
+void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
+    std::vector<google::protobuf::uint64> block_ids;
+    // 向namenode请求文件位置
+    LocatedBlocks *file_blocks = m_namenodeClient->locate(file);
+
+    std::set<temp_file> temp_files; // 借用set为文件块排序
+    std::vector<std::string> files; // 排序后的文件块
+
+    for (int i = 0; i < file_blocks->blocks_size(); ++i) {
+        const LocatedBlock& file_block = file_blocks->blocks(i);
+        google::protobuf::uint64 block_id = file_block.block().blockid();
+        // 下载文件块并放入set
+        std::string temp=std::to_string(i)+".temp";
+        temp="/chen"+temp;  // 随便写了一个，要改成别的路径！！！！
+        m_datanodeClient->downloadBlock(temp,block_id);
+        temp_file f(file_block.offset(),temp);
+        temp_files.insert(f);
+    }
+    for (const temp_file& f : temp_files) {
+        files.push_back(f.file_name);
+    }
+    
+    std::fstream output(dst,std::ios::binary);
+    FileUtils::MergeFile(&output,files);
+}
+
 DFSClient::DFSClient(NamenodeClient *namenodeClient):m_namenodeClient(namenodeClient) {
 
 }

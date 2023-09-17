@@ -7,16 +7,21 @@
 
 
 #include <map>
+#include <vector>
+#include <set>
+
 #include "Client/DatanodeClient.h"
 #include "Client/NamenodeClient.h"
 
 class DFSClient {
 private:
     NamenodeClient* m_namenodeClient;
+    DatanodeClient* m_datanodeClient;
 public:
     DFSClient(NamenodeClient* namenodeClient);
     static DatanodeClient* getDatanode(const std::string& uuid);
     void uploadFile(const std::string& dst,const std::string& file);
+    void downloadFile(const std::string& dst,const std::string& file);
 };
 
 

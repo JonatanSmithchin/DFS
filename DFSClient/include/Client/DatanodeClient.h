@@ -9,6 +9,7 @@
 
 #include "proto/ClientDatanode.grpc.pb.h"
 #include <grpcpp/grpcpp.h>
+#include <vector>
 
 using grpc::Channel;
 using grpc::ClientContext;
@@ -22,6 +23,7 @@ public:
     explicit DatanodeClient(std::shared_ptr<grpc::Channel> channel);
 
     void uploadBlock(const std::string& file,uint64_t blockId);
+    void downloadBlock(const std::string& file,const google::protobuf::uint64& block_id);
 };
 
 

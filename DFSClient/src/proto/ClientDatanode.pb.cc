@@ -183,7 +183,7 @@ const char descriptor_table_protodef_ClientDatanode_2eproto[] PROTOBUF_SECTION_V
   "BlockResponse\022\017\n\007Content\030\001 \001(\014\022\020\n\010checkS"
   "um\030\002 \001(\r\022.\n\006status\030\003 \001(\0162\036.ClientDatanod"
   "e.transferStatus*1\n\016transferStatus\022\013\n\007Un"
-  "knoen\020\000\022\006\n\002OK\020\001\022\n\n\006Failed\020\0022\315\001\n\013FileServ"
+  "known\020\000\022\006\n\002OK\020\001\022\n\n\006Failed\020\0022\315\001\n\013FileServ"
   "ice\022^\n\rtransferBlock\022$.ClientDatanode.tr"
   "ansferBlockRequest\032%.ClientDatanode.tran"
   "sferBlockResponse(\001\022^\n\rdownloadBlock\022$.C"

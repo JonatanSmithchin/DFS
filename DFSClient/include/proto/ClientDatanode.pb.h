@@ -78,14 +78,14 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace ClientDatanode {
 
 enum transferStatus : int {
-  Unknoen = 0,
+  Unknown = 0,
   OK = 1,
   Failed = 2,
   transferStatus_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   transferStatus_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool transferStatus_IsValid(int value);
-constexpr transferStatus transferStatus_MIN = Unknoen;
+constexpr transferStatus transferStatus_MIN = Unknown;
 constexpr transferStatus transferStatus_MAX = Failed;
 constexpr int transferStatus_ARRAYSIZE = transferStatus_MAX + 1;
 

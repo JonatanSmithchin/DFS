@@ -37,12 +37,19 @@ class ClientService final {
    public:
     virtual ~StubInterface() {}
     // �ļ������ӿ�
-    virtual ::grpc::Status GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::ClientNamenode::GetBlockLocationResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>> AsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::ClientNamenode::GetBlockLocationResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>> AsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>>(AsyncGetBlockLocationRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>> PrepareAsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>> PrepareAsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>>(PrepareAsyncGetBlockLocationRaw(context, request, cq));
+    }
+    virtual ::grpc::Status GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::ClientNamenode::GetFileBlockLocationsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetFileBlockLocationsResponse>> AsyncGetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetFileBlockLocationsResponse>>(AsyncGetFileBlockLocationsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetFileBlockLocationsResponse>> PrepareAsyncGetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetFileBlockLocationsResponse>>(PrepareAsyncGetFileBlockLocationsRaw(context, request, cq));
     }
     virtual ::grpc::Status GetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::ClientNamenode::GetServerDefaultsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetServerDefaultsResponse>> AsyncGetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::grpc::CompletionQueue* cq) {
@@ -126,8 +133,10 @@ class ClientService final {
      public:
       virtual ~async_interface() {}
       // �ļ������ӿ�
-      virtual void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void GetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest* request, ::ClientNamenode::GetServerDefaultsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest* request, ::ClientNamenode::GetServerDefaultsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void Create(::grpc::ClientContext* context, const ::ClientNamenode::CreateRequest* request, ::ClientNamenode::CreateResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -156,8 +165,10 @@ class ClientService final {
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>* AsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>* PrepareAsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>* AsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetBlockLocationResponse>* PrepareAsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetFileBlockLocationsResponse>* AsyncGetFileBlockLocationsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetFileBlockLocationsResponse>* PrepareAsyncGetFileBlockLocationsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetServerDefaultsResponse>* AsyncGetServerDefaultsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::GetServerDefaultsResponse>* PrepareAsyncGetServerDefaultsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClientNamenode::CreateResponse>* AsyncCreateRaw(::grpc::ClientContext* context, const ::ClientNamenode::CreateRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -184,12 +195,19 @@ class ClientService final {
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::ClientNamenode::GetBlockLocationResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>> AsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::ClientNamenode::GetBlockLocationResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>> AsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>>(AsyncGetBlockLocationRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>> PrepareAsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>> PrepareAsyncGetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>>(PrepareAsyncGetBlockLocationRaw(context, request, cq));
+    }
+    ::grpc::Status GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::ClientNamenode::GetFileBlockLocationsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>> AsyncGetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>>(AsyncGetFileBlockLocationsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>> PrepareAsyncGetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>>(PrepareAsyncGetFileBlockLocationsRaw(context, request, cq));
     }
     ::grpc::Status GetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::ClientNamenode::GetServerDefaultsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetServerDefaultsResponse>> AsyncGetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::grpc::CompletionQueue* cq) {
@@ -271,8 +289,10 @@ class ClientService final {
     class async final :
       public StubInterface::async_interface {
      public:
-      void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, std::function<void(::grpc::Status)>) override;
-      void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest* request, ::ClientNamenode::GetServerDefaultsResponse* response, std::function<void(::grpc::Status)>) override;
       void GetServerDefaults(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest* request, ::ClientNamenode::GetServerDefaultsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Create(::grpc::ClientContext* context, const ::ClientNamenode::CreateRequest* request, ::ClientNamenode::CreateResponse* response, std::function<void(::grpc::Status)>) override;
@@ -306,8 +326,10 @@ class ClientService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* AsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* PrepareAsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* AsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* PrepareAsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>* AsyncGetFileBlockLocationsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>* PrepareAsyncGetFileBlockLocationsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetServerDefaultsResponse>* AsyncGetServerDefaultsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetServerDefaultsResponse>* PrepareAsyncGetServerDefaultsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetServerDefaultsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ClientNamenode::CreateResponse>* AsyncCreateRaw(::grpc::ClientContext* context, const ::ClientNamenode::CreateRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -331,6 +353,7 @@ class ClientService final {
     ::grpc::ClientAsyncResponseReader< ::ClientNamenode::RenewLeaseResponse>* AsyncRenewLeaseRaw(::grpc::ClientContext* context, const ::ClientNamenode::RenewLeaseRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ClientNamenode::RenewLeaseResponse>* PrepareAsyncRenewLeaseRaw(::grpc::ClientContext* context, const ::ClientNamenode::RenewLeaseRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GetBlockLocation_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetFileBlockLocations_;
     const ::grpc::internal::RpcMethod rpcmethod_GetServerDefaults_;
     const ::grpc::internal::RpcMethod rpcmethod_Create_;
     const ::grpc::internal::RpcMethod rpcmethod_Append_;
@@ -350,7 +373,8 @@ class ClientService final {
     Service();
     virtual ~Service();
     // �ļ������ӿ�
-    virtual ::grpc::Status GetBlockLocation(::grpc::ServerContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response);
+    virtual ::grpc::Status GetBlockLocation(::grpc::ServerContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response);
+    virtual ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response);
     virtual ::grpc::Status GetServerDefaults(::grpc::ServerContext* context, const ::ClientNamenode::GetServerDefaultsRequest* request, ::ClientNamenode::GetServerDefaultsResponse* response);
     virtual ::grpc::Status Create(::grpc::ServerContext* context, const ::ClientNamenode::CreateRequest* request, ::ClientNamenode::CreateResponse* response);
     virtual ::grpc::Status Append(::grpc::ServerContext* context, const ::ClientNamenode::AppendRequest* request, ::ClientNamenode::AppendResponse* response);
@@ -376,12 +400,32 @@ class ClientService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetBlockLocation(::grpc::ServerContext* context, ::ClientNamenode::GetBlockLocationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::GetBlockLocationResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetBlockLocation(::grpc::ServerContext* context, ::ClientNamenode::GetBlockLocationRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::GetBlockLocationResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetFileBlockLocations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetFileBlockLocations() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GetFileBlockLocations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetFileBlockLocations(::grpc::ServerContext* context, ::ClientNamenode::GetFileBlockLocationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::GetFileBlockLocationsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -390,7 +434,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetServerDefaults() {
-      ::grpc::Service::MarkMethodAsync(1);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_GetServerDefaults() override {
       BaseClassMustBeDerivedFromService(this);
@@ -401,7 +445,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetServerDefaults(::grpc::ServerContext* context, ::ClientNamenode::GetServerDefaultsRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::GetServerDefaultsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -410,7 +454,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Create() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(3);
     }
     ~WithAsyncMethod_Create() override {
       BaseClassMustBeDerivedFromService(this);
@@ -421,7 +465,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreate(::grpc::ServerContext* context, ::ClientNamenode::CreateRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::CreateResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -430,7 +474,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Append() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(4);
     }
     ~WithAsyncMethod_Append() override {
       BaseClassMustBeDerivedFromService(this);
@@ -441,7 +485,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestAppend(::grpc::ServerContext* context, ::ClientNamenode::AppendRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::AppendResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -450,7 +494,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Rename() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(5);
     }
     ~WithAsyncMethod_Rename() override {
       BaseClassMustBeDerivedFromService(this);
@@ -461,7 +505,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRename(::grpc::ServerContext* context, ::ClientNamenode::RenameRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::RenameResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -470,7 +514,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Delete() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
@@ -481,7 +525,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDelete(::grpc::ServerContext* context, ::ClientNamenode::DeleteRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::DeleteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -490,7 +534,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetPermission() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_SetPermission() override {
       BaseClassMustBeDerivedFromService(this);
@@ -501,7 +545,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetPermission(::grpc::ServerContext* context, ::ClientNamenode::SetPermissionRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::SetPermissionResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -510,7 +554,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetOwner() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(8);
     }
     ~WithAsyncMethod_SetOwner() override {
       BaseClassMustBeDerivedFromService(this);
@@ -521,7 +565,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetOwner(::grpc::ServerContext* context, ::ClientNamenode::SetOwnerRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::SetOwnerResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -530,7 +574,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_AddBlock() {
-      ::grpc::Service::MarkMethodAsync(8);
+      ::grpc::Service::MarkMethodAsync(9);
     }
     ~WithAsyncMethod_AddBlock() override {
       BaseClassMustBeDerivedFromService(this);
@@ -541,7 +585,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestAddBlock(::grpc::ServerContext* context, ::ClientNamenode::AddBlockRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::AddBlockResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -550,7 +594,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_mkdir() {
-      ::grpc::Service::MarkMethodAsync(9);
+      ::grpc::Service::MarkMethodAsync(10);
     }
     ~WithAsyncMethod_mkdir() override {
       BaseClassMustBeDerivedFromService(this);
@@ -561,7 +605,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void Requestmkdir(::grpc::ServerContext* context, ::ClientNamenode::mkdirRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::mkdirResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -570,7 +614,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Listing() {
-      ::grpc::Service::MarkMethodAsync(10);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_Listing() override {
       BaseClassMustBeDerivedFromService(this);
@@ -581,7 +625,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListing(::grpc::ServerContext* context, ::ClientNamenode::GetListingRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::GetListingResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -590,7 +634,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RenewLease() {
-      ::grpc::Service::MarkMethodAsync(11);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_RenewLease() override {
       BaseClassMustBeDerivedFromService(this);
@@ -601,10 +645,10 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRenewLease(::grpc::ServerContext* context, ::ClientNamenode::RenewLeaseRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClientNamenode::RenewLeaseResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetBlockLocation<WithAsyncMethod_GetServerDefaults<WithAsyncMethod_Create<WithAsyncMethod_Append<WithAsyncMethod_Rename<WithAsyncMethod_Delete<WithAsyncMethod_SetPermission<WithAsyncMethod_SetOwner<WithAsyncMethod_AddBlock<WithAsyncMethod_mkdir<WithAsyncMethod_Listing<WithAsyncMethod_RenewLease<Service > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_GetBlockLocation<WithAsyncMethod_GetFileBlockLocations<WithAsyncMethod_GetServerDefaults<WithAsyncMethod_Create<WithAsyncMethod_Append<WithAsyncMethod_Rename<WithAsyncMethod_Delete<WithAsyncMethod_SetPermission<WithAsyncMethod_SetOwner<WithAsyncMethod_AddBlock<WithAsyncMethod_mkdir<WithAsyncMethod_Listing<WithAsyncMethod_RenewLease<Service > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_GetBlockLocation : public BaseClass {
    private:
@@ -612,25 +656,52 @@ class ClientService final {
    public:
     WithCallbackMethod_GetBlockLocation() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response) { return this->GetBlockLocation(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response) { return this->GetBlockLocation(context, request, response); }));}
     void SetMessageAllocatorFor_GetBlockLocation(
-        ::grpc::MessageAllocator< ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse>* allocator) {
+        ::grpc::MessageAllocator< ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_GetBlockLocation() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* GetBlockLocation(
-      ::grpc::CallbackServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetFileBlockLocations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetFileBlockLocations() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response) { return this->GetFileBlockLocations(context, request, response); }));}
+    void SetMessageAllocatorFor_GetFileBlockLocations(
+        ::grpc::MessageAllocator< ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetFileBlockLocations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetFileBlockLocations(
+      ::grpc::CallbackServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_GetServerDefaults : public BaseClass {
@@ -638,13 +709,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetServerDefaults() {
-      ::grpc::Service::MarkMethodCallback(1,
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetServerDefaultsRequest, ::ClientNamenode::GetServerDefaultsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::GetServerDefaultsRequest* request, ::ClientNamenode::GetServerDefaultsResponse* response) { return this->GetServerDefaults(context, request, response); }));}
     void SetMessageAllocatorFor_GetServerDefaults(
         ::grpc::MessageAllocator< ::ClientNamenode::GetServerDefaultsRequest, ::ClientNamenode::GetServerDefaultsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetServerDefaultsRequest, ::ClientNamenode::GetServerDefaultsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -665,13 +736,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Create() {
-      ::grpc::Service::MarkMethodCallback(2,
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::CreateRequest, ::ClientNamenode::CreateResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::CreateRequest* request, ::ClientNamenode::CreateResponse* response) { return this->Create(context, request, response); }));}
     void SetMessageAllocatorFor_Create(
         ::grpc::MessageAllocator< ::ClientNamenode::CreateRequest, ::ClientNamenode::CreateResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::CreateRequest, ::ClientNamenode::CreateResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -692,13 +763,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Append() {
-      ::grpc::Service::MarkMethodCallback(3,
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::AppendRequest, ::ClientNamenode::AppendResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::AppendRequest* request, ::ClientNamenode::AppendResponse* response) { return this->Append(context, request, response); }));}
     void SetMessageAllocatorFor_Append(
         ::grpc::MessageAllocator< ::ClientNamenode::AppendRequest, ::ClientNamenode::AppendResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::AppendRequest, ::ClientNamenode::AppendResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -719,13 +790,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Rename() {
-      ::grpc::Service::MarkMethodCallback(4,
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::RenameRequest, ::ClientNamenode::RenameResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::RenameRequest* request, ::ClientNamenode::RenameResponse* response) { return this->Rename(context, request, response); }));}
     void SetMessageAllocatorFor_Rename(
         ::grpc::MessageAllocator< ::ClientNamenode::RenameRequest, ::ClientNamenode::RenameResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::RenameRequest, ::ClientNamenode::RenameResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -746,13 +817,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Delete() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::DeleteRequest, ::ClientNamenode::DeleteResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::DeleteRequest* request, ::ClientNamenode::DeleteResponse* response) { return this->Delete(context, request, response); }));}
     void SetMessageAllocatorFor_Delete(
         ::grpc::MessageAllocator< ::ClientNamenode::DeleteRequest, ::ClientNamenode::DeleteResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::DeleteRequest, ::ClientNamenode::DeleteResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -773,13 +844,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SetPermission() {
-      ::grpc::Service::MarkMethodCallback(6,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::SetPermissionRequest, ::ClientNamenode::SetPermissionResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::SetPermissionRequest* request, ::ClientNamenode::SetPermissionResponse* response) { return this->SetPermission(context, request, response); }));}
     void SetMessageAllocatorFor_SetPermission(
         ::grpc::MessageAllocator< ::ClientNamenode::SetPermissionRequest, ::ClientNamenode::SetPermissionResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::SetPermissionRequest, ::ClientNamenode::SetPermissionResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -800,13 +871,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SetOwner() {
-      ::grpc::Service::MarkMethodCallback(7,
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::SetOwnerRequest, ::ClientNamenode::SetOwnerResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::SetOwnerRequest* request, ::ClientNamenode::SetOwnerResponse* response) { return this->SetOwner(context, request, response); }));}
     void SetMessageAllocatorFor_SetOwner(
         ::grpc::MessageAllocator< ::ClientNamenode::SetOwnerRequest, ::ClientNamenode::SetOwnerResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::SetOwnerRequest, ::ClientNamenode::SetOwnerResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -827,13 +898,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_AddBlock() {
-      ::grpc::Service::MarkMethodCallback(8,
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::AddBlockRequest, ::ClientNamenode::AddBlockResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::AddBlockRequest* request, ::ClientNamenode::AddBlockResponse* response) { return this->AddBlock(context, request, response); }));}
     void SetMessageAllocatorFor_AddBlock(
         ::grpc::MessageAllocator< ::ClientNamenode::AddBlockRequest, ::ClientNamenode::AddBlockResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::AddBlockRequest, ::ClientNamenode::AddBlockResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -854,13 +925,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_mkdir() {
-      ::grpc::Service::MarkMethodCallback(9,
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::mkdirRequest, ::ClientNamenode::mkdirResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::mkdirRequest* request, ::ClientNamenode::mkdirResponse* response) { return this->mkdir(context, request, response); }));}
     void SetMessageAllocatorFor_mkdir(
         ::grpc::MessageAllocator< ::ClientNamenode::mkdirRequest, ::ClientNamenode::mkdirResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::mkdirRequest, ::ClientNamenode::mkdirResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -881,13 +952,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Listing() {
-      ::grpc::Service::MarkMethodCallback(10,
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetListingRequest, ::ClientNamenode::GetListingResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::GetListingRequest* request, ::ClientNamenode::GetListingResponse* response) { return this->Listing(context, request, response); }));}
     void SetMessageAllocatorFor_Listing(
         ::grpc::MessageAllocator< ::ClientNamenode::GetListingRequest, ::ClientNamenode::GetListingResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::GetListingRequest, ::ClientNamenode::GetListingResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -908,13 +979,13 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_RenewLease() {
-      ::grpc::Service::MarkMethodCallback(11,
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::RenewLeaseRequest, ::ClientNamenode::RenewLeaseResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::ClientNamenode::RenewLeaseRequest* request, ::ClientNamenode::RenewLeaseResponse* response) { return this->RenewLease(context, request, response); }));}
     void SetMessageAllocatorFor_RenewLease(
         ::grpc::MessageAllocator< ::ClientNamenode::RenewLeaseRequest, ::ClientNamenode::RenewLeaseResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::ClientNamenode::RenewLeaseRequest, ::ClientNamenode::RenewLeaseResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -929,7 +1000,7 @@ class ClientService final {
     virtual ::grpc::ServerUnaryReactor* RenewLease(
       ::grpc::CallbackServerContext* /*context*/, const ::ClientNamenode::RenewLeaseRequest* /*request*/, ::ClientNamenode::RenewLeaseResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_GetBlockLocation<WithCallbackMethod_GetServerDefaults<WithCallbackMethod_Create<WithCallbackMethod_Append<WithCallbackMethod_Rename<WithCallbackMethod_Delete<WithCallbackMethod_SetPermission<WithCallbackMethod_SetOwner<WithCallbackMethod_AddBlock<WithCallbackMethod_mkdir<WithCallbackMethod_Listing<WithCallbackMethod_RenewLease<Service > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_GetBlockLocation<WithCallbackMethod_GetFileBlockLocations<WithCallbackMethod_GetServerDefaults<WithCallbackMethod_Create<WithCallbackMethod_Append<WithCallbackMethod_Rename<WithCallbackMethod_Delete<WithCallbackMethod_SetPermission<WithCallbackMethod_SetOwner<WithCallbackMethod_AddBlock<WithCallbackMethod_mkdir<WithCallbackMethod_Listing<WithCallbackMethod_RenewLease<Service > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetBlockLocation : public BaseClass {
@@ -943,7 +1014,24 @@ class ClientService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetFileBlockLocations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetFileBlockLocations() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GetFileBlockLocations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -954,7 +1042,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetServerDefaults() {
-      ::grpc::Service::MarkMethodGeneric(1);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_GetServerDefaults() override {
       BaseClassMustBeDerivedFromService(this);
@@ -971,7 +1059,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Create() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_Create() override {
       BaseClassMustBeDerivedFromService(this);
@@ -988,7 +1076,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Append() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(4);
     }
     ~WithGenericMethod_Append() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1005,7 +1093,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Rename() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(5);
     }
     ~WithGenericMethod_Rename() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1022,7 +1110,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Delete() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1039,7 +1127,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetPermission() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_SetPermission() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1056,7 +1144,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetOwner() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(8);
     }
     ~WithGenericMethod_SetOwner() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1073,7 +1161,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_AddBlock() {
-      ::grpc::Service::MarkMethodGeneric(8);
+      ::grpc::Service::MarkMethodGeneric(9);
     }
     ~WithGenericMethod_AddBlock() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1090,7 +1178,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_mkdir() {
-      ::grpc::Service::MarkMethodGeneric(9);
+      ::grpc::Service::MarkMethodGeneric(10);
     }
     ~WithGenericMethod_mkdir() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1107,7 +1195,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Listing() {
-      ::grpc::Service::MarkMethodGeneric(10);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_Listing() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1124,7 +1212,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RenewLease() {
-      ::grpc::Service::MarkMethodGeneric(11);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_RenewLease() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1147,7 +1235,7 @@ class ClientService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1156,12 +1244,32 @@ class ClientService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_GetFileBlockLocations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetFileBlockLocations() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_GetFileBlockLocations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetFileBlockLocations(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_GetServerDefaults : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetServerDefaults() {
-      ::grpc::Service::MarkMethodRaw(1);
+      ::grpc::Service::MarkMethodRaw(2);
     }
     ~WithRawMethod_GetServerDefaults() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1172,7 +1280,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetServerDefaults(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1181,7 +1289,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Create() {
-      ::grpc::Service::MarkMethodRaw(2);
+      ::grpc::Service::MarkMethodRaw(3);
     }
     ~WithRawMethod_Create() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1192,7 +1300,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreate(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1201,7 +1309,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Append() {
-      ::grpc::Service::MarkMethodRaw(3);
+      ::grpc::Service::MarkMethodRaw(4);
     }
     ~WithRawMethod_Append() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1212,7 +1320,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestAppend(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1221,7 +1329,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Rename() {
-      ::grpc::Service::MarkMethodRaw(4);
+      ::grpc::Service::MarkMethodRaw(5);
     }
     ~WithRawMethod_Rename() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1232,7 +1340,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRename(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1241,7 +1349,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Delete() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(6);
     }
     ~WithRawMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1252,7 +1360,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDelete(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1261,7 +1369,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetPermission() {
-      ::grpc::Service::MarkMethodRaw(6);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_SetPermission() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1272,7 +1380,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetPermission(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1281,7 +1389,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetOwner() {
-      ::grpc::Service::MarkMethodRaw(7);
+      ::grpc::Service::MarkMethodRaw(8);
     }
     ~WithRawMethod_SetOwner() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1292,7 +1400,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetOwner(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1301,7 +1409,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_AddBlock() {
-      ::grpc::Service::MarkMethodRaw(8);
+      ::grpc::Service::MarkMethodRaw(9);
     }
     ~WithRawMethod_AddBlock() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1312,7 +1420,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestAddBlock(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1321,7 +1429,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_mkdir() {
-      ::grpc::Service::MarkMethodRaw(9);
+      ::grpc::Service::MarkMethodRaw(10);
     }
     ~WithRawMethod_mkdir() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1332,7 +1440,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void Requestmkdir(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1341,7 +1449,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Listing() {
-      ::grpc::Service::MarkMethodRaw(10);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_Listing() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1352,7 +1460,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListing(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1361,7 +1469,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RenewLease() {
-      ::grpc::Service::MarkMethodRaw(11);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_RenewLease() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1372,7 +1480,7 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRenewLease(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1390,11 +1498,33 @@ class ClientService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* GetBlockLocation(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetFileBlockLocations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetFileBlockLocations() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetFileBlockLocations(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetFileBlockLocations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetFileBlockLocations(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -1403,7 +1533,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetServerDefaults() {
-      ::grpc::Service::MarkMethodRawCallback(1,
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServerDefaults(context, request, response); }));
@@ -1425,7 +1555,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Create() {
-      ::grpc::Service::MarkMethodRawCallback(2,
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Create(context, request, response); }));
@@ -1447,7 +1577,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Append() {
-      ::grpc::Service::MarkMethodRawCallback(3,
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Append(context, request, response); }));
@@ -1469,7 +1599,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Rename() {
-      ::grpc::Service::MarkMethodRawCallback(4,
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Rename(context, request, response); }));
@@ -1491,7 +1621,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Delete() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Delete(context, request, response); }));
@@ -1513,7 +1643,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SetPermission() {
-      ::grpc::Service::MarkMethodRawCallback(6,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetPermission(context, request, response); }));
@@ -1535,7 +1665,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SetOwner() {
-      ::grpc::Service::MarkMethodRawCallback(7,
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetOwner(context, request, response); }));
@@ -1557,7 +1687,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_AddBlock() {
-      ::grpc::Service::MarkMethodRawCallback(8,
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AddBlock(context, request, response); }));
@@ -1579,7 +1709,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_mkdir() {
-      ::grpc::Service::MarkMethodRawCallback(9,
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->mkdir(context, request, response); }));
@@ -1601,7 +1731,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Listing() {
-      ::grpc::Service::MarkMethodRawCallback(10,
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Listing(context, request, response); }));
@@ -1623,7 +1753,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_RenewLease() {
-      ::grpc::Service::MarkMethodRawCallback(11,
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RenewLease(context, request, response); }));
@@ -1647,10 +1777,10 @@ class ClientService final {
     WithStreamedUnaryMethod_GetBlockLocation() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse>(
+          ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse>* streamer) {
+                     ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse>* streamer) {
                        return this->StreamedGetBlockLocation(context,
                          streamer);
                   }));
@@ -1659,12 +1789,39 @@ class ClientService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationsRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
+    ::grpc::Status GetBlockLocation(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetBlockLocationRequest* /*request*/, ::ClientNamenode::GetBlockLocationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedGetBlockLocation(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ClientNamenode::GetBlockLocationsRequest,::ClientNamenode::GetBlockLocationResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedGetBlockLocation(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ClientNamenode::GetBlockLocationRequest,::ClientNamenode::GetBlockLocationResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetFileBlockLocations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetFileBlockLocations() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse>* streamer) {
+                       return this->StreamedGetFileBlockLocations(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetFileBlockLocations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetFileBlockLocations(::grpc::ServerContext* /*context*/, const ::ClientNamenode::GetFileBlockLocationsRequest* /*request*/, ::ClientNamenode::GetFileBlockLocationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetFileBlockLocations(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ClientNamenode::GetFileBlockLocationsRequest,::ClientNamenode::GetFileBlockLocationsResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetServerDefaults : public BaseClass {
@@ -1672,7 +1829,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetServerDefaults() {
-      ::grpc::Service::MarkMethodStreamed(1,
+      ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::GetServerDefaultsRequest, ::ClientNamenode::GetServerDefaultsResponse>(
             [this](::grpc::ServerContext* context,
@@ -1699,7 +1856,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Create() {
-      ::grpc::Service::MarkMethodStreamed(2,
+      ::grpc::Service::MarkMethodStreamed(3,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::CreateRequest, ::ClientNamenode::CreateResponse>(
             [this](::grpc::ServerContext* context,
@@ -1726,7 +1883,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Append() {
-      ::grpc::Service::MarkMethodStreamed(3,
+      ::grpc::Service::MarkMethodStreamed(4,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::AppendRequest, ::ClientNamenode::AppendResponse>(
             [this](::grpc::ServerContext* context,
@@ -1753,7 +1910,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Rename() {
-      ::grpc::Service::MarkMethodStreamed(4,
+      ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::RenameRequest, ::ClientNamenode::RenameResponse>(
             [this](::grpc::ServerContext* context,
@@ -1780,7 +1937,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Delete() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::DeleteRequest, ::ClientNamenode::DeleteResponse>(
             [this](::grpc::ServerContext* context,
@@ -1807,7 +1964,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetPermission() {
-      ::grpc::Service::MarkMethodStreamed(6,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::SetPermissionRequest, ::ClientNamenode::SetPermissionResponse>(
             [this](::grpc::ServerContext* context,
@@ -1834,7 +1991,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetOwner() {
-      ::grpc::Service::MarkMethodStreamed(7,
+      ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::SetOwnerRequest, ::ClientNamenode::SetOwnerResponse>(
             [this](::grpc::ServerContext* context,
@@ -1861,7 +2018,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_AddBlock() {
-      ::grpc::Service::MarkMethodStreamed(8,
+      ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::AddBlockRequest, ::ClientNamenode::AddBlockResponse>(
             [this](::grpc::ServerContext* context,
@@ -1888,7 +2045,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_mkdir() {
-      ::grpc::Service::MarkMethodStreamed(9,
+      ::grpc::Service::MarkMethodStreamed(10,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::mkdirRequest, ::ClientNamenode::mkdirResponse>(
             [this](::grpc::ServerContext* context,
@@ -1915,7 +2072,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Listing() {
-      ::grpc::Service::MarkMethodStreamed(10,
+      ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::GetListingRequest, ::ClientNamenode::GetListingResponse>(
             [this](::grpc::ServerContext* context,
@@ -1942,7 +2099,7 @@ class ClientService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RenewLease() {
-      ::grpc::Service::MarkMethodStreamed(11,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
           ::ClientNamenode::RenewLeaseRequest, ::ClientNamenode::RenewLeaseResponse>(
             [this](::grpc::ServerContext* context,
@@ -1963,9 +2120,9 @@ class ClientService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedRenewLease(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ClientNamenode::RenewLeaseRequest,::ClientNamenode::RenewLeaseResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_GetBlockLocation<WithStreamedUnaryMethod_GetServerDefaults<WithStreamedUnaryMethod_Create<WithStreamedUnaryMethod_Append<WithStreamedUnaryMethod_Rename<WithStreamedUnaryMethod_Delete<WithStreamedUnaryMethod_SetPermission<WithStreamedUnaryMethod_SetOwner<WithStreamedUnaryMethod_AddBlock<WithStreamedUnaryMethod_mkdir<WithStreamedUnaryMethod_Listing<WithStreamedUnaryMethod_RenewLease<Service > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_GetBlockLocation<WithStreamedUnaryMethod_GetFileBlockLocations<WithStreamedUnaryMethod_GetServerDefaults<WithStreamedUnaryMethod_Create<WithStreamedUnaryMethod_Append<WithStreamedUnaryMethod_Rename<WithStreamedUnaryMethod_Delete<WithStreamedUnaryMethod_SetPermission<WithStreamedUnaryMethod_SetOwner<WithStreamedUnaryMethod_AddBlock<WithStreamedUnaryMethod_mkdir<WithStreamedUnaryMethod_Listing<WithStreamedUnaryMethod_RenewLease<Service > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GetBlockLocation<WithStreamedUnaryMethod_GetServerDefaults<WithStreamedUnaryMethod_Create<WithStreamedUnaryMethod_Append<WithStreamedUnaryMethod_Rename<WithStreamedUnaryMethod_Delete<WithStreamedUnaryMethod_SetPermission<WithStreamedUnaryMethod_SetOwner<WithStreamedUnaryMethod_AddBlock<WithStreamedUnaryMethod_mkdir<WithStreamedUnaryMethod_Listing<WithStreamedUnaryMethod_RenewLease<Service > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GetBlockLocation<WithStreamedUnaryMethod_GetFileBlockLocations<WithStreamedUnaryMethod_GetServerDefaults<WithStreamedUnaryMethod_Create<WithStreamedUnaryMethod_Append<WithStreamedUnaryMethod_Rename<WithStreamedUnaryMethod_Delete<WithStreamedUnaryMethod_SetPermission<WithStreamedUnaryMethod_SetOwner<WithStreamedUnaryMethod_AddBlock<WithStreamedUnaryMethod_mkdir<WithStreamedUnaryMethod_Listing<WithStreamedUnaryMethod_RenewLease<Service > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace ClientNamenode

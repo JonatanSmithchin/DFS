@@ -25,9 +25,10 @@ public:
     void deleteFile(const std::string& path);
     void mkdir(const std::string& path);
     void listing(const std::string& path);
-    void serPermission(const std::string& path);
+    void setPermission(const std::string& path);
     void setOwner(const std::string& path,const std::string& owner);
     void addBlock(const std::string& blkId);
+    LocatedBlocks *locate(const std::string& path);
 };
 
 

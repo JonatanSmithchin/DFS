@@ -42,3 +42,20 @@ LocatedBlock *NamenodeClient::append(const std::string &path) {
         return nullptr;
     }
 }
+
+LocatedBlocks *NamenodeClient::locate(const std::string& path) {
+    ClientNamenode::GetFileBlockLocationsRequest request;
+    request.set_src(path);
+    
+    ClientContext context;
+
+    ClientNamenode::GetFileBlockLocationsResponse response;
+    auto status = m_stub->GetFileBlockLocations(&context,request,&response);
+    if (status.ok()){
+        auto file_blocks = new LocatedBlocks;
+        file_blocks->CopyFrom(response.locations());
+        return file_blocks;
+    } else{
+        return nullptr;
+    }
+}

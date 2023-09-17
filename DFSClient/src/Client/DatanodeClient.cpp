@@ -45,4 +45,27 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
     }
 }
 
+void DatanodeClient::downloadBlock(const std::string& file,const google::protobuf::uint64& block_id) {
+    downloadBlockRequest request;
+    downloadBlockResponse response;
+    ClientContext context;
 
+    std::ofstream outfile;
+    outfile.open(file,std::ofstream::app | std::ofstream::binary);
+        
+    request.add_blockid(block_id);
+
+    
+    std::unique_ptr<grpc::ClientReader<downloadBlockResponse>> reader(m_stub->downloadBlock(&context,request));
+
+    while (reader->Read(&response)) {
+        outfile.write(response.content().c_str(),sizeof(response.content()));
+    }
+
+    Status status  = reader->Finish();
+    if (status.ok()){
+        std::cout << "Download block finished";
+    } else{
+        std::cout << status.error_code() << status.error_message();
+    }
+}

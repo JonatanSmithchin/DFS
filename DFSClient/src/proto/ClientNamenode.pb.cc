@@ -21,21 +21,21 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace ClientNamenode {
-PROTOBUF_CONSTEXPR GetBlockLocationsRequest::GetBlockLocationsRequest(
+PROTOBUF_CONSTEXPR GetBlockLocationRequest::GetBlockLocationRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.src_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.offset_)*/uint64_t{0u}
   , /*decltype(_impl_.length_)*/uint64_t{0u}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct GetBlockLocationsRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetBlockLocationsRequestDefaultTypeInternal()
+struct GetBlockLocationRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetBlockLocationRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetBlockLocationsRequestDefaultTypeInternal() {}
+  ~GetBlockLocationRequestDefaultTypeInternal() {}
   union {
-    GetBlockLocationsRequest _instance;
+    GetBlockLocationRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetBlockLocationsRequestDefaultTypeInternal _GetBlockLocationsRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetBlockLocationRequestDefaultTypeInternal _GetBlockLocationRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetBlockLocationResponse::GetBlockLocationResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -50,6 +50,33 @@ struct GetBlockLocationResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetBlockLocationResponseDefaultTypeInternal _GetBlockLocationResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetFileBlockLocationsRequest::GetFileBlockLocationsRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.src_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetFileBlockLocationsRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetFileBlockLocationsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetFileBlockLocationsRequestDefaultTypeInternal() {}
+  union {
+    GetFileBlockLocationsRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFileBlockLocationsRequestDefaultTypeInternal _GetFileBlockLocationsRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetFileBlockLocationsResponse::GetFileBlockLocationsResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.locations_)*/nullptr} {}
+struct GetFileBlockLocationsResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetFileBlockLocationsResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetFileBlockLocationsResponseDefaultTypeInternal() {}
+  union {
+    GetFileBlockLocationsResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFileBlockLocationsResponseDefaultTypeInternal _GetFileBlockLocationsResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetServerDefaultsRequest::GetServerDefaultsRequest(
     ::_pbi::ConstantInitialized) {}
 struct GetServerDefaultsRequestDefaultTypeInternal {
@@ -353,20 +380,20 @@ struct RenewLeaseResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RenewLeaseResponseDefaultTypeInternal _RenewLeaseResponse_default_instance_;
 }  // namespace ClientNamenode
-static ::_pb::Metadata file_level_metadata_ClientNamenode_2eproto[24];
+static ::_pb::Metadata file_level_metadata_ClientNamenode_2eproto[26];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_ClientNamenode_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_ClientNamenode_2eproto = nullptr;
 
 const uint32_t TableStruct_ClientNamenode_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationsRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationsRequest, _impl_.src_),
-  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationsRequest, _impl_.offset_),
-  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationsRequest, _impl_.length_),
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationRequest, _impl_.src_),
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationRequest, _impl_.offset_),
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationRequest, _impl_.length_),
   PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationResponse, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -374,6 +401,21 @@ const uint32_t TableStruct_ClientNamenode_2eproto::offsets[] PROTOBUF_SECTION_VA
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetBlockLocationResponse, _impl_.location_),
+  0,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetFileBlockLocationsRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetFileBlockLocationsRequest, _impl_.src_),
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetFileBlockLocationsResponse, _impl_._has_bits_),
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetFileBlockLocationsResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetFileBlockLocationsResponse, _impl_.locations_),
   0,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ClientNamenode::GetServerDefaultsRequest, _internal_metadata_),
@@ -557,35 +599,39 @@ const uint32_t TableStruct_ClientNamenode_2eproto::offsets[] PROTOBUF_SECTION_VA
   ~0u,  // no _inlined_string_donated_
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::ClientNamenode::GetBlockLocationsRequest)},
+  { 0, -1, -1, sizeof(::ClientNamenode::GetBlockLocationRequest)},
   { 9, 16, -1, sizeof(::ClientNamenode::GetBlockLocationResponse)},
-  { 17, -1, -1, sizeof(::ClientNamenode::GetServerDefaultsRequest)},
-  { 23, -1, -1, sizeof(::ClientNamenode::GetServerDefaultsResponse)},
-  { 30, -1, -1, sizeof(::ClientNamenode::CreateRequest)},
-  { 42, 49, -1, sizeof(::ClientNamenode::CreateResponse)},
-  { 50, -1, -1, sizeof(::ClientNamenode::AppendRequest)},
-  { 58, 65, -1, sizeof(::ClientNamenode::AppendResponse)},
-  { 66, -1, -1, sizeof(::ClientNamenode::RenameRequest)},
-  { 74, -1, -1, sizeof(::ClientNamenode::RenameResponse)},
-  { 81, -1, -1, sizeof(::ClientNamenode::DeleteRequest)},
-  { 89, -1, -1, sizeof(::ClientNamenode::DeleteResponse)},
-  { 96, -1, -1, sizeof(::ClientNamenode::SetPermissionRequest)},
-  { 104, -1, -1, sizeof(::ClientNamenode::SetPermissionResponse)},
-  { 110, 119, -1, sizeof(::ClientNamenode::SetOwnerRequest)},
-  { 122, -1, -1, sizeof(::ClientNamenode::SetOwnerResponse)},
-  { 128, 139, -1, sizeof(::ClientNamenode::AddBlockRequest)},
-  { 144, -1, -1, sizeof(::ClientNamenode::AddBlockResponse)},
-  { 151, -1, -1, sizeof(::ClientNamenode::mkdirRequest)},
-  { 160, -1, -1, sizeof(::ClientNamenode::mkdirResponse)},
-  { 167, -1, -1, sizeof(::ClientNamenode::GetListingRequest)},
-  { 176, 183, -1, sizeof(::ClientNamenode::GetListingResponse)},
-  { 184, -1, -1, sizeof(::ClientNamenode::RenewLeaseRequest)},
-  { 191, -1, -1, sizeof(::ClientNamenode::RenewLeaseResponse)},
+  { 17, -1, -1, sizeof(::ClientNamenode::GetFileBlockLocationsRequest)},
+  { 24, 31, -1, sizeof(::ClientNamenode::GetFileBlockLocationsResponse)},
+  { 32, -1, -1, sizeof(::ClientNamenode::GetServerDefaultsRequest)},
+  { 38, -1, -1, sizeof(::ClientNamenode::GetServerDefaultsResponse)},
+  { 45, -1, -1, sizeof(::ClientNamenode::CreateRequest)},
+  { 57, 64, -1, sizeof(::ClientNamenode::CreateResponse)},
+  { 65, -1, -1, sizeof(::ClientNamenode::AppendRequest)},
+  { 73, 80, -1, sizeof(::ClientNamenode::AppendResponse)},
+  { 81, -1, -1, sizeof(::ClientNamenode::RenameRequest)},
+  { 89, -1, -1, sizeof(::ClientNamenode::RenameResponse)},
+  { 96, -1, -1, sizeof(::ClientNamenode::DeleteRequest)},
+  { 104, -1, -1, sizeof(::ClientNamenode::DeleteResponse)},
+  { 111, -1, -1, sizeof(::ClientNamenode::SetPermissionRequest)},
+  { 119, -1, -1, sizeof(::ClientNamenode::SetPermissionResponse)},
+  { 125, 134, -1, sizeof(::ClientNamenode::SetOwnerRequest)},
+  { 137, -1, -1, sizeof(::ClientNamenode::SetOwnerResponse)},
+  { 143, 154, -1, sizeof(::ClientNamenode::AddBlockRequest)},
+  { 159, -1, -1, sizeof(::ClientNamenode::AddBlockResponse)},
+  { 166, -1, -1, sizeof(::ClientNamenode::mkdirRequest)},
+  { 175, -1, -1, sizeof(::ClientNamenode::mkdirResponse)},
+  { 182, -1, -1, sizeof(::ClientNamenode::GetListingRequest)},
+  { 191, 198, -1, sizeof(::ClientNamenode::GetListingResponse)},
+  { 199, -1, -1, sizeof(::ClientNamenode::RenewLeaseRequest)},
+  { 206, -1, -1, sizeof(::ClientNamenode::RenewLeaseResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::ClientNamenode::_GetBlockLocationsRequest_default_instance_._instance,
+  &::ClientNamenode::_GetBlockLocationRequest_default_instance_._instance,
   &::ClientNamenode::_GetBlockLocationResponse_default_instance_._instance,
+  &::ClientNamenode::_GetFileBlockLocationsRequest_default_instance_._instance,
+  &::ClientNamenode::_GetFileBlockLocationsResponse_default_instance_._instance,
   &::ClientNamenode::_GetServerDefaultsRequest_default_instance_._instance,
   &::ClientNamenode::_GetServerDefaultsResponse_default_instance_._instance,
   &::ClientNamenode::_CreateRequest_default_instance_._instance,
@@ -612,80 +658,86 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_ClientNamenode_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\024ClientNamenode.proto\022\016ClientNamenode\032\t"
-  "dfs.proto\"G\n\030GetBlockLocationsRequest\022\013\n"
-  "\003src\030\001 \001(\t\022\016\n\006offset\030\002 \001(\004\022\016\n\006length\030\003 \001"
-  "(\004\"N\n\030GetBlockLocationResponse\022%\n\010locati"
-  "on\030\001 \001(\0132\016.LocatedBlocksH\000\210\001\001B\013\n\t_locati"
-  "on\"\032\n\030GetServerDefaultsRequest\"C\n\031GetSer"
-  "verDefaultsResponse\022&\n\rerverDefaults\030\001 \001"
-  "(\0132\017.ServerDefaults\"\244\001\n\rCreateRequest\022\013\n"
-  "\003src\030\001 \001(\t\022\022\n\nclientName\030\002 \001(\t\022(\n\004flag\030\003"
-  " \001(\0162\032.ClientNamenode.CreateFlag\022\037\n\nperm"
-  "ission\030\004 \001(\0132\013.Permission\022\024\n\014createParen"
-  "t\030\005 \001(\010\022\021\n\tblockSize\030\006 \001(\004\"=\n\016CreateResp"
-  "onse\022 \n\006status\030\001 \001(\0132\013.FileStatusH\000\210\001\001B\t"
-  "\n\007_status\"0\n\rAppendRequest\022\013\n\003src\030\001 \001(\t\022"
-  "\022\n\nclientName\030\002 \001(\t\"=\n\016AppendResponse\022!\n"
-  "\005block\030\001 \001(\0132\r.LocatedBlockH\000\210\001\001B\010\n\006_blo"
-  "ck\")\n\rRenameRequest\022\013\n\003src\030\001 \001(\t\022\013\n\003dst\030"
-  "\002 \001(\t\" \n\016RenameResponse\022\016\n\006result\030\001 \001(\010\""
-  "/\n\rDeleteRequest\022\013\n\003src\030\001 \001(\t\022\021\n\trecursi"
-  "ve\030\002 \001(\010\" \n\016DeleteResponse\022\016\n\006result\030\001 \001"
-  "(\010\"D\n\024SetPermissionRequest\022\013\n\003src\030\001 \001(\t\022"
-  "\037\n\npermission\030\002 \001(\0132\013.Permission\"\027\n\025SetP"
-  "ermissionResponse\"h\n\017SetOwnerRequest\022\013\n\003"
-  "src\030\001 \001(\t\022\025\n\010username\030\002 \001(\tH\000\210\001\001\022\026\n\tgrou"
-  "pname\030\003 \001(\tH\001\210\001\001B\013\n\t_usernameB\014\n\n_groupn"
-  "ame\"\022\n\020SetOwnerResponse\"\215\001\n\017AddBlockRequ"
-  "est\022\013\n\003src\030\001 \001(\t\022\022\n\nclientName\030\002 \001(\t\022#\n\014"
-  "excludeNodes\030\004 \003(\0132\r.DatanodeInfo\022\023\n\006fil"
-  "eId\030\005 \001(\004H\000\210\001\001\022\024\n\014favoredNodes\030\006 \003(\tB\t\n\007"
-  "_fileId\"0\n\020AddBlockResponse\022\034\n\005block\030\001 \001"
-  "(\0132\r.LocatedBlock\"R\n\014mkdirRequest\022\013\n\003src"
-  "\030\001 \001(\t\022\037\n\npermission\030\002 \001(\0132\013.Permission\022"
-  "\024\n\014createParent\030\003 \001(\010\"\"\n\rmkdirResponse\022\021"
-  "\n\tisSuccess\030\001 \001(\010\"J\n\021GetListingRequest\022\013"
-  "\n\003src\030\001 \001(\t\022\022\n\nstartAfter\030\002 \001(\014\022\024\n\014needL"
-  "ocation\030\003 \001(\010\"I\n\022GetListingResponse\022\'\n\007d"
-  "irList\030\001 \001(\0132\021.DirectoryListingH\000\210\001\001B\n\n\010"
-  "_dirList\"\'\n\021RenewLeaseRequest\022\022\n\nClientN"
-  "ame\030\001 \001(\t\"\024\n\022RenewLeaseResponse*3\n\nCreat"
-  "eFlag\022\n\n\006CREATE\020\000\022\r\n\tOVERWRITE\020\001\022\n\n\006APPE"
-  "ND\020\0022\356\007\n\rClientService\022f\n\020GetBlockLocati"
-  "on\022(.ClientNamenode.GetBlockLocationsReq"
-  "uest\032(.ClientNamenode.GetBlockLocationRe"
-  "sponse\022h\n\021GetServerDefaults\022(.ClientName"
-  "node.GetServerDefaultsRequest\032).ClientNa"
-  "menode.GetServerDefaultsResponse\022G\n\006Crea"
-  "te\022\035.ClientNamenode.CreateRequest\032\036.Clie"
-  "ntNamenode.CreateResponse\022G\n\006Append\022\035.Cl"
-  "ientNamenode.AppendRequest\032\036.ClientNamen"
-  "ode.AppendResponse\022G\n\006Rename\022\035.ClientNam"
-  "enode.RenameRequest\032\036.ClientNamenode.Ren"
-  "ameResponse\022G\n\006Delete\022\035.ClientNamenode.D"
-  "eleteRequest\032\036.ClientNamenode.DeleteResp"
-  "onse\022\\\n\rSetPermission\022$.ClientNamenode.S"
-  "etPermissionRequest\032%.ClientNamenode.Set"
-  "PermissionResponse\022M\n\010SetOwner\022\037.ClientN"
-  "amenode.SetOwnerRequest\032 .ClientNamenode"
-  ".SetOwnerResponse\022M\n\010AddBlock\022\037.ClientNa"
-  "menode.AddBlockRequest\032 .ClientNamenode."
-  "AddBlockResponse\022D\n\005mkdir\022\034.ClientNameno"
-  "de.mkdirRequest\032\035.ClientNamenode.mkdirRe"
-  "sponse\022P\n\007Listing\022!.ClientNamenode.GetLi"
-  "stingRequest\032\".ClientNamenode.GetListing"
-  "Response\022S\n\nRenewLease\022!.ClientNamenode."
-  "RenewLeaseRequest\032\".ClientNamenode.Renew"
-  "LeaseResponseb\006proto3"
+  "dfs.proto\"F\n\027GetBlockLocationRequest\022\013\n\003"
+  "src\030\001 \001(\t\022\016\n\006offset\030\002 \001(\004\022\016\n\006length\030\003 \001("
+  "\004\"M\n\030GetBlockLocationResponse\022$\n\010locatio"
+  "n\030\001 \001(\0132\r.LocatedBlockH\000\210\001\001B\013\n\t_location"
+  "\"+\n\034GetFileBlockLocationsRequest\022\013\n\003src\030"
+  "\001 \001(\t\"U\n\035GetFileBlockLocationsResponse\022&"
+  "\n\tlocations\030\001 \001(\0132\016.LocatedBlocksH\000\210\001\001B\014"
+  "\n\n_locations\"\032\n\030GetServerDefaultsRequest"
+  "\"C\n\031GetServerDefaultsResponse\022&\n\rerverDe"
+  "faults\030\001 \001(\0132\017.ServerDefaults\"\244\001\n\rCreate"
+  "Request\022\013\n\003src\030\001 \001(\t\022\022\n\nclientName\030\002 \001(\t"
+  "\022(\n\004flag\030\003 \001(\0162\032.ClientNamenode.CreateFl"
+  "ag\022\037\n\npermission\030\004 \001(\0132\013.Permission\022\024\n\014c"
+  "reateParent\030\005 \001(\010\022\021\n\tblockSize\030\006 \001(\004\"=\n\016"
+  "CreateResponse\022 \n\006status\030\001 \001(\0132\013.FileSta"
+  "tusH\000\210\001\001B\t\n\007_status\"0\n\rAppendRequest\022\013\n\003"
+  "src\030\001 \001(\t\022\022\n\nclientName\030\002 \001(\t\"=\n\016AppendR"
+  "esponse\022!\n\005block\030\001 \001(\0132\r.LocatedBlockH\000\210"
+  "\001\001B\010\n\006_block\")\n\rRenameRequest\022\013\n\003src\030\001 \001"
+  "(\t\022\013\n\003dst\030\002 \001(\t\" \n\016RenameResponse\022\016\n\006res"
+  "ult\030\001 \001(\010\"/\n\rDeleteRequest\022\013\n\003src\030\001 \001(\t\022"
+  "\021\n\trecursive\030\002 \001(\010\" \n\016DeleteResponse\022\016\n\006"
+  "result\030\001 \001(\010\"D\n\024SetPermissionRequest\022\013\n\003"
+  "src\030\001 \001(\t\022\037\n\npermission\030\002 \001(\0132\013.Permissi"
+  "on\"\027\n\025SetPermissionResponse\"h\n\017SetOwnerR"
+  "equest\022\013\n\003src\030\001 \001(\t\022\025\n\010username\030\002 \001(\tH\000\210"
+  "\001\001\022\026\n\tgroupname\030\003 \001(\tH\001\210\001\001B\013\n\t_usernameB"
+  "\014\n\n_groupname\"\022\n\020SetOwnerResponse\"\215\001\n\017Ad"
+  "dBlockRequest\022\013\n\003src\030\001 \001(\t\022\022\n\nclientName"
+  "\030\002 \001(\t\022#\n\014excludeNodes\030\004 \003(\0132\r.DatanodeI"
+  "nfo\022\023\n\006fileId\030\005 \001(\004H\000\210\001\001\022\024\n\014favoredNodes"
+  "\030\006 \003(\tB\t\n\007_fileId\"0\n\020AddBlockResponse\022\034\n"
+  "\005block\030\001 \001(\0132\r.LocatedBlock\"R\n\014mkdirRequ"
+  "est\022\013\n\003src\030\001 \001(\t\022\037\n\npermission\030\002 \001(\0132\013.P"
+  "ermission\022\024\n\014createParent\030\003 \001(\010\"\"\n\rmkdir"
+  "Response\022\021\n\tisSuccess\030\001 \001(\010\"J\n\021GetListin"
+  "gRequest\022\013\n\003src\030\001 \001(\t\022\022\n\nstartAfter\030\002 \001("
+  "\014\022\024\n\014needLocation\030\003 \001(\010\"I\n\022GetListingRes"
+  "ponse\022\'\n\007dirList\030\001 \001(\0132\021.DirectoryListin"
+  "gH\000\210\001\001B\n\n\010_dirList\"\'\n\021RenewLeaseRequest\022"
+  "\022\n\nClientName\030\001 \001(\t\"\024\n\022RenewLeaseRespons"
+  "e*3\n\nCreateFlag\022\n\n\006CREATE\020\000\022\r\n\tOVERWRITE"
+  "\020\001\022\n\n\006APPEND\020\0022\343\010\n\rClientService\022e\n\020GetB"
+  "lockLocation\022\'.ClientNamenode.GetBlockLo"
+  "cationRequest\032(.ClientNamenode.GetBlockL"
+  "ocationResponse\022t\n\025GetFileBlockLocations"
+  "\022,.ClientNamenode.GetFileBlockLocationsR"
+  "equest\032-.ClientNamenode.GetFileBlockLoca"
+  "tionsResponse\022h\n\021GetServerDefaults\022(.Cli"
+  "entNamenode.GetServerDefaultsRequest\032).C"
+  "lientNamenode.GetServerDefaultsResponse\022"
+  "G\n\006Create\022\035.ClientNamenode.CreateRequest"
+  "\032\036.ClientNamenode.CreateResponse\022G\n\006Appe"
+  "nd\022\035.ClientNamenode.AppendRequest\032\036.Clie"
+  "ntNamenode.AppendResponse\022G\n\006Rename\022\035.Cl"
+  "ientNamenode.RenameRequest\032\036.ClientNamen"
+  "ode.RenameResponse\022G\n\006Delete\022\035.ClientNam"
+  "enode.DeleteRequest\032\036.ClientNamenode.Del"
+  "eteResponse\022\\\n\rSetPermission\022$.ClientNam"
+  "enode.SetPermissionRequest\032%.ClientNamen"
+  "ode.SetPermissionResponse\022M\n\010SetOwner\022\037."
+  "ClientNamenode.SetOwnerRequest\032 .ClientN"
+  "amenode.SetOwnerResponse\022M\n\010AddBlock\022\037.C"
+  "lientNamenode.AddBlockRequest\032 .ClientNa"
+  "menode.AddBlockResponse\022D\n\005mkdir\022\034.Clien"
+  "tNamenode.mkdirRequest\032\035.ClientNamenode."
+  "mkdirResponse\022P\n\007Listing\022!.ClientNamenod"
+  "e.GetListingRequest\032\".ClientNamenode.Get"
+  "ListingResponse\022S\n\nRenewLease\022!.ClientNa"
+  "menode.RenewLeaseRequest\032\".ClientNamenod"
+  "e.RenewLeaseResponseb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_ClientNamenode_2eproto_deps[1] = {
   &::descriptor_table_dfs_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_ClientNamenode_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_ClientNamenode_2eproto = {
-    false, false, 2621, descriptor_table_protodef_ClientNamenode_2eproto,
+    false, false, 2868, descriptor_table_protodef_ClientNamenode_2eproto,
     "ClientNamenode.proto",
-    &descriptor_table_ClientNamenode_2eproto_once, descriptor_table_ClientNamenode_2eproto_deps, 1, 24,
+    &descriptor_table_ClientNamenode_2eproto_once, descriptor_table_ClientNamenode_2eproto_deps, 1, 26,
     schemas, file_default_instances, TableStruct_ClientNamenode_2eproto::offsets,
     file_level_metadata_ClientNamenode_2eproto, file_level_enum_descriptors_ClientNamenode_2eproto,
     file_level_service_descriptors_ClientNamenode_2eproto,
@@ -715,19 +767,19 @@ bool CreateFlag_IsValid(int value) {
 
 // ===================================================================
 
-class GetBlockLocationsRequest::_Internal {
+class GetBlockLocationRequest::_Internal {
  public:
 };
 
-GetBlockLocationsRequest::GetBlockLocationsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetBlockLocationRequest::GetBlockLocationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ClientNamenode.GetBlockLocationsRequest)
+  // @@protoc_insertion_point(arena_constructor:ClientNamenode.GetBlockLocationRequest)
 }
-GetBlockLocationsRequest::GetBlockLocationsRequest(const GetBlockLocationsRequest& from)
+GetBlockLocationRequest::GetBlockLocationRequest(const GetBlockLocationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  GetBlockLocationsRequest* const _this = this; (void)_this;
+  GetBlockLocationRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.src_){}
     , decltype(_impl_.offset_){}
@@ -746,10 +798,10 @@ GetBlockLocationsRequest::GetBlockLocationsRequest(const GetBlockLocationsReques
   ::memcpy(&_impl_.offset_, &from._impl_.offset_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.length_) -
     reinterpret_cast<char*>(&_impl_.offset_)) + sizeof(_impl_.length_));
-  // @@protoc_insertion_point(copy_constructor:ClientNamenode.GetBlockLocationsRequest)
+  // @@protoc_insertion_point(copy_constructor:ClientNamenode.GetBlockLocationRequest)
 }
 
-inline void GetBlockLocationsRequest::SharedCtor(
+inline void GetBlockLocationRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -765,8 +817,8 @@ inline void GetBlockLocationsRequest::SharedCtor(
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-GetBlockLocationsRequest::~GetBlockLocationsRequest() {
-  // @@protoc_insertion_point(destructor:ClientNamenode.GetBlockLocationsRequest)
+GetBlockLocationRequest::~GetBlockLocationRequest() {
+  // @@protoc_insertion_point(destructor:ClientNamenode.GetBlockLocationRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -774,17 +826,17 @@ GetBlockLocationsRequest::~GetBlockLocationsRequest() {
   SharedDtor();
 }
 
-inline void GetBlockLocationsRequest::SharedDtor() {
+inline void GetBlockLocationRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.src_.Destroy();
 }
 
-void GetBlockLocationsRequest::SetCachedSize(int size) const {
+void GetBlockLocationRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void GetBlockLocationsRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:ClientNamenode.GetBlockLocationsRequest)
+void GetBlockLocationRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:ClientNamenode.GetBlockLocationRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -796,7 +848,7 @@ void GetBlockLocationsRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetBlockLocationsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GetBlockLocationRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -808,7 +860,7 @@ const char* GetBlockLocationsRequest::_InternalParse(const char* ptr, ::_pbi::Pa
           auto str = _internal_mutable_src();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "ClientNamenode.GetBlockLocationsRequest.src"));
+          CHK_(::_pbi::VerifyUTF8(str, "ClientNamenode.GetBlockLocationRequest.src"));
         } else
           goto handle_unusual;
         continue;
@@ -851,9 +903,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetBlockLocationsRequest::_InternalSerialize(
+uint8_t* GetBlockLocationRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ClientNamenode.GetBlockLocationsRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:ClientNamenode.GetBlockLocationRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -862,7 +914,7 @@ uint8_t* GetBlockLocationsRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_src().data(), static_cast<int>(this->_internal_src().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ClientNamenode.GetBlockLocationsRequest.src");
+      "ClientNamenode.GetBlockLocationRequest.src");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_src(), target);
   }
@@ -883,12 +935,12 @@ uint8_t* GetBlockLocationsRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ClientNamenode.GetBlockLocationsRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:ClientNamenode.GetBlockLocationRequest)
   return target;
 }
 
-size_t GetBlockLocationsRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ClientNamenode.GetBlockLocationsRequest)
+size_t GetBlockLocationRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ClientNamenode.GetBlockLocationRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -915,17 +967,17 @@ size_t GetBlockLocationsRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetBlockLocationsRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetBlockLocationRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    GetBlockLocationsRequest::MergeImpl
+    GetBlockLocationRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetBlockLocationsRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetBlockLocationRequest::GetClassData() const { return &_class_data_; }
 
 
-void GetBlockLocationsRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<GetBlockLocationsRequest*>(&to_msg);
-  auto& from = static_cast<const GetBlockLocationsRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ClientNamenode.GetBlockLocationsRequest)
+void GetBlockLocationRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetBlockLocationRequest*>(&to_msg);
+  auto& from = static_cast<const GetBlockLocationRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ClientNamenode.GetBlockLocationRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -942,18 +994,18 @@ void GetBlockLocationsRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetBlockLocationsRequest::CopyFrom(const GetBlockLocationsRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ClientNamenode.GetBlockLocationsRequest)
+void GetBlockLocationRequest::CopyFrom(const GetBlockLocationRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ClientNamenode.GetBlockLocationRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetBlockLocationsRequest::IsInitialized() const {
+bool GetBlockLocationRequest::IsInitialized() const {
   return true;
 }
 
-void GetBlockLocationsRequest::InternalSwap(GetBlockLocationsRequest* other) {
+void GetBlockLocationRequest::InternalSwap(GetBlockLocationRequest* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -963,14 +1015,14 @@ void GetBlockLocationsRequest::InternalSwap(GetBlockLocationsRequest* other) {
       &other->_impl_.src_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetBlockLocationsRequest, _impl_.length_)
-      + sizeof(GetBlockLocationsRequest::_impl_.length_)
-      - PROTOBUF_FIELD_OFFSET(GetBlockLocationsRequest, _impl_.offset_)>(
+      PROTOBUF_FIELD_OFFSET(GetBlockLocationRequest, _impl_.length_)
+      + sizeof(GetBlockLocationRequest::_impl_.length_)
+      - PROTOBUF_FIELD_OFFSET(GetBlockLocationRequest, _impl_.offset_)>(
           reinterpret_cast<char*>(&_impl_.offset_),
           reinterpret_cast<char*>(&other->_impl_.offset_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata GetBlockLocationsRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata GetBlockLocationRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
       file_level_metadata_ClientNamenode_2eproto[0]);
@@ -981,13 +1033,13 @@ void GetBlockLocationsRequest::InternalSwap(GetBlockLocationsRequest* other) {
 class GetBlockLocationResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<GetBlockLocationResponse>()._impl_._has_bits_);
-  static const ::LocatedBlocks& location(const GetBlockLocationResponse* msg);
+  static const ::LocatedBlock& location(const GetBlockLocationResponse* msg);
   static void set_has_location(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::LocatedBlocks&
+const ::LocatedBlock&
 GetBlockLocationResponse::_Internal::location(const GetBlockLocationResponse* msg) {
   return *msg->_impl_.location_;
 }
@@ -1011,7 +1063,7 @@ GetBlockLocationResponse::GetBlockLocationResponse(const GetBlockLocationRespons
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_location()) {
-    _this->_impl_.location_ = new ::LocatedBlocks(*from._impl_.location_);
+    _this->_impl_.location_ = new ::LocatedBlock(*from._impl_.location_);
   }
   // @@protoc_insertion_point(copy_constructor:ClientNamenode.GetBlockLocationResponse)
 }
@@ -1067,7 +1119,7 @@ const char* GetBlockLocationResponse::_InternalParse(const char* ptr, ::_pbi::Pa
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .LocatedBlocks location = 1;
+      // optional .LocatedBlock location = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_location(), ptr);
@@ -1105,7 +1157,7 @@ uint8_t* GetBlockLocationResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .LocatedBlocks location = 1;
+  // optional .LocatedBlock location = 1;
   if (_internal_has_location()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::location(this),
@@ -1128,7 +1180,7 @@ size_t GetBlockLocationResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .LocatedBlocks location = 1;
+  // optional .LocatedBlock location = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -1155,7 +1207,7 @@ void GetBlockLocationResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   (void) cached_has_bits;
 
   if (from._internal_has_location()) {
-    _this->_internal_mutable_location()->::LocatedBlocks::MergeFrom(
+    _this->_internal_mutable_location()->::LocatedBlock::MergeFrom(
         from._internal_location());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1183,6 +1235,418 @@ void GetBlockLocationResponse::InternalSwap(GetBlockLocationResponse* other) {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
       file_level_metadata_ClientNamenode_2eproto[1]);
+}
+
+// ===================================================================
+
+class GetFileBlockLocationsRequest::_Internal {
+ public:
+};
+
+GetFileBlockLocationsRequest::GetFileBlockLocationsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ClientNamenode.GetFileBlockLocationsRequest)
+}
+GetFileBlockLocationsRequest::GetFileBlockLocationsRequest(const GetFileBlockLocationsRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetFileBlockLocationsRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.src_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.src_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.src_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_src().empty()) {
+    _this->_impl_.src_.Set(from._internal_src(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:ClientNamenode.GetFileBlockLocationsRequest)
+}
+
+inline void GetFileBlockLocationsRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.src_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.src_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.src_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetFileBlockLocationsRequest::~GetFileBlockLocationsRequest() {
+  // @@protoc_insertion_point(destructor:ClientNamenode.GetFileBlockLocationsRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetFileBlockLocationsRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.src_.Destroy();
+}
+
+void GetFileBlockLocationsRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetFileBlockLocationsRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:ClientNamenode.GetFileBlockLocationsRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.src_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetFileBlockLocationsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string src = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_src();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "ClientNamenode.GetFileBlockLocationsRequest.src"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetFileBlockLocationsRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ClientNamenode.GetFileBlockLocationsRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string src = 1;
+  if (!this->_internal_src().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_src().data(), static_cast<int>(this->_internal_src().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ClientNamenode.GetFileBlockLocationsRequest.src");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_src(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ClientNamenode.GetFileBlockLocationsRequest)
+  return target;
+}
+
+size_t GetFileBlockLocationsRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ClientNamenode.GetFileBlockLocationsRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string src = 1;
+  if (!this->_internal_src().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_src());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetFileBlockLocationsRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetFileBlockLocationsRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetFileBlockLocationsRequest::GetClassData() const { return &_class_data_; }
+
+
+void GetFileBlockLocationsRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetFileBlockLocationsRequest*>(&to_msg);
+  auto& from = static_cast<const GetFileBlockLocationsRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ClientNamenode.GetFileBlockLocationsRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_src().empty()) {
+    _this->_internal_set_src(from._internal_src());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetFileBlockLocationsRequest::CopyFrom(const GetFileBlockLocationsRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ClientNamenode.GetFileBlockLocationsRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetFileBlockLocationsRequest::IsInitialized() const {
+  return true;
+}
+
+void GetFileBlockLocationsRequest::InternalSwap(GetFileBlockLocationsRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.src_, lhs_arena,
+      &other->_impl_.src_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetFileBlockLocationsRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
+      file_level_metadata_ClientNamenode_2eproto[2]);
+}
+
+// ===================================================================
+
+class GetFileBlockLocationsResponse::_Internal {
+ public:
+  using HasBits = decltype(std::declval<GetFileBlockLocationsResponse>()._impl_._has_bits_);
+  static const ::LocatedBlocks& locations(const GetFileBlockLocationsResponse* msg);
+  static void set_has_locations(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::LocatedBlocks&
+GetFileBlockLocationsResponse::_Internal::locations(const GetFileBlockLocationsResponse* msg) {
+  return *msg->_impl_.locations_;
+}
+void GetFileBlockLocationsResponse::clear_locations() {
+  if (_impl_.locations_ != nullptr) _impl_.locations_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+GetFileBlockLocationsResponse::GetFileBlockLocationsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ClientNamenode.GetFileBlockLocationsResponse)
+}
+GetFileBlockLocationsResponse::GetFileBlockLocationsResponse(const GetFileBlockLocationsResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetFileBlockLocationsResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.locations_){nullptr}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_locations()) {
+    _this->_impl_.locations_ = new ::LocatedBlocks(*from._impl_.locations_);
+  }
+  // @@protoc_insertion_point(copy_constructor:ClientNamenode.GetFileBlockLocationsResponse)
+}
+
+inline void GetFileBlockLocationsResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.locations_){nullptr}
+  };
+}
+
+GetFileBlockLocationsResponse::~GetFileBlockLocationsResponse() {
+  // @@protoc_insertion_point(destructor:ClientNamenode.GetFileBlockLocationsResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetFileBlockLocationsResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.locations_;
+}
+
+void GetFileBlockLocationsResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetFileBlockLocationsResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:ClientNamenode.GetFileBlockLocationsResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.locations_ != nullptr);
+    _impl_.locations_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetFileBlockLocationsResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .LocatedBlocks locations = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_locations(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetFileBlockLocationsResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ClientNamenode.GetFileBlockLocationsResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // optional .LocatedBlocks locations = 1;
+  if (_internal_has_locations()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::locations(this),
+        _Internal::locations(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ClientNamenode.GetFileBlockLocationsResponse)
+  return target;
+}
+
+size_t GetFileBlockLocationsResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ClientNamenode.GetFileBlockLocationsResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .LocatedBlocks locations = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.locations_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetFileBlockLocationsResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetFileBlockLocationsResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetFileBlockLocationsResponse::GetClassData() const { return &_class_data_; }
+
+
+void GetFileBlockLocationsResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetFileBlockLocationsResponse*>(&to_msg);
+  auto& from = static_cast<const GetFileBlockLocationsResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ClientNamenode.GetFileBlockLocationsResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_locations()) {
+    _this->_internal_mutable_locations()->::LocatedBlocks::MergeFrom(
+        from._internal_locations());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetFileBlockLocationsResponse::CopyFrom(const GetFileBlockLocationsResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ClientNamenode.GetFileBlockLocationsResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetFileBlockLocationsResponse::IsInitialized() const {
+  return true;
+}
+
+void GetFileBlockLocationsResponse::InternalSwap(GetFileBlockLocationsResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.locations_, other->_impl_.locations_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetFileBlockLocationsResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
+      file_level_metadata_ClientNamenode_2eproto[3]);
 }
 
 // ===================================================================
@@ -1222,7 +1686,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetServerDefaultsRequest::GetC
 ::PROTOBUF_NAMESPACE_ID::Metadata GetServerDefaultsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[2]);
+      file_level_metadata_ClientNamenode_2eproto[4]);
 }
 
 // ===================================================================
@@ -1421,7 +1885,7 @@ void GetServerDefaultsResponse::InternalSwap(GetServerDefaultsResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetServerDefaultsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[3]);
+      file_level_metadata_ClientNamenode_2eproto[5]);
 }
 
 // ===================================================================
@@ -1808,7 +2272,7 @@ void CreateRequest::InternalSwap(CreateRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[4]);
+      file_level_metadata_ClientNamenode_2eproto[6]);
 }
 
 // ===================================================================
@@ -2017,7 +2481,7 @@ void CreateResponse::InternalSwap(CreateResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[5]);
+      file_level_metadata_ClientNamenode_2eproto[7]);
 }
 
 // ===================================================================
@@ -2270,7 +2734,7 @@ void AppendRequest::InternalSwap(AppendRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AppendRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[6]);
+      file_level_metadata_ClientNamenode_2eproto[8]);
 }
 
 // ===================================================================
@@ -2479,7 +2943,7 @@ void AppendResponse::InternalSwap(AppendResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AppendResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[7]);
+      file_level_metadata_ClientNamenode_2eproto[9]);
 }
 
 // ===================================================================
@@ -2732,7 +3196,7 @@ void RenameRequest::InternalSwap(RenameRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RenameRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[8]);
+      file_level_metadata_ClientNamenode_2eproto[10]);
 }
 
 // ===================================================================
@@ -2910,7 +3374,7 @@ void RenameResponse::InternalSwap(RenameResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RenameResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[9]);
+      file_level_metadata_ClientNamenode_2eproto[11]);
 }
 
 // ===================================================================
@@ -3140,7 +3604,7 @@ void DeleteRequest::InternalSwap(DeleteRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[10]);
+      file_level_metadata_ClientNamenode_2eproto[12]);
 }
 
 // ===================================================================
@@ -3318,7 +3782,7 @@ void DeleteResponse::InternalSwap(DeleteResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[11]);
+      file_level_metadata_ClientNamenode_2eproto[13]);
 }
 
 // ===================================================================
@@ -3569,7 +4033,7 @@ void SetPermissionRequest::InternalSwap(SetPermissionRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SetPermissionRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[12]);
+      file_level_metadata_ClientNamenode_2eproto[14]);
 }
 
 // ===================================================================
@@ -3609,7 +4073,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SetPermissionResponse::GetClas
 ::PROTOBUF_NAMESPACE_ID::Metadata SetPermissionResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[13]);
+      file_level_metadata_ClientNamenode_2eproto[15]);
 }
 
 // ===================================================================
@@ -3938,7 +4402,7 @@ void SetOwnerRequest::InternalSwap(SetOwnerRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SetOwnerRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[14]);
+      file_level_metadata_ClientNamenode_2eproto[16]);
 }
 
 // ===================================================================
@@ -3978,7 +4442,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SetOwnerResponse::GetClassData
 ::PROTOBUF_NAMESPACE_ID::Metadata SetOwnerResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[15]);
+      file_level_metadata_ClientNamenode_2eproto[17]);
 }
 
 // ===================================================================
@@ -4346,7 +4810,7 @@ void AddBlockRequest::InternalSwap(AddBlockRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddBlockRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[16]);
+      file_level_metadata_ClientNamenode_2eproto[18]);
 }
 
 // ===================================================================
@@ -4545,7 +5009,7 @@ void AddBlockResponse::InternalSwap(AddBlockResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddBlockResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[17]);
+      file_level_metadata_ClientNamenode_2eproto[19]);
 }
 
 // ===================================================================
@@ -4827,7 +5291,7 @@ void mkdirRequest::InternalSwap(mkdirRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata mkdirRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[18]);
+      file_level_metadata_ClientNamenode_2eproto[20]);
 }
 
 // ===================================================================
@@ -5005,7 +5469,7 @@ void mkdirResponse::InternalSwap(mkdirResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata mkdirResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[19]);
+      file_level_metadata_ClientNamenode_2eproto[21]);
 }
 
 // ===================================================================
@@ -5280,7 +5744,7 @@ void GetListingRequest::InternalSwap(GetListingRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetListingRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[20]);
+      file_level_metadata_ClientNamenode_2eproto[22]);
 }
 
 // ===================================================================
@@ -5489,7 +5953,7 @@ void GetListingResponse::InternalSwap(GetListingResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetListingResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[21]);
+      file_level_metadata_ClientNamenode_2eproto[23]);
 }
 
 // ===================================================================
@@ -5692,7 +6156,7 @@ void RenewLeaseRequest::InternalSwap(RenewLeaseRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RenewLeaseRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[22]);
+      file_level_metadata_ClientNamenode_2eproto[24]);
 }
 
 // ===================================================================
@@ -5732,19 +6196,27 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RenewLeaseResponse::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata RenewLeaseResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_ClientNamenode_2eproto_getter, &descriptor_table_ClientNamenode_2eproto_once,
-      file_level_metadata_ClientNamenode_2eproto[23]);
+      file_level_metadata_ClientNamenode_2eproto[25]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace ClientNamenode
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::ClientNamenode::GetBlockLocationsRequest*
-Arena::CreateMaybeMessage< ::ClientNamenode::GetBlockLocationsRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ClientNamenode::GetBlockLocationsRequest >(arena);
+template<> PROTOBUF_NOINLINE ::ClientNamenode::GetBlockLocationRequest*
+Arena::CreateMaybeMessage< ::ClientNamenode::GetBlockLocationRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ClientNamenode::GetBlockLocationRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ClientNamenode::GetBlockLocationResponse*
 Arena::CreateMaybeMessage< ::ClientNamenode::GetBlockLocationResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ClientNamenode::GetBlockLocationResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ClientNamenode::GetFileBlockLocationsRequest*
+Arena::CreateMaybeMessage< ::ClientNamenode::GetFileBlockLocationsRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ClientNamenode::GetFileBlockLocationsRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ClientNamenode::GetFileBlockLocationsResponse*
+Arena::CreateMaybeMessage< ::ClientNamenode::GetFileBlockLocationsResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ClientNamenode::GetFileBlockLocationsResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ClientNamenode::GetServerDefaultsRequest*
 Arena::CreateMaybeMessage< ::ClientNamenode::GetServerDefaultsRequest >(Arena* arena) {

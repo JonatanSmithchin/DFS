@@ -4,14 +4,22 @@ import "dfs.proto";
 
 package ClientNamenode;
 
-message GetBlockLocationsRequest{
+message GetBlockLocationRequest{
 	 string src = 1;
 	 uint64 offset = 2;
 	 uint64 length = 3;
 }
 
 message GetBlockLocationResponse{
-	optional LocatedBlocks location = 1;
+	optional LocatedBlock location = 1;
+}
+
+message GetFileBlockLocationsRequest{
+	 string src = 1;
+}
+
+message GetFileBlockLocationsResponse{
+	optional LocatedBlocks locations = 1;
 }
 
 message GetServerDefaultsRequest{
@@ -131,7 +139,8 @@ message RenewLeaseResponse{
 //����RPC�ӿ�
 service ClientService{
 	//�ļ������ӿ�
-	rpc GetBlockLocation(GetBlockLocationsRequest) returns (GetBlockLocationResponse);
+	rpc GetBlockLocation(GetBlockLocationRequest) returns (GetBlockLocationResponse);
+	rpc GetFileBlockLocations(GetFileBlockLocationsRequest) returns (GetFileBlockLocationsResponse);
 	rpc GetServerDefaults(GetServerDefaultsRequest) returns (GetServerDefaultsResponse);
 	rpc Create(CreateRequest) returns (CreateResponse);
 	rpc Append(AppendRequest) returns (AppendResponse);

@@ -29,3 +29,9 @@ TEST(TEST_APPEND,test_append1){
     std::cout << block->block().generationstamp();
     delete block;
 }
+
+// TEST(TEST_LOCATE,test_locate1){
+//     NamenodeClient client(grpc::CreateChannel(
+//             "localhost:8500",grpc::InsecureChannelCredentials()
+//     ));
+// }

@@ -13,9 +13,9 @@ message shutdownDatanodeResponse{
 }
 
 enum transferStatus{
-    Unknoen = 1;
-    OK = 2;
-    Failed = 3;
+    Unknown = 0;
+    OK = 1;
+    Failed = 2;
 }
 
 message transferBlockRequest{
@@ -41,5 +41,5 @@ message downloadBlockResponse{
 
 service FileService{
 	rpc transferBlock(stream transferBlockRequest) returns (transferBlockResponse);
-    rpc downloadBlock(downloadBlockRequest) returns {stream downloadBlockResponse};
+    rpc downloadBlock(downloadBlockRequest) returns (stream downloadBlockResponse);
 }
