@@ -72,12 +72,18 @@ extern DeleteRequestDefaultTypeInternal _DeleteRequest_default_instance_;
 class DeleteResponse;
 struct DeleteResponseDefaultTypeInternal;
 extern DeleteResponseDefaultTypeInternal _DeleteResponse_default_instance_;
+class GetBlockLocationRequest;
+struct GetBlockLocationRequestDefaultTypeInternal;
+extern GetBlockLocationRequestDefaultTypeInternal _GetBlockLocationRequest_default_instance_;
 class GetBlockLocationResponse;
 struct GetBlockLocationResponseDefaultTypeInternal;
 extern GetBlockLocationResponseDefaultTypeInternal _GetBlockLocationResponse_default_instance_;
-class GetBlockLocationsRequest;
-struct GetBlockLocationsRequestDefaultTypeInternal;
-extern GetBlockLocationsRequestDefaultTypeInternal _GetBlockLocationsRequest_default_instance_;
+class GetFileBlockLocationsRequest;
+struct GetFileBlockLocationsRequestDefaultTypeInternal;
+extern GetFileBlockLocationsRequestDefaultTypeInternal _GetFileBlockLocationsRequest_default_instance_;
+class GetFileBlockLocationsResponse;
+struct GetFileBlockLocationsResponseDefaultTypeInternal;
+extern GetFileBlockLocationsResponseDefaultTypeInternal _GetFileBlockLocationsResponse_default_instance_;
 class GetListingRequest;
 struct GetListingRequestDefaultTypeInternal;
 extern GetListingRequestDefaultTypeInternal _GetListingRequest_default_instance_;
@@ -130,8 +136,10 @@ template<> ::ClientNamenode::CreateRequest* Arena::CreateMaybeMessage<::ClientNa
 template<> ::ClientNamenode::CreateResponse* Arena::CreateMaybeMessage<::ClientNamenode::CreateResponse>(Arena*);
 template<> ::ClientNamenode::DeleteRequest* Arena::CreateMaybeMessage<::ClientNamenode::DeleteRequest>(Arena*);
 template<> ::ClientNamenode::DeleteResponse* Arena::CreateMaybeMessage<::ClientNamenode::DeleteResponse>(Arena*);
+template<> ::ClientNamenode::GetBlockLocationRequest* Arena::CreateMaybeMessage<::ClientNamenode::GetBlockLocationRequest>(Arena*);
 template<> ::ClientNamenode::GetBlockLocationResponse* Arena::CreateMaybeMessage<::ClientNamenode::GetBlockLocationResponse>(Arena*);
-template<> ::ClientNamenode::GetBlockLocationsRequest* Arena::CreateMaybeMessage<::ClientNamenode::GetBlockLocationsRequest>(Arena*);
+template<> ::ClientNamenode::GetFileBlockLocationsRequest* Arena::CreateMaybeMessage<::ClientNamenode::GetFileBlockLocationsRequest>(Arena*);
+template<> ::ClientNamenode::GetFileBlockLocationsResponse* Arena::CreateMaybeMessage<::ClientNamenode::GetFileBlockLocationsResponse>(Arena*);
 template<> ::ClientNamenode::GetListingRequest* Arena::CreateMaybeMessage<::ClientNamenode::GetListingRequest>(Arena*);
 template<> ::ClientNamenode::GetListingResponse* Arena::CreateMaybeMessage<::ClientNamenode::GetListingResponse>(Arena*);
 template<> ::ClientNamenode::GetServerDefaultsRequest* Arena::CreateMaybeMessage<::ClientNamenode::GetServerDefaultsRequest>(Arena*);
@@ -177,24 +185,24 @@ inline bool CreateFlag_Parse(
 }
 // ===================================================================
 
-class GetBlockLocationsRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ClientNamenode.GetBlockLocationsRequest) */ {
+class GetBlockLocationRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ClientNamenode.GetBlockLocationRequest) */ {
  public:
-  inline GetBlockLocationsRequest() : GetBlockLocationsRequest(nullptr) {}
-  ~GetBlockLocationsRequest() override;
-  explicit PROTOBUF_CONSTEXPR GetBlockLocationsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetBlockLocationRequest() : GetBlockLocationRequest(nullptr) {}
+  ~GetBlockLocationRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetBlockLocationRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  GetBlockLocationsRequest(const GetBlockLocationsRequest& from);
-  GetBlockLocationsRequest(GetBlockLocationsRequest&& from) noexcept
-    : GetBlockLocationsRequest() {
+  GetBlockLocationRequest(const GetBlockLocationRequest& from);
+  GetBlockLocationRequest(GetBlockLocationRequest&& from) noexcept
+    : GetBlockLocationRequest() {
     *this = ::std::move(from);
   }
 
-  inline GetBlockLocationsRequest& operator=(const GetBlockLocationsRequest& from) {
+  inline GetBlockLocationRequest& operator=(const GetBlockLocationRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline GetBlockLocationsRequest& operator=(GetBlockLocationsRequest&& from) noexcept {
+  inline GetBlockLocationRequest& operator=(GetBlockLocationRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -217,20 +225,20 @@ class GetBlockLocationsRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const GetBlockLocationsRequest& default_instance() {
+  static const GetBlockLocationRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const GetBlockLocationsRequest* internal_default_instance() {
-    return reinterpret_cast<const GetBlockLocationsRequest*>(
-               &_GetBlockLocationsRequest_default_instance_);
+  static inline const GetBlockLocationRequest* internal_default_instance() {
+    return reinterpret_cast<const GetBlockLocationRequest*>(
+               &_GetBlockLocationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(GetBlockLocationsRequest& a, GetBlockLocationsRequest& b) {
+  friend void swap(GetBlockLocationRequest& a, GetBlockLocationRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetBlockLocationsRequest* other) {
+  inline void Swap(GetBlockLocationRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -243,7 +251,7 @@ class GetBlockLocationsRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(GetBlockLocationsRequest* other) {
+  void UnsafeArenaSwap(GetBlockLocationRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -251,14 +259,14 @@ class GetBlockLocationsRequest final :
 
   // implements Message ----------------------------------------------
 
-  GetBlockLocationsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GetBlockLocationsRequest>(arena);
+  GetBlockLocationRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetBlockLocationRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const GetBlockLocationsRequest& from);
+  void CopyFrom(const GetBlockLocationRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const GetBlockLocationsRequest& from) {
-    GetBlockLocationsRequest::MergeImpl(*this, from);
+  void MergeFrom( const GetBlockLocationRequest& from) {
+    GetBlockLocationRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -276,15 +284,15 @@ class GetBlockLocationsRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(GetBlockLocationsRequest* other);
+  void InternalSwap(GetBlockLocationRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ClientNamenode.GetBlockLocationsRequest";
+    return "ClientNamenode.GetBlockLocationRequest";
   }
   protected:
-  explicit GetBlockLocationsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetBlockLocationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -334,7 +342,7 @@ class GetBlockLocationsRequest final :
   void _internal_set_length(uint64_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ClientNamenode.GetBlockLocationsRequest)
+  // @@protoc_insertion_point(class_scope:ClientNamenode.GetBlockLocationRequest)
  private:
   class _Internal;
 
@@ -475,23 +483,23 @@ class GetBlockLocationResponse final :
   enum : int {
     kLocationFieldNumber = 1,
   };
-  // optional .LocatedBlocks location = 1;
+  // optional .LocatedBlock location = 1;
   bool has_location() const;
   private:
   bool _internal_has_location() const;
   public:
   void clear_location();
-  const ::LocatedBlocks& location() const;
-  PROTOBUF_NODISCARD ::LocatedBlocks* release_location();
-  ::LocatedBlocks* mutable_location();
-  void set_allocated_location(::LocatedBlocks* location);
+  const ::LocatedBlock& location() const;
+  PROTOBUF_NODISCARD ::LocatedBlock* release_location();
+  ::LocatedBlock* mutable_location();
+  void set_allocated_location(::LocatedBlock* location);
   private:
-  const ::LocatedBlocks& _internal_location() const;
-  ::LocatedBlocks* _internal_mutable_location();
+  const ::LocatedBlock& _internal_location() const;
+  ::LocatedBlock* _internal_mutable_location();
   public:
   void unsafe_arena_set_allocated_location(
-      ::LocatedBlocks* location);
-  ::LocatedBlocks* unsafe_arena_release_location();
+      ::LocatedBlock* location);
+  ::LocatedBlock* unsafe_arena_release_location();
 
   // @@protoc_insertion_point(class_scope:ClientNamenode.GetBlockLocationResponse)
  private:
@@ -503,7 +511,318 @@ class GetBlockLocationResponse final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::LocatedBlocks* location_;
+    ::LocatedBlock* location_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ClientNamenode_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetFileBlockLocationsRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ClientNamenode.GetFileBlockLocationsRequest) */ {
+ public:
+  inline GetFileBlockLocationsRequest() : GetFileBlockLocationsRequest(nullptr) {}
+  ~GetFileBlockLocationsRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetFileBlockLocationsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetFileBlockLocationsRequest(const GetFileBlockLocationsRequest& from);
+  GetFileBlockLocationsRequest(GetFileBlockLocationsRequest&& from) noexcept
+    : GetFileBlockLocationsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetFileBlockLocationsRequest& operator=(const GetFileBlockLocationsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetFileBlockLocationsRequest& operator=(GetFileBlockLocationsRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetFileBlockLocationsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetFileBlockLocationsRequest* internal_default_instance() {
+    return reinterpret_cast<const GetFileBlockLocationsRequest*>(
+               &_GetFileBlockLocationsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(GetFileBlockLocationsRequest& a, GetFileBlockLocationsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetFileBlockLocationsRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetFileBlockLocationsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetFileBlockLocationsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFileBlockLocationsRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetFileBlockLocationsRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const GetFileBlockLocationsRequest& from) {
+    GetFileBlockLocationsRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetFileBlockLocationsRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ClientNamenode.GetFileBlockLocationsRequest";
+  }
+  protected:
+  explicit GetFileBlockLocationsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSrcFieldNumber = 1,
+  };
+  // string src = 1;
+  void clear_src();
+  const std::string& src() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_src(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_src();
+  PROTOBUF_NODISCARD std::string* release_src();
+  void set_allocated_src(std::string* src);
+  private:
+  const std::string& _internal_src() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_src(const std::string& value);
+  std::string* _internal_mutable_src();
+  public:
+
+  // @@protoc_insertion_point(class_scope:ClientNamenode.GetFileBlockLocationsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr src_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ClientNamenode_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetFileBlockLocationsResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ClientNamenode.GetFileBlockLocationsResponse) */ {
+ public:
+  inline GetFileBlockLocationsResponse() : GetFileBlockLocationsResponse(nullptr) {}
+  ~GetFileBlockLocationsResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetFileBlockLocationsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetFileBlockLocationsResponse(const GetFileBlockLocationsResponse& from);
+  GetFileBlockLocationsResponse(GetFileBlockLocationsResponse&& from) noexcept
+    : GetFileBlockLocationsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetFileBlockLocationsResponse& operator=(const GetFileBlockLocationsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetFileBlockLocationsResponse& operator=(GetFileBlockLocationsResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetFileBlockLocationsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetFileBlockLocationsResponse* internal_default_instance() {
+    return reinterpret_cast<const GetFileBlockLocationsResponse*>(
+               &_GetFileBlockLocationsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(GetFileBlockLocationsResponse& a, GetFileBlockLocationsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetFileBlockLocationsResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetFileBlockLocationsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetFileBlockLocationsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFileBlockLocationsResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetFileBlockLocationsResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const GetFileBlockLocationsResponse& from) {
+    GetFileBlockLocationsResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetFileBlockLocationsResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ClientNamenode.GetFileBlockLocationsResponse";
+  }
+  protected:
+  explicit GetFileBlockLocationsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLocationsFieldNumber = 1,
+  };
+  // optional .LocatedBlocks locations = 1;
+  bool has_locations() const;
+  private:
+  bool _internal_has_locations() const;
+  public:
+  void clear_locations();
+  const ::LocatedBlocks& locations() const;
+  PROTOBUF_NODISCARD ::LocatedBlocks* release_locations();
+  ::LocatedBlocks* mutable_locations();
+  void set_allocated_locations(::LocatedBlocks* locations);
+  private:
+  const ::LocatedBlocks& _internal_locations() const;
+  ::LocatedBlocks* _internal_mutable_locations();
+  public:
+  void unsafe_arena_set_allocated_locations(
+      ::LocatedBlocks* locations);
+  ::LocatedBlocks* unsafe_arena_release_locations();
+
+  // @@protoc_insertion_point(class_scope:ClientNamenode.GetFileBlockLocationsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::LocatedBlocks* locations_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_ClientNamenode_2eproto;
@@ -557,7 +876,7 @@ class GetServerDefaultsRequest final :
                &_GetServerDefaultsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(GetServerDefaultsRequest& a, GetServerDefaultsRequest& b) {
     a.Swap(&b);
@@ -676,7 +995,7 @@ class GetServerDefaultsResponse final :
                &_GetServerDefaultsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(GetServerDefaultsResponse& a, GetServerDefaultsResponse& b) {
     a.Swap(&b);
@@ -833,7 +1152,7 @@ class CreateRequest final :
                &_CreateRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(CreateRequest& a, CreateRequest& b) {
     a.Swap(&b);
@@ -1055,7 +1374,7 @@ class CreateResponse final :
                &_CreateResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(CreateResponse& a, CreateResponse& b) {
     a.Swap(&b);
@@ -1213,7 +1532,7 @@ class AppendRequest final :
                &_AppendRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(AppendRequest& a, AppendRequest& b) {
     a.Swap(&b);
@@ -1382,7 +1701,7 @@ class AppendResponse final :
                &_AppendResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(AppendResponse& a, AppendResponse& b) {
     a.Swap(&b);
@@ -1540,7 +1859,7 @@ class RenameRequest final :
                &_RenameRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(RenameRequest& a, RenameRequest& b) {
     a.Swap(&b);
@@ -1709,7 +2028,7 @@ class RenameResponse final :
                &_RenameResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(RenameResponse& a, RenameResponse& b) {
     a.Swap(&b);
@@ -1857,7 +2176,7 @@ class DeleteRequest final :
                &_DeleteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(DeleteRequest& a, DeleteRequest& b) {
     a.Swap(&b);
@@ -2021,7 +2340,7 @@ class DeleteResponse final :
                &_DeleteResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(DeleteResponse& a, DeleteResponse& b) {
     a.Swap(&b);
@@ -2169,7 +2488,7 @@ class SetPermissionRequest final :
                &_SetPermissionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(SetPermissionRequest& a, SetPermissionRequest& b) {
     a.Swap(&b);
@@ -2341,7 +2660,7 @@ class SetPermissionResponse final :
                &_SetPermissionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(SetPermissionResponse& a, SetPermissionResponse& b) {
     a.Swap(&b);
@@ -2460,7 +2779,7 @@ class SetOwnerRequest final :
                &_SetOwnerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(SetOwnerRequest& a, SetOwnerRequest& b) {
     a.Swap(&b);
@@ -2653,7 +2972,7 @@ class SetOwnerResponse final :
                &_SetOwnerResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(SetOwnerResponse& a, SetOwnerResponse& b) {
     a.Swap(&b);
@@ -2772,7 +3091,7 @@ class AddBlockRequest final :
                &_AddBlockRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(AddBlockRequest& a, AddBlockRequest& b) {
     a.Swap(&b);
@@ -3003,7 +3322,7 @@ class AddBlockResponse final :
                &_AddBlockResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(AddBlockResponse& a, AddBlockResponse& b) {
     a.Swap(&b);
@@ -3160,7 +3479,7 @@ class mkdirRequest final :
                &_mkdirRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(mkdirRequest& a, mkdirRequest& b) {
     a.Swap(&b);
@@ -3344,7 +3663,7 @@ class mkdirResponse final :
                &_mkdirResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(mkdirResponse& a, mkdirResponse& b) {
     a.Swap(&b);
@@ -3492,7 +3811,7 @@ class GetListingRequest final :
                &_GetListingRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(GetListingRequest& a, GetListingRequest& b) {
     a.Swap(&b);
@@ -3672,7 +3991,7 @@ class GetListingResponse final :
                &_GetListingResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(GetListingResponse& a, GetListingResponse& b) {
     a.Swap(&b);
@@ -3830,7 +4149,7 @@ class RenewLeaseRequest final :
                &_RenewLeaseRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(RenewLeaseRequest& a, RenewLeaseRequest& b) {
     a.Swap(&b);
@@ -3982,7 +4301,7 @@ class RenewLeaseResponse final :
                &_RenewLeaseResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(RenewLeaseResponse& a, RenewLeaseResponse& b) {
     a.Swap(&b);
@@ -4060,44 +4379,44 @@ class RenewLeaseResponse final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// GetBlockLocationsRequest
+// GetBlockLocationRequest
 
 // string src = 1;
-inline void GetBlockLocationsRequest::clear_src() {
+inline void GetBlockLocationRequest::clear_src() {
   _impl_.src_.ClearToEmpty();
 }
-inline const std::string& GetBlockLocationsRequest::src() const {
-  // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationsRequest.src)
+inline const std::string& GetBlockLocationRequest::src() const {
+  // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationRequest.src)
   return _internal_src();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void GetBlockLocationsRequest::set_src(ArgT0&& arg0, ArgT... args) {
+void GetBlockLocationRequest::set_src(ArgT0&& arg0, ArgT... args) {
  
  _impl_.src_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:ClientNamenode.GetBlockLocationsRequest.src)
+  // @@protoc_insertion_point(field_set:ClientNamenode.GetBlockLocationRequest.src)
 }
-inline std::string* GetBlockLocationsRequest::mutable_src() {
+inline std::string* GetBlockLocationRequest::mutable_src() {
   std::string* _s = _internal_mutable_src();
-  // @@protoc_insertion_point(field_mutable:ClientNamenode.GetBlockLocationsRequest.src)
+  // @@protoc_insertion_point(field_mutable:ClientNamenode.GetBlockLocationRequest.src)
   return _s;
 }
-inline const std::string& GetBlockLocationsRequest::_internal_src() const {
+inline const std::string& GetBlockLocationRequest::_internal_src() const {
   return _impl_.src_.Get();
 }
-inline void GetBlockLocationsRequest::_internal_set_src(const std::string& value) {
+inline void GetBlockLocationRequest::_internal_set_src(const std::string& value) {
   
   _impl_.src_.Set(value, GetArenaForAllocation());
 }
-inline std::string* GetBlockLocationsRequest::_internal_mutable_src() {
+inline std::string* GetBlockLocationRequest::_internal_mutable_src() {
   
   return _impl_.src_.Mutable(GetArenaForAllocation());
 }
-inline std::string* GetBlockLocationsRequest::release_src() {
-  // @@protoc_insertion_point(field_release:ClientNamenode.GetBlockLocationsRequest.src)
+inline std::string* GetBlockLocationRequest::release_src() {
+  // @@protoc_insertion_point(field_release:ClientNamenode.GetBlockLocationRequest.src)
   return _impl_.src_.Release();
 }
-inline void GetBlockLocationsRequest::set_allocated_src(std::string* src) {
+inline void GetBlockLocationRequest::set_allocated_src(std::string* src) {
   if (src != nullptr) {
     
   } else {
@@ -4109,54 +4428,54 @@ inline void GetBlockLocationsRequest::set_allocated_src(std::string* src) {
     _impl_.src_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:ClientNamenode.GetBlockLocationsRequest.src)
+  // @@protoc_insertion_point(field_set_allocated:ClientNamenode.GetBlockLocationRequest.src)
 }
 
 // uint64 offset = 2;
-inline void GetBlockLocationsRequest::clear_offset() {
+inline void GetBlockLocationRequest::clear_offset() {
   _impl_.offset_ = uint64_t{0u};
 }
-inline uint64_t GetBlockLocationsRequest::_internal_offset() const {
+inline uint64_t GetBlockLocationRequest::_internal_offset() const {
   return _impl_.offset_;
 }
-inline uint64_t GetBlockLocationsRequest::offset() const {
-  // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationsRequest.offset)
+inline uint64_t GetBlockLocationRequest::offset() const {
+  // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationRequest.offset)
   return _internal_offset();
 }
-inline void GetBlockLocationsRequest::_internal_set_offset(uint64_t value) {
+inline void GetBlockLocationRequest::_internal_set_offset(uint64_t value) {
   
   _impl_.offset_ = value;
 }
-inline void GetBlockLocationsRequest::set_offset(uint64_t value) {
+inline void GetBlockLocationRequest::set_offset(uint64_t value) {
   _internal_set_offset(value);
-  // @@protoc_insertion_point(field_set:ClientNamenode.GetBlockLocationsRequest.offset)
+  // @@protoc_insertion_point(field_set:ClientNamenode.GetBlockLocationRequest.offset)
 }
 
 // uint64 length = 3;
-inline void GetBlockLocationsRequest::clear_length() {
+inline void GetBlockLocationRequest::clear_length() {
   _impl_.length_ = uint64_t{0u};
 }
-inline uint64_t GetBlockLocationsRequest::_internal_length() const {
+inline uint64_t GetBlockLocationRequest::_internal_length() const {
   return _impl_.length_;
 }
-inline uint64_t GetBlockLocationsRequest::length() const {
-  // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationsRequest.length)
+inline uint64_t GetBlockLocationRequest::length() const {
+  // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationRequest.length)
   return _internal_length();
 }
-inline void GetBlockLocationsRequest::_internal_set_length(uint64_t value) {
+inline void GetBlockLocationRequest::_internal_set_length(uint64_t value) {
   
   _impl_.length_ = value;
 }
-inline void GetBlockLocationsRequest::set_length(uint64_t value) {
+inline void GetBlockLocationRequest::set_length(uint64_t value) {
   _internal_set_length(value);
-  // @@protoc_insertion_point(field_set:ClientNamenode.GetBlockLocationsRequest.length)
+  // @@protoc_insertion_point(field_set:ClientNamenode.GetBlockLocationRequest.length)
 }
 
 // -------------------------------------------------------------------
 
 // GetBlockLocationResponse
 
-// optional .LocatedBlocks location = 1;
+// optional .LocatedBlock location = 1;
 inline bool GetBlockLocationResponse::_internal_has_location() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.location_ != nullptr);
@@ -4165,17 +4484,17 @@ inline bool GetBlockLocationResponse::_internal_has_location() const {
 inline bool GetBlockLocationResponse::has_location() const {
   return _internal_has_location();
 }
-inline const ::LocatedBlocks& GetBlockLocationResponse::_internal_location() const {
-  const ::LocatedBlocks* p = _impl_.location_;
-  return p != nullptr ? *p : reinterpret_cast<const ::LocatedBlocks&>(
-      ::_LocatedBlocks_default_instance_);
+inline const ::LocatedBlock& GetBlockLocationResponse::_internal_location() const {
+  const ::LocatedBlock* p = _impl_.location_;
+  return p != nullptr ? *p : reinterpret_cast<const ::LocatedBlock&>(
+      ::_LocatedBlock_default_instance_);
 }
-inline const ::LocatedBlocks& GetBlockLocationResponse::location() const {
+inline const ::LocatedBlock& GetBlockLocationResponse::location() const {
   // @@protoc_insertion_point(field_get:ClientNamenode.GetBlockLocationResponse.location)
   return _internal_location();
 }
 inline void GetBlockLocationResponse::unsafe_arena_set_allocated_location(
-    ::LocatedBlocks* location) {
+    ::LocatedBlock* location) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.location_);
   }
@@ -4187,9 +4506,9 @@ inline void GetBlockLocationResponse::unsafe_arena_set_allocated_location(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ClientNamenode.GetBlockLocationResponse.location)
 }
-inline ::LocatedBlocks* GetBlockLocationResponse::release_location() {
+inline ::LocatedBlock* GetBlockLocationResponse::release_location() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::LocatedBlocks* temp = _impl_.location_;
+  ::LocatedBlock* temp = _impl_.location_;
   _impl_.location_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4202,27 +4521,27 @@ inline ::LocatedBlocks* GetBlockLocationResponse::release_location() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::LocatedBlocks* GetBlockLocationResponse::unsafe_arena_release_location() {
+inline ::LocatedBlock* GetBlockLocationResponse::unsafe_arena_release_location() {
   // @@protoc_insertion_point(field_release:ClientNamenode.GetBlockLocationResponse.location)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::LocatedBlocks* temp = _impl_.location_;
+  ::LocatedBlock* temp = _impl_.location_;
   _impl_.location_ = nullptr;
   return temp;
 }
-inline ::LocatedBlocks* GetBlockLocationResponse::_internal_mutable_location() {
+inline ::LocatedBlock* GetBlockLocationResponse::_internal_mutable_location() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.location_ == nullptr) {
-    auto* p = CreateMaybeMessage<::LocatedBlocks>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::LocatedBlock>(GetArenaForAllocation());
     _impl_.location_ = p;
   }
   return _impl_.location_;
 }
-inline ::LocatedBlocks* GetBlockLocationResponse::mutable_location() {
-  ::LocatedBlocks* _msg = _internal_mutable_location();
+inline ::LocatedBlock* GetBlockLocationResponse::mutable_location() {
+  ::LocatedBlock* _msg = _internal_mutable_location();
   // @@protoc_insertion_point(field_mutable:ClientNamenode.GetBlockLocationResponse.location)
   return _msg;
 }
-inline void GetBlockLocationResponse::set_allocated_location(::LocatedBlocks* location) {
+inline void GetBlockLocationResponse::set_allocated_location(::LocatedBlock* location) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.location_);
@@ -4241,6 +4560,151 @@ inline void GetBlockLocationResponse::set_allocated_location(::LocatedBlocks* lo
   }
   _impl_.location_ = location;
   // @@protoc_insertion_point(field_set_allocated:ClientNamenode.GetBlockLocationResponse.location)
+}
+
+// -------------------------------------------------------------------
+
+// GetFileBlockLocationsRequest
+
+// string src = 1;
+inline void GetFileBlockLocationsRequest::clear_src() {
+  _impl_.src_.ClearToEmpty();
+}
+inline const std::string& GetFileBlockLocationsRequest::src() const {
+  // @@protoc_insertion_point(field_get:ClientNamenode.GetFileBlockLocationsRequest.src)
+  return _internal_src();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetFileBlockLocationsRequest::set_src(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.src_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ClientNamenode.GetFileBlockLocationsRequest.src)
+}
+inline std::string* GetFileBlockLocationsRequest::mutable_src() {
+  std::string* _s = _internal_mutable_src();
+  // @@protoc_insertion_point(field_mutable:ClientNamenode.GetFileBlockLocationsRequest.src)
+  return _s;
+}
+inline const std::string& GetFileBlockLocationsRequest::_internal_src() const {
+  return _impl_.src_.Get();
+}
+inline void GetFileBlockLocationsRequest::_internal_set_src(const std::string& value) {
+  
+  _impl_.src_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetFileBlockLocationsRequest::_internal_mutable_src() {
+  
+  return _impl_.src_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetFileBlockLocationsRequest::release_src() {
+  // @@protoc_insertion_point(field_release:ClientNamenode.GetFileBlockLocationsRequest.src)
+  return _impl_.src_.Release();
+}
+inline void GetFileBlockLocationsRequest::set_allocated_src(std::string* src) {
+  if (src != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.src_.SetAllocated(src, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.src_.IsDefault()) {
+    _impl_.src_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ClientNamenode.GetFileBlockLocationsRequest.src)
+}
+
+// -------------------------------------------------------------------
+
+// GetFileBlockLocationsResponse
+
+// optional .LocatedBlocks locations = 1;
+inline bool GetFileBlockLocationsResponse::_internal_has_locations() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.locations_ != nullptr);
+  return value;
+}
+inline bool GetFileBlockLocationsResponse::has_locations() const {
+  return _internal_has_locations();
+}
+inline const ::LocatedBlocks& GetFileBlockLocationsResponse::_internal_locations() const {
+  const ::LocatedBlocks* p = _impl_.locations_;
+  return p != nullptr ? *p : reinterpret_cast<const ::LocatedBlocks&>(
+      ::_LocatedBlocks_default_instance_);
+}
+inline const ::LocatedBlocks& GetFileBlockLocationsResponse::locations() const {
+  // @@protoc_insertion_point(field_get:ClientNamenode.GetFileBlockLocationsResponse.locations)
+  return _internal_locations();
+}
+inline void GetFileBlockLocationsResponse::unsafe_arena_set_allocated_locations(
+    ::LocatedBlocks* locations) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.locations_);
+  }
+  _impl_.locations_ = locations;
+  if (locations) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ClientNamenode.GetFileBlockLocationsResponse.locations)
+}
+inline ::LocatedBlocks* GetFileBlockLocationsResponse::release_locations() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::LocatedBlocks* temp = _impl_.locations_;
+  _impl_.locations_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::LocatedBlocks* GetFileBlockLocationsResponse::unsafe_arena_release_locations() {
+  // @@protoc_insertion_point(field_release:ClientNamenode.GetFileBlockLocationsResponse.locations)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::LocatedBlocks* temp = _impl_.locations_;
+  _impl_.locations_ = nullptr;
+  return temp;
+}
+inline ::LocatedBlocks* GetFileBlockLocationsResponse::_internal_mutable_locations() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.locations_ == nullptr) {
+    auto* p = CreateMaybeMessage<::LocatedBlocks>(GetArenaForAllocation());
+    _impl_.locations_ = p;
+  }
+  return _impl_.locations_;
+}
+inline ::LocatedBlocks* GetFileBlockLocationsResponse::mutable_locations() {
+  ::LocatedBlocks* _msg = _internal_mutable_locations();
+  // @@protoc_insertion_point(field_mutable:ClientNamenode.GetFileBlockLocationsResponse.locations)
+  return _msg;
+}
+inline void GetFileBlockLocationsResponse::set_allocated_locations(::LocatedBlocks* locations) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.locations_);
+  }
+  if (locations) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(locations));
+    if (message_arena != submessage_arena) {
+      locations = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, locations, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.locations_ = locations;
+  // @@protoc_insertion_point(field_set_allocated:ClientNamenode.GetFileBlockLocationsResponse.locations)
 }
 
 // -------------------------------------------------------------------
@@ -6226,6 +6690,10 @@ inline void RenewLeaseRequest::set_allocated_clientname(std::string* clientname)
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

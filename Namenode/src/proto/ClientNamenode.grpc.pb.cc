@@ -23,6 +23,7 @@ namespace ClientNamenode {
 
 static const char* ClientService_method_names[] = {
   "/ClientNamenode.ClientService/GetBlockLocation",
+  "/ClientNamenode.ClientService/GetFileBlockLocations",
   "/ClientNamenode.ClientService/GetServerDefaults",
   "/ClientNamenode.ClientService/Create",
   "/ClientNamenode.ClientService/Append",
@@ -44,38 +45,62 @@ std::unique_ptr< ClientService::Stub> ClientService::NewStub(const std::shared_p
 
 ClientService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_GetBlockLocation_(ClientService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetServerDefaults_(ClientService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Create_(ClientService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Append_(ClientService_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Rename_(ClientService_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Delete_(ClientService_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetPermission_(ClientService_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetOwner_(ClientService_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_AddBlock_(ClientService_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_mkdir_(ClientService_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Listing_(ClientService_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_RenewLease_(ClientService_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetFileBlockLocations_(ClientService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetServerDefaults_(ClientService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Create_(ClientService_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Append_(ClientService_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Rename_(ClientService_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Delete_(ClientService_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetPermission_(ClientService_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetOwner_(ClientService_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_AddBlock_(ClientService_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_mkdir_(ClientService_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Listing_(ClientService_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RenewLease_(ClientService_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status ClientService::Stub::GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::ClientNamenode::GetBlockLocationResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetBlockLocation_, context, request, response);
+::grpc::Status ClientService::Stub::GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::ClientNamenode::GetBlockLocationResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetBlockLocation_, context, request, response);
 }
 
-void ClientService::Stub::async::GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetBlockLocation_, context, request, response, std::move(f));
+void ClientService::Stub::async::GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetBlockLocation_, context, request, response, std::move(f));
 }
 
-void ClientService::Stub::async::GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+void ClientService::Stub::async::GetBlockLocation(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetBlockLocation_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* ClientService::Stub::PrepareAsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ClientNamenode::GetBlockLocationResponse, ::ClientNamenode::GetBlockLocationsRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetBlockLocation_, context, request);
+::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* ClientService::Stub::PrepareAsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ClientNamenode::GetBlockLocationResponse, ::ClientNamenode::GetBlockLocationRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetBlockLocation_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* ClientService::Stub::AsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetBlockLocationResponse>* ClientService::Stub::AsyncGetBlockLocationRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetBlockLocationRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncGetBlockLocationRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status ClientService::Stub::GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::ClientNamenode::GetFileBlockLocationsResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetFileBlockLocations_, context, request, response);
+}
+
+void ClientService::Stub::async::GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetFileBlockLocations_, context, request, response, std::move(f));
+}
+
+void ClientService::Stub::async::GetFileBlockLocations(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetFileBlockLocations_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>* ClientService::Stub::PrepareAsyncGetFileBlockLocationsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ClientNamenode::GetFileBlockLocationsResponse, ::ClientNamenode::GetFileBlockLocationsRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetFileBlockLocations_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::ClientNamenode::GetFileBlockLocationsResponse>* ClientService::Stub::AsyncGetFileBlockLocationsRaw(::grpc::ClientContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetFileBlockLocationsRaw(context, request, cq);
   result->StartCall();
   return result;
 }
@@ -337,15 +362,25 @@ ClientService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ClientService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::GetBlockLocationsRequest, ::ClientNamenode::GetBlockLocationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::GetBlockLocationRequest, ::ClientNamenode::GetBlockLocationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::ClientNamenode::GetBlockLocationsRequest* req,
+             const ::ClientNamenode::GetBlockLocationRequest* req,
              ::ClientNamenode::GetBlockLocationResponse* resp) {
                return service->GetBlockLocation(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ClientService_method_names[1],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::GetFileBlockLocationsRequest, ::ClientNamenode::GetFileBlockLocationsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ClientService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::ClientNamenode::GetFileBlockLocationsRequest* req,
+             ::ClientNamenode::GetFileBlockLocationsResponse* resp) {
+               return service->GetFileBlockLocations(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ClientService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::GetServerDefaultsRequest, ::ClientNamenode::GetServerDefaultsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -355,7 +390,7 @@ ClientService::Service::Service() {
                return service->GetServerDefaults(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[2],
+      ClientService_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::CreateRequest, ::ClientNamenode::CreateResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -365,7 +400,7 @@ ClientService::Service::Service() {
                return service->Create(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[3],
+      ClientService_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::AppendRequest, ::ClientNamenode::AppendResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -375,7 +410,7 @@ ClientService::Service::Service() {
                return service->Append(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[4],
+      ClientService_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::RenameRequest, ::ClientNamenode::RenameResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -385,7 +420,7 @@ ClientService::Service::Service() {
                return service->Rename(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[5],
+      ClientService_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::DeleteRequest, ::ClientNamenode::DeleteResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -395,7 +430,7 @@ ClientService::Service::Service() {
                return service->Delete(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[6],
+      ClientService_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::SetPermissionRequest, ::ClientNamenode::SetPermissionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -405,7 +440,7 @@ ClientService::Service::Service() {
                return service->SetPermission(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[7],
+      ClientService_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::SetOwnerRequest, ::ClientNamenode::SetOwnerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -415,7 +450,7 @@ ClientService::Service::Service() {
                return service->SetOwner(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[8],
+      ClientService_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::AddBlockRequest, ::ClientNamenode::AddBlockResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -425,7 +460,7 @@ ClientService::Service::Service() {
                return service->AddBlock(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[9],
+      ClientService_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::mkdirRequest, ::ClientNamenode::mkdirResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -435,7 +470,7 @@ ClientService::Service::Service() {
                return service->mkdir(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[10],
+      ClientService_method_names[11],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::GetListingRequest, ::ClientNamenode::GetListingResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -445,7 +480,7 @@ ClientService::Service::Service() {
                return service->Listing(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ClientService_method_names[11],
+      ClientService_method_names[12],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ClientService::Service, ::ClientNamenode::RenewLeaseRequest, ::ClientNamenode::RenewLeaseResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ClientService::Service* service,
@@ -459,7 +494,14 @@ ClientService::Service::Service() {
 ClientService::Service::~Service() {
 }
 
-::grpc::Status ClientService::Service::GetBlockLocation(::grpc::ServerContext* context, const ::ClientNamenode::GetBlockLocationsRequest* request, ::ClientNamenode::GetBlockLocationResponse* response) {
+::grpc::Status ClientService::Service::GetBlockLocation(::grpc::ServerContext* context, const ::ClientNamenode::GetBlockLocationRequest* request, ::ClientNamenode::GetBlockLocationResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ClientService::Service::GetFileBlockLocations(::grpc::ServerContext* context, const ::ClientNamenode::GetFileBlockLocationsRequest* request, ::ClientNamenode::GetFileBlockLocationsResponse* response) {
   (void) context;
   (void) request;
   (void) response;

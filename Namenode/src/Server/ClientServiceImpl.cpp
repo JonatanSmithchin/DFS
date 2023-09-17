@@ -9,7 +9,7 @@ ClientServiceImpl::~ClientServiceImpl() {
 }
 
 grpc::Status ClientServiceImpl::GetBlockLocation(::grpc::ServerContext *context,
-                                                 const ::ClientNamenode::GetBlockLocationsRequest *request,
+                                                 const ::ClientNamenode::GetBlockLocationRequest *request,
                                                  ::ClientNamenode::GetBlockLocationResponse *response) {
 
     return Service::GetBlockLocation(context, request, response);

@@ -17,7 +17,7 @@ public:
     ~ClientServiceImpl() override;
 
     grpc::Status
-    GetBlockLocation(::grpc::ServerContext *context, const ::ClientNamenode::GetBlockLocationsRequest *request,
+    GetBlockLocation(::grpc::ServerContext *context, const ::ClientNamenode::GetBlockLocationRequest *request,
                      ::ClientNamenode::GetBlockLocationResponse *response) override;
 
     grpc::Status
