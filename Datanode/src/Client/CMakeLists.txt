@@ -10,4 +10,3 @@ add_library(Client STATIC ${CLIENT})
 
 target_link_libraries(Client PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
         gRPC::gpr gRPC::grpc gRPC::grpc++ protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
-

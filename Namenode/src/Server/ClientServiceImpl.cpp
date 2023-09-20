@@ -15,6 +15,18 @@ grpc::Status ClientServiceImpl::GetBlockLocation(::grpc::ServerContext *context,
     return Service::GetBlockLocation(context, request, response);
 }
 
+grpc::Status ClientServiceImpl::GetFileBlockLocations(::grpc::ServerContext *context,
+                                                      const ::ClientNamenode::GetFileBlockLocationsRequest *request,
+                                                      ::ClientNamenode::GetFileBlockLocationsResponse *response) {
+    const auto& src= request->src();
+    auto blocks = new LocatedBlocks();
+    m_nameSystem->readLock();
+    blocks->CopyFrom(m_nameSystem->getBlocks(src));
+    m_nameSystem->readUnLock();
+    response->set_allocated_locations(blocks);
+    return Service::GetFileBlockLocations(context, request, response);
+}
+
 grpc::Status ClientServiceImpl::GetServerDefaults(::grpc::ServerContext *context,
                                                   const ::ClientNamenode::GetServerDefaultsRequest *request,
                                                   ::ClientNamenode::GetServerDefaultsResponse *response) {
@@ -60,6 +72,7 @@ grpc::Status ClientServiceImpl::Rename(::grpc::ServerContext *context, const ::C
     auto src = request->src();
     auto dest = request->dst();
     m_nameSystem->writeLock();
+
     m_nameSystem->writeUnlock();
     return Service::Rename(context, request, response);
 }
@@ -95,6 +108,13 @@ grpc::Status ClientServiceImpl::mkdir(::grpc::ServerContext *context, const ::Cl
 grpc::Status
 ClientServiceImpl::Listing(::grpc::ServerContext *context, const ::ClientNamenode::GetListingRequest *request,
                            ::ClientNamenode::GetListingResponse *response) {
+    const auto& src = request->src();
+    m_nameSystem->readLock();
+    auto res = m_nameSystem->list(src);
+    m_nameSystem->readUnLock();
+    auto list = new DirectoryListing();
+    for (auto it:res) {
+    }
     return Service::Listing(context, request, response);
 }
 
@@ -107,5 +127,6 @@ ClientServiceImpl::RenewLease(::grpc::ServerContext *context, const ::ClientName
 ClientServiceImpl::ClientServiceImpl(NameSystem *nameSystem):m_nameSystem(nameSystem) {
 
 }
+
 
 

@@ -21,6 +21,10 @@ public:
                      ::ClientNamenode::GetBlockLocationResponse *response) override;
 
     grpc::Status
+    GetFileBlockLocations(::grpc::ServerContext *context, const ::ClientNamenode::GetFileBlockLocationsRequest *request,
+                          ::ClientNamenode::GetFileBlockLocationsResponse *response) override;
+
+    grpc::Status
     GetServerDefaults(::grpc::ServerContext *context, const ::ClientNamenode::GetServerDefaultsRequest *request,
                       ::ClientNamenode::GetServerDefaultsResponse *response) override;
 

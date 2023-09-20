@@ -30,4 +30,4 @@ target_link_libraries(NameNode PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
 
 target_link_libraries(NameNode PRIVATE glog::glog yaml-cpp)
 
-target_link_libraries(NameNode PRIVATE dfsProto Server NameSystem DatanodeManager INode)
+target_link_libraries(NameNode PRIVATE dfsProto Server NameSystem DatanodeManager BlockManager INode)

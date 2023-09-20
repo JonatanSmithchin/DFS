@@ -126,7 +126,11 @@ INode *NameSystem::addFile(const string &path) {
 }
 
 bool NameSystem::removeFile(const string &path) {
-    return false;
+    auto p = findParent(path);
+    if (p == nullptr){
+        return false;
+    }
+    return p->removeChild(getFileName(path));
 }
 
 LocatedBlock* NameSystem::append(const string &path) {
@@ -135,26 +139,38 @@ LocatedBlock* NameSystem::append(const string &path) {
         return nullptr;
     } else{
         //TODO: blockManager构建block元数据
-        auto block = new Block();
 
-        block->set_blockid(blockId++);
-        block->set_generationstamp(
-                std::chrono::duration_cast<std::chrono::milliseconds>(
-                        std::chrono::system_clock::now().time_since_epoch()).count()
-        );
+//        auto block = new Block();
+//
+//        block->set_blockid(blockId++);
+//        block->set_generationstamp(
+//                std::chrono::duration_cast<std::chrono::milliseconds>(
+//                        std::chrono::system_clock::now().time_since_epoch()).count()
+//        );
+//
+//        //选择datanode构造locatedBlock
+//        auto locatedBlock = new LocatedBlock();
+//        locatedBlock->set_allocated_block(block);
+//        auto datanode = locatedBlock->add_locs();
+        auto datanode = m_datanodeManager->chooseDatanode(std::to_string(file->getId()));
 
-        //选择datanode构造locatedBlock
+        auto lblock = m_blockManager->addBlock(blockId++,std::vector<std::string>{datanode->id().datanodeuuid()},BLOCK_SIZE,path);
+//        dynamic_cast<INodeFile*>(file)->addBlock(lblock);
+
         auto locatedBlock = new LocatedBlock();
-        locatedBlock->set_allocated_block(block);
-        auto datanode = locatedBlock->add_locs();
-        datanode->CopyFrom(*m_datanodeManager->chooseDatanode(std::to_string(file->getId())));
+        locatedBlock->CopyFrom(*lblock);
 
         return locatedBlock;
     }
 }
 
 INode *NameSystem::addDir(const string &path) {
-    return nullptr;
+    auto p = findParent(path);
+    auto dir = new INodeDir();
+    //TODO: INodeDir构造函数
+    dir->setFullPathName(path);
+    p->addChild(dir);
+    return dir;
 }
 
 vector<INode *> NameSystem::list(const string &path) {
@@ -164,6 +180,21 @@ vector<INode *> NameSystem::list(const string &path) {
     }
     return dynamic_cast<INodeDir*>(dir)->getChildren();
 }
+
+LocatedBlocks NameSystem::getBlocks(const string &path) {
+    //    auto file = find(path);
+//    if (file != nullptr && file->isFile()){
+//        auto map = dynamic_cast<INodeFile*>(file)->getBlocks();
+//        auto blocks = new LocatedBlocks();
+//        for (auto it : map){
+//            auto block = blocks->add_blocks();
+//            block->set_allocated_block();
+//        }
+//        return blocks;
+//    }
+    return m_blockManager->getALLBlock(path);
+}
+
 
 
 
