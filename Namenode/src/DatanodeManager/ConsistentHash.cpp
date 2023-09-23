@@ -2,10 +2,12 @@
 // Created by lxx18 on 2023/8/24.
 //
 
+#include <yaml-cpp/yaml.h>
 #include "../../include/DatanodeManager/ConsistentHash.h"
 
 ConsistentHash::ConsistentHash() {
-    m_replicas = 3;
+    YAML::Node node = YAML::LoadFile("../configs/NamenodeConfig.yaml");
+    m_replicas = node["replicas"].as<int>();
 }
 
 ConsistentHash::ConsistentHash(int replicas) {

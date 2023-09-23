@@ -20,15 +20,14 @@ DatanodeClient *DFSClient::getDatanode(const std::string &ipAddr) {
 void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
     std::fstream input(file,std::ios::in|std::ios::binary);
 
-    FileUtils::SplitFile(&input);
+    FileUtils::SplitFile(&input,UPLOAD_TEMP_FILE_DIR);
     //申请创建文件
     if(!m_namenodeClient->create(dst)){
         return;
     }
 
     //获取已经分割的所有暂存数据块
-    //TODO: 配置暂存文件路径
-    auto blocks = FileUtils::getFiles("/mnt/d/test/temp");
+    auto blocks = FileUtils::getFiles(UPLOAD_TEMP_FILE_DIR);
     //添加数据块
     for (const auto& blk:blocks){
         auto block = m_namenodeClient->append(dst);
@@ -62,9 +61,9 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
     for (int i = 0; i < file_blocks->blocks_size(); ++i) {
         const LocatedBlock& file_block = file_blocks->blocks(i);
         google::protobuf::uint64 block_id = file_block.block().blockid();
+
         // 下载文件块并放入set
-        std::string temp=std::to_string(i)+".temp";
-        temp="/chen"+temp;  // 随便写了一个，要改成别的路径！！！！
+        std::string temp = DOWNLOAD_TEMP_FILE_DIR + "temp-" + std::to_string(i); 
         m_datanodeClient->downloadBlock(temp,block_id);
         temp_file f(file_block.offset(),temp);
         temp_files.insert(f);

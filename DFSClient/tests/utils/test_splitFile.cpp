@@ -8,7 +8,7 @@
 
 TEST(TEST_SPLITFile,test_splitFile1){
     std::fstream input("/mnt/d/test/test128M.jpg",std::ios::in);
-    FileUtils::SplitFile(&input);
+    FileUtils::SplitFile(&input,"/mnt/d/test/temp/upload");
 }
 
 TEST(TEST_MERGEFILE,test_mergeFile1){
@@ -21,7 +21,7 @@ TEST(TEST_MERGEFILE,test_mergeFile1){
 }
 
 TEST(TEST_GETFILES,test_getFiles){
-    auto res = FileUtils::getFiles("/mnt/d/test/temp");
+    auto res = FileUtils::getFiles("/mnt/d/test/temp/upload");
     for (auto it:res){
         std::cout << it;
     }

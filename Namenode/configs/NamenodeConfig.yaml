@@ -1,0 +1,9 @@
+# 
+# Created by cyt on 2023/9/22.
+# 
+
+# NameNode:
+server_port: 8500
+first_block_id: 114514
+replicas: 3
+

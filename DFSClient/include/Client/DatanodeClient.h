@@ -5,9 +5,10 @@
 #ifndef DFSCLIENT_DATANODECLIENT_H
 #define DFSCLIENT_DATANODECLIENT_H
 
-#define CHUNK_SIZE 1024 * 1024
+// #define CHUNK_SIZE 1024 * 1024
 
 #include "proto/ClientDatanode.grpc.pb.h"
+#include "Client/ClientBase.h"
 #include <grpcpp/grpcpp.h>
 #include <vector>
 
@@ -16,7 +17,7 @@ using grpc::ClientContext;
 using grpc::Status;
 using namespace ClientDatanode;
 
-class DatanodeClient {
+class DatanodeClient : public ClientBase{
 private:
     std::unique_ptr<FileService::Stub> m_stub;
 public:

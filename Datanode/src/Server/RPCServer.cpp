@@ -2,6 +2,7 @@
 // Created by lxx18 on 2023/9/10.
 //
 
+#include <yaml-cpp/yaml.h>
 #include "grpcpp/grpcpp.h"
 #include "glog/logging.h"
 #include "Server/RPCServer.h"
@@ -16,7 +17,10 @@ RPCServer::RPCServer(ClientDatanodeServiceImpl *clientDatanodeService):m_clientS
 }
 
 void RPCServer::RunServer(){
-    std::string server_address("[::]:8501");
+    YAML::Node node = YAML::LoadFile("../configs/DatanodeConfig.yaml");
+    int SERVER_PORT = node["server_port"].as<int>();
+
+    std::string server_address = "[::]:" + std::to_string(SERVER_PORT);
 
     ServerBuilder builder;
 

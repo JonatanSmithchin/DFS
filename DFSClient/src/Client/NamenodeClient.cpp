@@ -11,7 +11,7 @@ NamenodeClient::NamenodeClient(std::shared_ptr<grpc::Channel> channel):m_stub(Cl
 bool NamenodeClient::create(const std::string &path) {
     ClientNamenode::CreateRequest request;
     request.set_src(path);
-    request.set_clientname("liuxiao");
+    request.set_clientname(CLIENT_NAME);
 
     ClientContext context;
 
@@ -28,7 +28,7 @@ bool NamenodeClient::create(const std::string &path) {
 LocatedBlock *NamenodeClient::append(const std::string &path) {
     ClientNamenode::AppendRequest request;
     request.set_src(path);
-    request.set_clientname("liuxiao");
+    request.set_clientname(CLIENT_NAME);
 
     ClientContext context;
 

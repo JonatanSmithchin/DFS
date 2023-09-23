@@ -1,0 +1,8 @@
+# 
+# Created by cyt on 2023/9/22.
+# 
+
+# DataNode:
+work_dir: "/mnt/d/test/rcv/"
+server_port: 8501
+client_port: 8500

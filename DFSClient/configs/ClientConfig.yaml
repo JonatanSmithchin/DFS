@@ -1,0 +1,14 @@
+# 
+# Created by cyt on 2023/9/22.
+# 
+
+# DFSClient:
+upload_temp_file_dir: "/mnt/d/test/temp/upload"
+download_temp_file_dir: "/mnt/d/test/temp/download"
+client_name: "liuxiao"
+chunk_size: 1048576 # 1024 * 1024
+buffer_size: 1048576 # 1024 * 1024
+block_size: 67108864 # 64 * 1024 * 1024
+
+
+

@@ -7,6 +7,8 @@ find_package(Protobuf REQUIRED)
 
 find_package(glog CONFIG REQUIRED)
 
+find_package(YAML-CPP REQUIRED)
+
 set(NAME_NODE_HOME ${CMAKE_CURRENT_SOURCE_DIR})
 
 enable_testing()
@@ -26,6 +28,6 @@ add_executable(NameNode ${SRC_DIRS})
 target_link_libraries(NameNode PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
         gRPC::gpr gRPC::grpc gRPC::grpc++ protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
-target_link_libraries(NameNode PRIVATE glog::glog)
+target_link_libraries(NameNode PRIVATE glog::glog yaml-cpp)
 
 target_link_libraries(NameNode PRIVATE dfsProto Server NameSystem DatanodeManager INode)

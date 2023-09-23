@@ -6,6 +6,7 @@
 #define DFSCLIENT_NAMENODECLIENT_H
 
 #include "proto/ClientNamenode.grpc.pb.h"
+#include "Client/ClientBase.h"
 #include <grpcpp/grpcpp.h>
 #include "memory"
 
@@ -14,7 +15,7 @@ using grpc::ClientContext;
 using grpc::Status;
 using namespace ClientNamenode;
 
-class NamenodeClient {
+class NamenodeClient : public ClientBase{
 private:
     std::unique_ptr<ClientService::Stub> m_stub;
 public:

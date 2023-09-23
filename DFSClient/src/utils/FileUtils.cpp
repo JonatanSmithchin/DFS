@@ -1,13 +1,19 @@
 //
 // Created by lxx18 on 2023/9/10.
 //
+
 #include <vector>
 #include <fstream>
 #include <filesystem>
+#include <yaml-cpp/yaml.h>
 #include "glog/logging.h"
 #include "utils/FileUtils.h"
 
 namespace FileUtils {
+
+    YAML::Node node = YAML::LoadFile("../configs/ClientConfig.yaml");
+    size_t BUFFER_SIZE = node["buffer_size"].as<size_t>();
+    size_t BLOCK_SIZE = node["block_size"].as<size_t>();
 
     uint32_t checkSum(const unsigned char *buf, size_t len) {
         auto ptr = (uintptr_t) buf;
@@ -36,7 +42,7 @@ namespace FileUtils {
         return (~sum) + 1;
     }
 
-    void SplitFile(std::fstream *input) {
+    void SplitFile(std::fstream *input, const std::string des_dir) {
         int blk_num = 0;
 
         size_t size = 0;
@@ -54,7 +60,8 @@ namespace FileUtils {
             if (cur_size == 0) {
                 break;
             }
-            const std::string &fileName = TEMP_PREFIX + std::to_string(blk_num++);
+            
+            const std::string &fileName = des_dir + "temp-" + std::to_string(blk_num++);
             std::fstream output(fileName, std::ios::out | std::ios::binary);
 
             if (!output.is_open()) {

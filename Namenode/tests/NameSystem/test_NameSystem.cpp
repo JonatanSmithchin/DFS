@@ -9,6 +9,6 @@ TEST(tes_get_prePath,test_get_prePath1){
     ASSERT_EQ("/hello/good", getPrePath("/hello/good/hello.txt"));
 }
 
-TEST(test_add_file,test_add_file1){
+// TEST(test_add_file,test_add_file1){
 
-}
+// }

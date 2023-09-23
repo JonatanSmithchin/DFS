@@ -38,29 +38,3 @@ public:
 private:
     std::unique_ptr<DatanodeService::Stub> stub_;
 };
-
-int main() {
-
-    auto* r = new DatanodeRegister;
-    auto* info = new DatanodeInfo;
-    auto* id = new DatanodeID;
-    std::string hostname = "127.0.0.1";
-    std::string uuid = "a1s2d3";
-    id->set_hostname(hostname);
-    id->set_datanodeuuid(uuid);
-    id->set_xferport(8501);
-    info->set_capacity(1024);
-    r->set_allocated_id(id);
-    r->set_allocated_info(info);
-
-
-    Client client(grpc::CreateChannel(
-            "localhost:4491", grpc::InsecureChannelCredentials()
-    ));
-
-    std::string reply;
-    reply = client.regist(r);
-    std::cout << "greeter received: " << reply << std::endl;
-
-    return 0;
-}

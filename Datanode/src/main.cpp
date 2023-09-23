@@ -4,6 +4,8 @@
 
 #include <grpcpp/grpcpp.h>
 #include <glog/logging.h>
+#include <yaml-cpp/yaml.h>
+
 #include "proto/DatanodeNamenode.grpc.pb.h"
 #include "Client/NamenodeClient.h"
 #include "Server/ClientDatanodeServiceImpl.h"
@@ -21,15 +23,20 @@ int main(int argc,char** argv) {
 
     LOG(INFO) << "Starting DataNode";
 
+    YAML::Node node = YAML::LoadFile("../configs/DatanodeConfig.yaml");
+    int CLIENT_PORT = node["client_port"].as<int>();
+
+    std::string client_addr = "localhost:" + std::to_string(CLIENT_PORT);
+
     NameNodeClient client(grpc::CreateChannel(
-            "localhost:8500", grpc::InsecureChannelCredentials()
+            client_addr, grpc::InsecureChannelCredentials()
     ));
 
     client.registration();
 
     client.run();
 
-    const std::string& work_dir = "/mnt/d/test/rcv/";
+    const std::string& work_dir = node["work_dir"].as<std::string>();
 
     ClientDatanodeServiceImpl ClientDatanodeService(work_dir);
 

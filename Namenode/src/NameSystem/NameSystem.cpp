@@ -2,10 +2,12 @@
 // Created by lxx18 on 2023/8/25.
 //
 
+#include <yaml-cpp/yaml.h>
 #include "NameSystem/NameSystem.h"
 #include "sstream"
 
-int blockId = 114514;
+YAML::Node node = YAML::LoadFile("../configs/NamenodeConfig.yaml");
+int blockId = node["first_block_id"].as<int>();
 
 vector<std::string> resolvePath(const string& path){
     std::stringstream ss(path);

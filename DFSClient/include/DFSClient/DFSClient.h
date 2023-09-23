@@ -10,10 +10,11 @@
 #include <vector>
 #include <set>
 
+#include "Client/ClientBase.h"
 #include "Client/DatanodeClient.h"
 #include "Client/NamenodeClient.h"
 
-class DFSClient {
+class DFSClient : public ClientBase{
 private:
     NamenodeClient* m_namenodeClient;
     DatanodeClient* m_datanodeClient;

@@ -15,7 +15,8 @@ DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel):
 void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
     transferBlockRequest request;
     transferBlockResponse response;
-    char data[CHUNK_SIZE];
+    // char data[CHUNK_SIZE];
+    std::vector<char> data(CHUNK_SIZE);
     ClientContext context;
 
     std::ifstream infile;
@@ -24,13 +25,14 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
     std::unique_ptr<grpc::ClientWriter<transferBlockRequest>> writer(m_stub->transferBlock(&context,&response));
     while (!infile.eof()){
 
-        infile.read(data,CHUNK_SIZE);
+        infile.read(data.data(),CHUNK_SIZE);
 
         long size = infile.gcount();
-        request.set_content(data,size);
+        // request.set_content(data,size);
+        request.set_content(data.data(),data.size());
         request.set_size(size);
         request.set_blockid(blockId);
-        request.set_checksum(FileUtils::checkSum((const unsigned char*)data,size));
+        request.set_checksum(FileUtils::checkSum((const unsigned char*)data.data(),size));
 
         if (!writer->Write(request)){
             break;
