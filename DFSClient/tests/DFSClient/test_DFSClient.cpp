@@ -21,3 +21,4 @@ TEST(TEST_DOWNLOAD,test_downloadFile){
     client->uploadFile("/good","/mnt/d/test/test128M.jpg");
     client->downloadFile("/mnt/d/test/download.jpg","/good");
 }
+
