@@ -16,6 +16,7 @@ using namespace DatanodeNamenode;
 
 class NameNodeClient{
 private:
+    DatanodeID* m_id;
     std::unique_ptr<DatanodeService::Stub> m_stub;
 
     [[noreturn]] void heartBeat();

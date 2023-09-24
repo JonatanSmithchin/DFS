@@ -41,7 +41,7 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
     writer->WritesDone();
     Status status  = writer->Finish();
     if (status.ok()){
-        std::cout << "Transfer blocks finished";
+        std::cout << "Transfer blocks finished" << std::endl;
     } else{
         std::cout << status.error_code() << status.error_message();
     }
@@ -53,15 +53,14 @@ void DatanodeClient::downloadBlock(const std::string& file,const google::protobu
     ClientContext context;
 
     std::ofstream outfile;
-    outfile.open(file,std::ofstream::app | std::ofstream::binary);
+    outfile.open(file,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
         
-    request.add_blockid(block_id);
+    request.set_blockid(block_id);
 
-    
     std::unique_ptr<grpc::ClientReader<downloadBlockResponse>> reader(m_stub->downloadBlock(&context,request));
 
     while (reader->Read(&response)) {
-        outfile.write(response.content().c_str(),sizeof(response.content()));
+        outfile.write(response.content().c_str(),response.size());
     }
 
     Status status  = reader->Finish();

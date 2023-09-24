@@ -9,11 +9,12 @@
 #include "proto/dfs.grpc.pb.h"
 
 NameNodeClient::NameNodeClient(std::shared_ptr<Channel> channel): m_stub(DatanodeService::NewStub(channel)) {
+    m_id = new DatanodeID();
 }
 
 void NameNodeClient::heartBeat(){
     while (true){
-        std::this_thread::sleep_for(std::chrono::seconds(60));
+        std::this_thread::sleep_for(std::chrono::seconds(10));
 
         LOG(INFO) << "sending heartbeat";
         auto cmds = sendHeartBeat();
@@ -40,7 +41,7 @@ void NameNodeClient::registration() {
     auto uuid = new std::string {std::to_string(hash(id))};
     id->set_allocated_datanodeuuid(uuid);
     id->set_xferport(8501);
-
+    m_id->CopyFrom(*id);
     auto info = new DatanodeInfo();
 
     info->set_allocated_id(id);
@@ -68,17 +69,11 @@ void NameNodeClient::registration() {
 
 std::vector<DatanodeCommand> NameNodeClient::sendHeartBeat() {
 
-    auto id = new DatanodeID();
-    std::string hostname,ip;
-    GetHostInfo(hostname,ip);
-    id->set_ipaddr(ip);
-    id->set_hostname(hostname);
 
     //TODO: 根据配置读取其他信息
-    std::hash<DatanodeID*> hash;
 
-    auto uuid = new std::string {std::to_string(hash(id))};
-    id->set_allocated_datanodeuuid(uuid);
+    auto id = new DatanodeID();
+    id->CopyFrom(*m_id);
 
     auto info = new DatanodeInfo();
 

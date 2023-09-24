@@ -80,7 +80,8 @@ INodeFile *NameSystem::constructFile(const string &path) {
     return file;
 }
 
-NameSystem::NameSystem(INodeDir *root, DatanodeManager *manager):m_root(root),m_datanodeManager(manager) {
+NameSystem::NameSystem(INodeDir *root, DatanodeManager *manager, BlockManager *blockManager)
+    :m_root(root),m_datanodeManager(manager),m_blockManager(blockManager) {
     readCount = 0;
     workingDir = m_root;
 }
@@ -119,10 +120,12 @@ INode *NameSystem::addFile(const string &path) {
     if (p == nullptr){
         return p;
     }
-    auto f = constructFile(path);
-    p->addChild(f);
-
-    return f;
+    if (m_blockManager->create(path)){
+        auto f = constructFile(path);
+        p->addChild(f);
+        return f;
+    }
+    return nullptr;
 }
 
 bool NameSystem::removeFile(const string &path) {
@@ -154,8 +157,8 @@ LocatedBlock* NameSystem::append(const string &path) {
 //        auto datanode = locatedBlock->add_locs();
         auto datanode = m_datanodeManager->chooseDatanode(std::to_string(file->getId()));
 
-        auto lblock = m_blockManager->addBlock(blockId++,std::vector<std::string>{datanode->id().datanodeuuid()},BLOCK_SIZE,path);
-//        dynamic_cast<INodeFile*>(file)->addBlock(lblock);
+        auto lblock = m_blockManager->addBlock(blockId++,std::vector<DatanodeInfo*>{datanode},BLOCK_SIZE,path);
+//      dynamic_cast<INodeFile*>(file)->addBlock(lblock);
 
         auto locatedBlock = new LocatedBlock();
         locatedBlock->CopyFrom(*lblock);
@@ -181,7 +184,7 @@ vector<INode *> NameSystem::list(const string &path) {
     return dynamic_cast<INodeDir*>(dir)->getChildren();
 }
 
-LocatedBlocks NameSystem::getBlocks(const string &path) {
+LocatedBlocks* NameSystem::getBlocks(const string &path) {
     //    auto file = find(path);
 //    if (file != nullptr && file->isFile()){
 //        auto map = dynamic_cast<INodeFile*>(file)->getBlocks();

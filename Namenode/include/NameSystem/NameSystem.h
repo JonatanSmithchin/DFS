@@ -25,7 +25,7 @@ private:
     INodeDir* findParent(const std::string& path);
     static INodeFile* constructFile(const std::string& path);
 public:
-    NameSystem(INodeDir* root,DatanodeManager* manager);
+    NameSystem(INodeDir* root,DatanodeManager* manager,BlockManager* blockManager);
     void readLock();
     void writeLock();
     void readUnLock();
@@ -34,7 +34,7 @@ public:
     INode* addFile(const std::string& path);
     bool removeFile(const std::string& path);
     LocatedBlock* append(const std::string& path);
-    LocatedBlocks getBlocks(const std::string& path);
+    LocatedBlocks* getBlocks(const std::string& path);
     INode* addDir(const std::string& path);
     vector<INode*> list(const std::string& path);
 };

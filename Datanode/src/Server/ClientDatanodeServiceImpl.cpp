@@ -41,7 +41,25 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
 grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *context,
                                                       const ::ClientDatanode::downloadBlockRequest *request,
                                                       ::grpc::ServerWriter<::ClientDatanode::downloadBlockResponse> *writer) {
-    return Service::downloadBlock(context, request, writer);
+    ClientDatanode::downloadBlockResponse response;
+    char data[CHUNK_SIZE];
+    std::ifstream infile;
+    auto file = "/mnt/d/test/rcv/"+std::to_string(request->blockid());
+    infile.open(file,std::ifstream::in|std::ifstream::binary);
+
+    while (!infile.eof()){
+        infile.read(data,CHUNK_SIZE);
+
+        long size = infile.gcount();
+
+        response.set_content(data,size);
+        response.set_checksum(checkSum((const unsigned char*)data, size));
+        response.set_size(size);
+
+        writer->Write(response);
+    }
+
+    return grpc::Status::OK;
 }
 
 ClientDatanodeServiceImpl::ClientDatanodeServiceImpl(const std::string& work_dir):m_work_dir(work_dir) {

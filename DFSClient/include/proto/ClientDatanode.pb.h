@@ -78,14 +78,14 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace ClientDatanode {
 
 enum transferStatus : int {
-  Unknown = 0,
+  Unknoen = 0,
   OK = 1,
   Failed = 2,
   transferStatus_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   transferStatus_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool transferStatus_IsValid(int value);
-constexpr transferStatus transferStatus_MIN = Unknown;
+constexpr transferStatus transferStatus_MIN = Unknoen;
 constexpr transferStatus transferStatus_MAX = Failed;
 constexpr int transferStatus_ARRAYSIZE = transferStatus_MAX + 1;
 
@@ -798,27 +798,14 @@ class downloadBlockRequest final :
   enum : int {
     kBlockIdFieldNumber = 1,
   };
-  // repeated uint64 blockId = 1;
-  int blockid_size() const;
-  private:
-  int _internal_blockid_size() const;
-  public:
+  // uint64 blockId = 1;
   void clear_blockid();
+  uint64_t blockid() const;
+  void set_blockid(uint64_t value);
   private:
-  uint64_t _internal_blockid(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-      _internal_blockid() const;
-  void _internal_add_blockid(uint64_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-      _internal_mutable_blockid();
+  uint64_t _internal_blockid() const;
+  void _internal_set_blockid(uint64_t value);
   public:
-  uint64_t blockid(int index) const;
-  void set_blockid(int index, uint64_t value);
-  void add_blockid(uint64_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-      blockid() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-      mutable_blockid();
 
   // @@protoc_insertion_point(class_scope:ClientDatanode.downloadBlockRequest)
  private:
@@ -828,8 +815,7 @@ class downloadBlockRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > blockid_;
-    mutable std::atomic<int> _blockid_cached_byte_size_;
+    uint64_t blockid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -961,6 +947,7 @@ class downloadBlockResponse final :
     kContentFieldNumber = 1,
     kCheckSumFieldNumber = 2,
     kStatusFieldNumber = 3,
+    kSizeFieldNumber = 4,
   };
   // bytes Content = 1;
   void clear_content();
@@ -994,6 +981,15 @@ class downloadBlockResponse final :
   void _internal_set_status(::ClientDatanode::transferStatus value);
   public:
 
+  // uint64 size = 4;
+  void clear_size();
+  uint64_t size() const;
+  void set_size(uint64_t value);
+  private:
+  uint64_t _internal_size() const;
+  void _internal_set_size(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ClientDatanode.downloadBlockResponse)
  private:
   class _Internal;
@@ -1005,6 +1001,7 @@ class downloadBlockResponse final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_;
     uint32_t checksum_;
     int status_;
+    uint64_t size_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1167,51 +1164,24 @@ inline void transferBlockResponse::set_status(::ClientDatanode::transferStatus v
 
 // downloadBlockRequest
 
-// repeated uint64 blockId = 1;
-inline int downloadBlockRequest::_internal_blockid_size() const {
-  return _impl_.blockid_.size();
-}
-inline int downloadBlockRequest::blockid_size() const {
-  return _internal_blockid_size();
-}
+// uint64 blockId = 1;
 inline void downloadBlockRequest::clear_blockid() {
-  _impl_.blockid_.Clear();
+  _impl_.blockid_ = uint64_t{0u};
 }
-inline uint64_t downloadBlockRequest::_internal_blockid(int index) const {
-  return _impl_.blockid_.Get(index);
-}
-inline uint64_t downloadBlockRequest::blockid(int index) const {
-  // @@protoc_insertion_point(field_get:ClientDatanode.downloadBlockRequest.blockId)
-  return _internal_blockid(index);
-}
-inline void downloadBlockRequest::set_blockid(int index, uint64_t value) {
-  _impl_.blockid_.Set(index, value);
-  // @@protoc_insertion_point(field_set:ClientDatanode.downloadBlockRequest.blockId)
-}
-inline void downloadBlockRequest::_internal_add_blockid(uint64_t value) {
-  _impl_.blockid_.Add(value);
-}
-inline void downloadBlockRequest::add_blockid(uint64_t value) {
-  _internal_add_blockid(value);
-  // @@protoc_insertion_point(field_add:ClientDatanode.downloadBlockRequest.blockId)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-downloadBlockRequest::_internal_blockid() const {
+inline uint64_t downloadBlockRequest::_internal_blockid() const {
   return _impl_.blockid_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-downloadBlockRequest::blockid() const {
-  // @@protoc_insertion_point(field_list:ClientDatanode.downloadBlockRequest.blockId)
+inline uint64_t downloadBlockRequest::blockid() const {
+  // @@protoc_insertion_point(field_get:ClientDatanode.downloadBlockRequest.blockId)
   return _internal_blockid();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-downloadBlockRequest::_internal_mutable_blockid() {
-  return &_impl_.blockid_;
+inline void downloadBlockRequest::_internal_set_blockid(uint64_t value) {
+  
+  _impl_.blockid_ = value;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-downloadBlockRequest::mutable_blockid() {
-  // @@protoc_insertion_point(field_mutable_list:ClientDatanode.downloadBlockRequest.blockId)
-  return _internal_mutable_blockid();
+inline void downloadBlockRequest::set_blockid(uint64_t value) {
+  _internal_set_blockid(value);
+  // @@protoc_insertion_point(field_set:ClientDatanode.downloadBlockRequest.blockId)
 }
 
 // -------------------------------------------------------------------
@@ -1306,6 +1276,26 @@ inline void downloadBlockResponse::_internal_set_status(::ClientDatanode::transf
 inline void downloadBlockResponse::set_status(::ClientDatanode::transferStatus value) {
   _internal_set_status(value);
   // @@protoc_insertion_point(field_set:ClientDatanode.downloadBlockResponse.status)
+}
+
+// uint64 size = 4;
+inline void downloadBlockResponse::clear_size() {
+  _impl_.size_ = uint64_t{0u};
+}
+inline uint64_t downloadBlockResponse::_internal_size() const {
+  return _impl_.size_;
+}
+inline uint64_t downloadBlockResponse::size() const {
+  // @@protoc_insertion_point(field_get:ClientDatanode.downloadBlockResponse.size)
+  return _internal_size();
+}
+inline void downloadBlockResponse::_internal_set_size(uint64_t value) {
+  
+  _impl_.size_ = value;
+}
+inline void downloadBlockResponse::set_size(uint64_t value) {
+  _internal_set_size(value);
+  // @@protoc_insertion_point(field_set:ClientDatanode.downloadBlockResponse.size)
 }
 
 #ifdef __GNUC__

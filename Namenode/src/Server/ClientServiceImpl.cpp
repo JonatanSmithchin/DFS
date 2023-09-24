@@ -21,10 +21,10 @@ grpc::Status ClientServiceImpl::GetFileBlockLocations(::grpc::ServerContext *con
     const auto& src= request->src();
     auto blocks = new LocatedBlocks();
     m_nameSystem->readLock();
-    blocks->CopyFrom(m_nameSystem->getBlocks(src));
+    blocks->CopyFrom(*m_nameSystem->getBlocks(src));
     m_nameSystem->readUnLock();
     response->set_allocated_locations(blocks);
-    return Service::GetFileBlockLocations(context, request, response);
+    return grpc::Status::OK;
 }
 
 grpc::Status ClientServiceImpl::GetServerDefaults(::grpc::ServerContext *context,
