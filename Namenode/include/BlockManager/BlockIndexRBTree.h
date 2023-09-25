@@ -31,9 +31,9 @@ public:
 	bool createCPHead(string Name, LocatedBlocks* blockMessage);//创建第一个冲突节点（链表头）
 	LocatedBlocks* inquireALL(BlockIndexRBTree** root, int x, string name);
 	LSMessage GetLeftSon();
-    BlockIndexRBTree();
 	BlockIndexRBTree(LocatedBlocks* nul);
 	BlockIndexRBTree(bool b, LocatedBlocks* nul);//root
 	BlockIndexRBTree(BlockIndexRBTree* Fa, int Key, LocatedBlocks* blockMesaage);
+	BlockIndexRBTree()
 };
 

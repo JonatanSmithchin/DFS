@@ -1,4 +1,4 @@
-#include "BlockManager/BlockIndexClashPoint.h"
+#include "BlockIndexClashPoint.h"
 #include <cstring>
 #include <string>
 #include <ctime>
@@ -7,7 +7,7 @@ BlockIndexClashPoint::BlockIndexClashPoint(LocatedBlocks* blockMessage, string N
     next = NULL;
 }
 bool BlockIndexClashPoint::insert(BlockIndexClashPoint* Head,LocatedBlocks* blockMessage, string Name) {
-    BlockIndexClashPoint a(blockMessage, Name);
+    BlockIndexClashPoint* a = new BlockIndexClashPoint(blockMessage, Name);
     BlockIndexClashPoint* temp = Head;
     if (temp->name == Name) {
         LocatedBlock* m = temp->BlockMessage->add_blocks();
@@ -46,7 +46,7 @@ bool BlockIndexClashPoint::insert(BlockIndexClashPoint* Head,LocatedBlocks* bloc
         }
         temp = temp->next;
     }
-    temp->next = &a;
+    temp->next = a;
     return true;
 }
 bool BlockIndexClashPoint::remove(BlockIndexClashPoint* Head, string Name) {
@@ -55,7 +55,7 @@ bool BlockIndexClashPoint::remove(BlockIndexClashPoint* Head, string Name) {
         Head->BlockMessage = Head->next->BlockMessage;
         BlockIndexClashPoint* a = Head->next;
         Head->next = Head->next->next;
-        free(&a);
+        delete a;
         return true;
     }
     if (Head->next == NULL) return false;
@@ -67,7 +67,7 @@ bool BlockIndexClashPoint::remove(BlockIndexClashPoint* Head, string Name) {
     if (x->next->name == Name) {
         BlockIndexClashPoint* a = x->next;
         x->next = x->next->next;
-        free(&a);
+        delete a;
         return true;
     }
     else return false;
@@ -84,5 +84,6 @@ LocatedBlocks* BlockIndexClashPoint::inquireALL(BlockIndexClashPoint* Head, stri
         n = n->next;
     }
     LocatedBlocks* fail;
+    fail = new LocatedBlocks;
     return fail;
 }

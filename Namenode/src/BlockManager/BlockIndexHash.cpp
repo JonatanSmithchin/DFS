@@ -1,14 +1,14 @@
-#include "BlockManager/BlockIndexHash.h"
+#include "BlockIndexHash.h"
 #include <string>
 BlockIndexHash::BlockIndexHash(LocatedBlocks* blockMessage) :BlockIndex(blockMessage) {
 	son = NULL;
 }
-BlockIndexHash::BlockIndexHash():BlockIndex() {
-    son = NULL;
+BlockIndexHash::BlockIndexHash() :BlockIndex() {
+	son = NULL;
 }
 bool BlockIndexHash::insert(string name, int xx, LocatedBlocks* blockMessage) {
     if(this->BlockMessage == nullptr) {
-        this->BlockMessage = blockMessage;
+		this->BlockMessage = blockMessage;
         this->name = name;
     }
 	else {
@@ -37,7 +37,6 @@ bool BlockIndexHash::insert(string name, int xx, LocatedBlocks* blockMessage) {
 		}
 	}
 }
-
 bool BlockIndexHash::checkRBTreeRoot() {
 	if (this->son == NULL) return false;
 	return true;
@@ -48,7 +47,6 @@ bool BlockIndexHash::createRBTreeRoot(string name, int xx,LocatedBlocks* blockMe
 	return true;
 }
 bool BlockIndexHash::remove(int xx, string name) {
-	LocatedBlocks* nul;
 	if (this->name == name) {
 		if (checkRBTreeRoot()) {
 			LSMessage tmp = this->son->GetLeftSon();
@@ -65,7 +63,7 @@ bool BlockIndexHash::remove(int xx, string name) {
 			}
 		}
 		else {
-			this->BlockMessage = nul;
+			this->BlockMessage = nullptr;
 			this->name = "";
 			return true;
 		}

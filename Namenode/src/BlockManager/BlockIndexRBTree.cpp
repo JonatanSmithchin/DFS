@@ -1,18 +1,18 @@
-#include "BlockManager/BlockIndexRBTree.h"
+#include "BlockIndexRBTree.h"
 #include <iostream>
 #include <cstdio>
 #include <cstring>
 #include <string>
 using namespace std;
-BlockIndexRBTree::BlockIndexRBTree(){
-    rson = NULL;
-    lson = NULL;
-    fa = NULL;
-    son = NULL;
-    key = -1;
-    RB = true;
-    TF = false;
-};
+BlockIndexRBTree::BlockIndexRBTree() :BlockIndex() {
+	rson = NULL;
+	lson = NULL;
+	fa = NULL;
+	son = NULL;
+	key = -1;
+	RB = true;
+	TF = false;
+}
 BlockIndexRBTree::BlockIndexRBTree(LocatedBlocks* nul) :BlockIndex(nul) {
 	rson = NULL;
 	lson = NULL;
@@ -64,9 +64,9 @@ void BlockIndexRBTree::right_turn(BlockIndexRBTree** b) {
 }
 BlockIndexRBTree* BlockIndexRBTree::MakeNULLSon() {
 	LocatedBlocks* nul;
+	nul = new LocatedBlocks;
 	BlockIndexRBTree *l;
-	BlockIndexRBTree r(nul);
-	l = &r;
+	l = new BlockIndexRBTree(nul);
 	return l;
 }
 BlockIndexRBTree* BlockIndexRBTree::brother(BlockIndexRBTree** a) {
@@ -119,7 +119,7 @@ void BlockIndexRBTree::incheck(BlockIndexRBTree** root, BlockIndexRBTree** a) {
 }
 bool BlockIndexRBTree::insert(BlockIndexRBTree** root, int x, string Name, LocatedBlocks* blockMessage) {
 	BlockIndexRBTree* tmp;
-	tmp = new BlockIndexRBTree(NULL,x,blockMessage);
+	tmp = new BlockIndexRBTree(NULL, x, blockMessage);
 	tmp->name = Name;
 	tmp->RB = red;
 	tmp->lson = MakeNULLSon();
@@ -270,6 +270,7 @@ bool BlockIndexRBTree::remove(BlockIndexRBTree** root, int x, string Name) {
 	if (temp->checkCPHead()) {
 		LocatedBlocks* a = temp->son->inquireALL(temp->son, temp->son->name);
 		temp->name = temp->son->name;
+		temp->BlockMessage = a;
 		temp->son->remove(temp->son, temp->son->name);
 		return true;
 	}
@@ -348,9 +349,9 @@ bool BlockIndexRBTree::remove(BlockIndexRBTree** root, int x, string Name) {
 		temp->fa->rson = MakeNULLSon();
 		temp->fa->rson->fa = temp->fa;
 	}
-	free(temp->lson);
-	free(temp->rson);
-	free(temp);
+	delete temp->lson;
+	delete temp->rson;
+	delete temp;
 	return true;
 }
 bool BlockIndexRBTree::checkCPHead() {
@@ -365,6 +366,7 @@ bool BlockIndexRBTree::createCPHead(string Name, LocatedBlocks* blockMessage) {
 LocatedBlocks* BlockIndexRBTree::inquireALL(BlockIndexRBTree** root, int x, string name) {
 	BlockIndexRBTree* temp = (*root)->lson;
 	LocatedBlocks* fail;
+	fail = new LocatedBlocks;
 	int cnt = 0;
 	while (++cnt) {
 		if (temp->key > x) {
