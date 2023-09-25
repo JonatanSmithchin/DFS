@@ -16,7 +16,7 @@ public:
     int CHUNK_SIZE;
     ClientBase(){
         // 相对于工作目录，即build目录
-        YAML::Node node = YAML::LoadFile("../configs/ClientConfig.yaml");
+        YAML::Node node = YAML::LoadFile("../../configs/ClientConfig.yaml");
 
         UPLOAD_TEMP_FILE_DIR = node["upload_temp_file_dir"].as<std::string>();
         DOWNLOAD_TEMP_FILE_DIR = node["download_temp_file_dir"].as<std::string>();

@@ -11,7 +11,7 @@
 
 namespace FileUtils {
 
-    YAML::Node node = YAML::LoadFile("../configs/ClientConfig.yaml");
+    YAML::Node node = YAML::LoadFile("../../configs/ClientConfig.yaml");
     size_t BUFFER_SIZE = node["buffer_size"].as<size_t>();
     size_t BLOCK_SIZE = node["block_size"].as<size_t>();
 
@@ -61,7 +61,7 @@ namespace FileUtils {
                 break;
             }
             
-            const std::string &fileName = des_dir + "temp-" + std::to_string(blk_num++);
+            const std::string &fileName = des_dir + "/temp-" + std::to_string(blk_num++);
             std::fstream output(fileName, std::ios::out | std::ios::binary);
 
             if (!output.is_open()) {

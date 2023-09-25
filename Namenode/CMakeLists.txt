@@ -7,7 +7,7 @@ find_package(Protobuf REQUIRED)
 
 find_package(glog CONFIG REQUIRED)
 
-find_package(YAML-CPP REQUIRED)
+find_package(YAML-CPP CONFIG REQUIRED)
 
 set(NAME_NODE_HOME ${CMAKE_CURRENT_SOURCE_DIR})
 

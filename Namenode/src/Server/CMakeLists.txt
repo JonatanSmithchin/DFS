@@ -4,7 +4,7 @@ find_package(gRPC CONFIG REQUIRED)
 
 find_package(Protobuf REQUIRED)
 
-find_package(YAML-CPP REQUIRED)
+find_package(YAML-CPP CONFIG REQUIRED)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
