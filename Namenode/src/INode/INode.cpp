@@ -4,11 +4,11 @@
 
 #include "INode/INode.h"
 
-int INode::getId() const {
+size_t INode::getId() const {
     return id;
 }
 
-void INode::setId(int id) {
+void INode::setId(size_t id) {
     INode::id = id;
 }
 

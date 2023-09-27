@@ -7,23 +7,24 @@
 class BlockManager
 {
 private:
-//    vector<BlockIndexHash*>* HashTable;//Ê¹ÓÃ¸ÃÖ¸Õë¶Ôhash±í½øÐÐ²Ù×÷;
+//    vector<BlockIndexHash*>* HashTable;//Ê¹ï¿½Ã¸ï¿½Ö¸ï¿½ï¿½ï¿½hashï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½;
     vector<BlockIndexHash*>* hashTable1;
 //    vector<BlockIndexHash*> hashTable2;
     long long num;
-    //BlockIndexRBTreeºÍBlockIndexClashPointµ±´´½¨Ê±ÔÙÊ¹ÓÃÖ¸ÕëÏà»¥Á¬½Ó¡£
+    //BlockIndexRBTreeï¿½ï¿½BlockIndexClashPointï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½à»¥ï¿½ï¿½ï¿½Ó¡ï¿½
     int hashTableSize, hashKey;
     int hashTableSize2, hashKey2;
     int getKey(string Name, int hashSize, int key);
-//    bool clearHashTable(vector<BlockIndexHash*>* tablePoint);//¸Ãº¯ÊýµÄÄ¿µÄÊÇÇå³ýÒ»¸öhash±íµÄËùÓÐÔªËØ²¢ÊÍ·ÅÄÚ´æ
-//    bool initHashTable(int HashTableSize, int HashKey);//³õÊ¼»¯hash±í
+//    bool clearHashTable(vector<BlockIndexHash*>* tablePoint);//ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½hashï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½Í·ï¿½ï¿½Ú´ï¿½
+//    bool initHashTable(int HashTableSize, int HashKey);//ï¿½ï¿½Ê¼ï¿½ï¿½hashï¿½ï¿½
 public:
-    bool create(string name);
-    LocatedBlock* addBlock(int blockID, vector<DatanodeInfo*> datanodes, int size, string name);
+    bool create(const string& name);
+    LocatedBlock* addBlock(size_t blockID, const vector<DatanodeInfo*>& datanodes, int size,const string& name);
     bool removeBlock(string Name);
     LocatedBlocks* getALLBlock(string name);
+    const LocatedBlock* getBlock(string name, uint64_t blockID);
 //    bool refrashBlock(int Datanode, string Name);
-//    bool refrashHashTable();//¸Ãº¯ÊýµÄÄ¿µÄÊÇÓÅ»¯²éÑ¯ËÙ¶È£¬À©´óhash±í
+//    bool refrashHashTable();//ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½Ñ¯ï¿½Ù¶È£ï¿½ï¿½ï¿½ï¿½ï¿½hashï¿½ï¿½
 //    string getBlockALL(string name);
     BlockManager();
 };

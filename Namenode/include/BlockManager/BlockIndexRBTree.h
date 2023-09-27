@@ -27,13 +27,14 @@ private:
 public:
 	bool insert(BlockIndexRBTree** root, int x, string Name, LocatedBlocks* blockMessage);
 	bool remove(BlockIndexRBTree** root, int x, string Name);/////////////////////////////////////////////////////////////////////////////
-	bool checkCPHead();//ÊÇ·ñÒÑÓÐ³åÍ»½Úµã
-	bool createCPHead(string Name, LocatedBlocks* blockMessage);//´´½¨µÚÒ»¸ö³åÍ»½Úµã£¨Á´±íÍ·£©
+	bool checkCPHead();//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ð³ï¿½Í»ï¿½Úµï¿½
+	bool createCPHead(string Name, LocatedBlocks* blockMessage);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Í»ï¿½Úµã£¨ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	LocatedBlocks* inquireALL(BlockIndexRBTree** root, int x, string name);
+    const LocatedBlock* inquire(BlockIndexRBTree** root, int x, string name, uint64_t blockID);
 	LSMessage GetLeftSon();
 	BlockIndexRBTree(LocatedBlocks* nul);
 	BlockIndexRBTree(bool b, LocatedBlocks* nul);//root
 	BlockIndexRBTree(BlockIndexRBTree* Fa, int Key, LocatedBlocks* blockMesaage);
-	BlockIndexRBTree()
+	BlockIndexRBTree();
 };
 

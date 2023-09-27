@@ -32,7 +32,7 @@ public:
     void writeUnlock();
     INodeDir* getRoot();
     INode* addFile(const std::string& path);
-    bool removeFile(const std::string& path);
+    bool remove(const std::string& path);
     LocatedBlock* append(const std::string& path);
     LocatedBlocks* getBlocks(const std::string& path);
     INode* addDir(const std::string& path);

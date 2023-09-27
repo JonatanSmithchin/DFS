@@ -1,4 +1,4 @@
-#include "BlockIndexHash.h"
+#include "BlockManager/BlockIndexHash.h"
 #include <string>
 BlockIndexHash::BlockIndexHash(LocatedBlocks* blockMessage) :BlockIndex(blockMessage) {
 	son = NULL;
@@ -10,6 +10,7 @@ bool BlockIndexHash::insert(string name, int xx, LocatedBlocks* blockMessage) {
     if(this->BlockMessage == nullptr) {
 		this->BlockMessage = blockMessage;
         this->name = name;
+        return true;
     }
 	else {
 		if (this->name == name) {
@@ -73,10 +74,23 @@ bool BlockIndexHash::remove(int xx, string name) {
 	}
 }
 LocatedBlocks* BlockIndexHash::inquireALL(int xx, string name) {
-	if (this->name == name) {
-		return this->BlockMessage;
-	}
-	else {
-		return this->son->inquireALL(&(this->son), xx, name);
-	}
+    if (this->name == name) {
+        return this->BlockMessage;
+    }
+    else {
+        return this->son->inquireALL(&(this->son), xx, name);
+    }
+}
+const LocatedBlock* BlockIndexHash::inquire(int xx, string name, uint64_t blockID) {
+    if (this->name == name) {
+        for (int i = 0; i <= this->BlockMessage->blocks_size(); i++) {
+            if (this->BlockMessage->blocks(i).block().blockid()) {
+                return &(this->BlockMessage->blocks(i));
+            }
+        }
+        return nullptr;
+    }
+    else {
+        return this->son->inquire(&(this->son), xx, name, blockID);
+    }
 }

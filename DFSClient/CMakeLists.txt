@@ -7,6 +7,8 @@ find_package(Protobuf REQUIRED)
 
 find_package(glog CONFIG REQUIRED)
 
+find_package(Boost CONFIG REQUIRED COMPONENTS program_options)
+
 set(CLIENT_HOME ${CMAKE_CURRENT_SOURCE_DIR})
 
 enable_testing()

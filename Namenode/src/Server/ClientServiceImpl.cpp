@@ -79,7 +79,11 @@ grpc::Status ClientServiceImpl::Rename(::grpc::ServerContext *context, const ::C
 
 grpc::Status ClientServiceImpl::Delete(::grpc::ServerContext *context, const ::ClientNamenode::DeleteRequest *request,
                                        ::ClientNamenode::DeleteResponse *response) {
-    return Service::Delete(context, request, response);
+    m_nameSystem->writeLock();
+    auto res = m_nameSystem->remove(request->src());
+    m_nameSystem->writeUnlock();
+    response->set_result(res);
+    return grpc::Status::OK;
 }
 
 grpc::Status
@@ -102,7 +106,15 @@ ClientServiceImpl::AddBlock(::grpc::ServerContext *context, const ::ClientNameno
 
 grpc::Status ClientServiceImpl::mkdir(::grpc::ServerContext *context, const ::ClientNamenode::mkdirRequest *request,
                                       ::ClientNamenode::mkdirResponse *response) {
-    return Service::mkdir(context, request, response);
+    m_nameSystem->writeLock();
+    auto dir = m_nameSystem->addDir(request->src());
+    m_nameSystem->writeUnlock();
+    if (dir == nullptr){
+        return grpc::Status::CANCELLED;
+    } else{
+        response->set_issuccess(true);
+        return grpc::Status::OK;
+    }
 }
 
 grpc::Status
@@ -114,8 +126,10 @@ ClientServiceImpl::Listing(::grpc::ServerContext *context, const ::ClientNamenod
     m_nameSystem->readUnLock();
     auto list = new DirectoryListing();
     for (auto it:res) {
+        auto ele = list->add_partiallisting();
+        ele->set_path(it->getName());
     }
-    return Service::Listing(context, request, response);
+    return grpc::Status::OK;
 }
 
 grpc::Status

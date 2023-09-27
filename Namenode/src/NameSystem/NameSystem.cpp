@@ -7,7 +7,7 @@
 #include "sstream"
 
 YAML::Node node = YAML::LoadFile("../configs/NamenodeConfig.yaml");
-int blockId = node["first_block_id"].as<int>();
+size_t blockId = node["first_block_id"].as<size_t>();
 
 vector<std::string> resolvePath(const string& path){
     std::stringstream ss(path);
@@ -128,7 +128,7 @@ INode *NameSystem::addFile(const string &path) {
     return nullptr;
 }
 
-bool NameSystem::removeFile(const string &path) {
+bool NameSystem::remove(const string &path) {
     auto p = findParent(path);
     if (p == nullptr){
         return false;
@@ -142,22 +142,9 @@ LocatedBlock* NameSystem::append(const string &path) {
         return nullptr;
     } else{
         //TODO: blockManager构建block元数据
+        auto datanodes = m_datanodeManager->chooseDatanode(std::to_string(blockId++));
 
-//        auto block = new Block();
-//
-//        block->set_blockid(blockId++);
-//        block->set_generationstamp(
-//                std::chrono::duration_cast<std::chrono::milliseconds>(
-//                        std::chrono::system_clock::now().time_since_epoch()).count()
-//        );
-//
-//        //选择datanode构造locatedBlock
-//        auto locatedBlock = new LocatedBlock();
-//        locatedBlock->set_allocated_block(block);
-//        auto datanode = locatedBlock->add_locs();
-        auto datanode = m_datanodeManager->chooseDatanode(std::to_string(file->getId()));
-
-        auto lblock = m_blockManager->addBlock(blockId++,std::vector<DatanodeInfo*>{datanode},BLOCK_SIZE,path);
+        auto lblock = m_blockManager->addBlock(blockId,datanodes,BLOCK_SIZE,path);
 //      dynamic_cast<INodeFile*>(file)->addBlock(lblock);
 
         auto locatedBlock = new LocatedBlock();
@@ -185,16 +172,6 @@ vector<INode *> NameSystem::list(const string &path) {
 }
 
 LocatedBlocks* NameSystem::getBlocks(const string &path) {
-    //    auto file = find(path);
-//    if (file != nullptr && file->isFile()){
-//        auto map = dynamic_cast<INodeFile*>(file)->getBlocks();
-//        auto blocks = new LocatedBlocks();
-//        for (auto it : map){
-//            auto block = blocks->add_blocks();
-//            block->set_allocated_block();
-//        }
-//        return blocks;
-//    }
     return m_blockManager->getALLBlock(path);
 }
 

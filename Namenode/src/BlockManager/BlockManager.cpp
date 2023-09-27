@@ -1,5 +1,6 @@
 #include "BlockManager/BlockManager.h"
 #include <string>
+#include <utility>
 BlockManager::BlockManager() {
     hashTableSize = 379;
     hashKey = 53;
@@ -14,11 +15,11 @@ BlockManager::BlockManager() {
 
 }
 
-bool BlockManager::create(string name){
+bool BlockManager::create(const string& name){
     return (*hashTable1)[getKey(name, hashTableSize, hashKey)]->insert(name, getKey(name, hashTableSize2, hashKey2), new LocatedBlocks);
 }
 
-LocatedBlock* BlockManager::addBlock(int blockID, vector<DatanodeInfo*> datanodes, int size, string name) {
+LocatedBlock* BlockManager::addBlock(size_t blockID, const vector<DatanodeInfo*>& datanodes, int size,const string& name) {
     auto blockMessage = getALLBlock(name);
     auto m = blockMessage->add_blocks();
     Block *B;
@@ -27,9 +28,9 @@ LocatedBlock* BlockManager::addBlock(int blockID, vector<DatanodeInfo*> datanode
     B->set_generationstamp(time(nullptr));
     B->set_size(size);
     m->set_allocated_block(B);
-    for (int i = 0; i < datanodes.size(); i++) {
+    for (auto & datanode : datanodes) {
         DatanodeInfo *D = m->add_locs();
-        D->CopyFrom(*datanodes[i]);
+        D->CopyFrom(*datanode);
     }
     m->set_offset(blockMessage->blocks_size());
     auto block = new LocatedBlock();
@@ -58,5 +59,9 @@ LocatedBlocks* BlockManager::getALLBlock(string name) {
         std::cout << locs << ":" << port;
     }
     return res;
+}
+
+const LocatedBlock* BlockManager::getBlock(string name, uint64_t blockID) {
+    return (*hashTable1)[getKey(name, hashTableSize, hashKey)]->inquire(getKey(name, hashTableSize2, hashKey2), name, blockID);
 }
 

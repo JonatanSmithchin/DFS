@@ -34,7 +34,7 @@ public:
 
     DatanodeInfo* getDatanode(const std::string& uuid);
 
-    DatanodeInfo* chooseDatanode(const std::string& key);
+    std::vector<DatanodeInfo*> chooseDatanode(const std::string& key);
 
     std::vector<DatanodeCommand> handleHeartBeat(const std::string& uuid, Report* update);
 };

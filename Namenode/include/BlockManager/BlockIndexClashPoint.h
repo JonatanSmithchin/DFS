@@ -12,6 +12,7 @@ public:
     bool insert(BlockIndexClashPoint* Head, LocatedBlocks* blockMessage, string name);
     bool remove(BlockIndexClashPoint* Head, string name);
     LocatedBlocks* inquireALL(BlockIndexClashPoint* Head, string name);
+    const LocatedBlock* inquire(BlockIndexClashPoint* Head, string name, uint64_t blockID);
     BlockIndexClashPoint(LocatedBlocks* blockMessage, string Name);
 };
 

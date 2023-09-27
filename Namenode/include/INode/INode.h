@@ -14,7 +14,7 @@ using std::string;
 
 class INode {
 private:
-    int id;
+    size_t id;
     string name;
     INode *parent;
     string fullPathName;
@@ -24,13 +24,14 @@ private:
     time_t modifiedTime;
     time_t accessTime;
 public:
+
     const string &getFullPathName() const;
 
     void setFullPathName(const string &fullPathName);
 
-    int getId() const;
+    size_t getId() const;
 
-    void setId(int id);
+    void setId(size_t id);
 
     const string &getName() const;
 
@@ -67,6 +68,14 @@ public:
     virtual bool isRoot()=0;
 
     virtual bool isSymlink()=0;
+
+    bool operator<(const INode& others)const{
+        return name < others.name;
+    }
+
+    bool operator==(const INode& others) const{
+        return name == others.name;
+    }
 };
 
 

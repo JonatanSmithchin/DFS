@@ -1,4 +1,4 @@
-#include "BlockIndexRBTree.h"
+#include "BlockManager/BlockIndexRBTree.h"
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -364,39 +364,75 @@ bool BlockIndexRBTree::createCPHead(string Name, LocatedBlocks* blockMessage) {
 	return true;
 }
 LocatedBlocks* BlockIndexRBTree::inquireALL(BlockIndexRBTree** root, int x, string name) {
-	BlockIndexRBTree* temp = (*root)->lson;
-	LocatedBlocks* fail;
-	fail = new LocatedBlocks;
-	int cnt = 0;
-	while (++cnt) {
-		if (temp->key > x) {
-			if (temp->lson->TF != false) {
-				temp = temp->lson;
-				continue;
-			}
-			else return fail;
-		}
-		if (temp->key < x) {
-			if (temp->rson->TF != false) {
-				temp = temp->rson;
-				continue;
-			}
-			else return fail;
-		}
-		if (temp->key == x) {
-			if (temp->name == name) {
-				return temp->BlockMessage;
-			}
-			else {
-				if (temp->checkCPHead()) {
-					return temp->son->inquireALL(temp->son, name);
-				}
-				else {
-					return fail;
-				}
-			}
-		}
-	}
+    BlockIndexRBTree* temp = (*root)->lson;
+    int cnt = 0;
+    while (++cnt) {
+        if (temp->key > x) {
+            if (temp->lson->TF != false) {
+                temp = temp->lson;
+                continue;
+            }
+            else return nullptr;
+        }
+        if (temp->key < x) {
+            if (temp->rson->TF != false) {
+                temp = temp->rson;
+                continue;
+            }
+            else return nullptr;
+        }
+        if (temp->key == x) {
+            if (temp->name == name) {
+                return temp->BlockMessage;
+            }
+            else {
+                if (temp->checkCPHead()) {
+                    return temp->son->inquireALL(temp->son, name);
+                }
+                else {
+                    return nullptr;
+                }
+            }
+        }
+    }
+}
+const LocatedBlock* BlockIndexRBTree::inquire(BlockIndexRBTree** root, int x, string name, uint64_t blockID) {
+    BlockIndexRBTree* temp = (*root)->lson;
+    int cnt = 0;
+    while (++cnt) {
+        if (temp->key > x) {
+            if (temp->lson->TF != false) {
+                temp = temp->lson;
+                continue;
+            }
+            else return nullptr;
+        }
+        if (temp->key < x) {
+            if (temp->rson->TF != false) {
+                temp = temp->rson;
+                continue;
+            }
+            else return nullptr;
+        }
+        if (temp->key == x) {
+            if (temp->name == name) {
+                for (int i = 0; i <= temp->BlockMessage->blocks_size(); i++) {
+                    if (temp->BlockMessage->blocks(i).block().blockid()) {
+                        return &(temp->BlockMessage->blocks(i));
+                    }
+                }
+                return nullptr;
+            }
+            else {
+                if (temp->checkCPHead()) {
+                    return temp->son->inquire(temp->son, name, blockID);
+                }
+                else {
+                    return nullptr;
+                }
+            }
+        }
+    }
 }
 LSMessage BlockIndexRBTree::GetLeftSon() {
 	LSMessage a;

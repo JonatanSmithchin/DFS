@@ -43,7 +43,7 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
     if (status.ok()){
         std::cout << "Transfer blocks finished" << std::endl;
     } else{
-        std::cout << status.error_code() << status.error_message();
+        std::cout << status.error_code() << ": " << status.error_message();
     }
 }
 
@@ -65,8 +65,8 @@ void DatanodeClient::downloadBlock(const std::string& file,const google::protobu
 
     Status status  = reader->Finish();
     if (status.ok()){
-        std::cout << "Download block finished";
+        std::cout << "Download block finished\n";
     } else{
-        std::cout << status.error_code() << status.error_message();
+        std::cout << status.error_code() << ": " << status.error_message();
     }
 }

@@ -10,8 +10,9 @@ public:
     bool insert(string name, int xx, LocatedBlocks* blockMessage);
     bool remove(int xx, string name);
     bool checkRBTreeRoot();
-    bool createRBTreeRoot(string name, int xx, LocatedBlocks* blockMessage);//´´½¨ºìºÚÊ÷¸ù½Úµã
+    bool createRBTreeRoot(string name, int xx, LocatedBlocks* blockMessage);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
     LocatedBlocks* inquireALL(int xx, string name);
+    const LocatedBlock* inquire(int xx, string name, uint64_t blockID);
     BlockIndexHash(LocatedBlocks* blockMessage);
     BlockIndexHash();
 };

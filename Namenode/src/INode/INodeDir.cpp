@@ -3,18 +3,21 @@
 //
 
 #include "INode/INodeDir.h"
+#include <algorithm>
 
 bool INodeDir::addChild(INode* child) {
     //TODO: 不能添加相同的child
     children.push_back(child);
+    std::sort(children.begin(),children.end());
     return true;
 }
 
 bool INodeDir::removeChild(const string &childName) {
-    for (vector<INode*>::iterator iter = children.begin();iter != children.end();iter++)
+    for (auto iter = children.begin();iter != children.end();iter++)
     {
-        if (childName.compare((*iter)->getName()) == 0) {
-            iter = children.erase(iter);
+        if (childName == (*iter)->getName()) {
+            children.erase(iter);
+            std::sort(children.begin(),children.end());
             return true;
          }
     }
@@ -22,9 +25,9 @@ bool INodeDir::removeChild(const string &childName) {
 }
 
 bool INodeDir::replaceChild(INode *child) {
-    for (vector<INode*>::iterator iter = children.begin();iter != children.end();iter++)
+    for (auto iter = children.begin();iter != children.end();iter++)
     {
-        if (child->getName().compare((*iter)->getName()) == 0) {
+        if (child->getName() == (*iter)->getName()) {
             iter = children.erase(iter);
             children.push_back(child);
             return true;
@@ -40,7 +43,7 @@ bool INodeDir::clearChildren() {
 INode* INodeDir::getChild(const string &childName) {
     for (auto& c : children)
     {
-        if (childName.compare(c->getName()) == 0) {
+        if (childName == c->getName()) {
             return c;
         }
     }

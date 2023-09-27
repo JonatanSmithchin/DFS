@@ -1,4 +1,4 @@
-#include "BlockIndexClashPoint.h"
+#include "BlockManager/BlockIndexClashPoint.h"
 #include <cstring>
 #include <string>
 #include <ctime>
@@ -83,7 +83,28 @@ LocatedBlocks* BlockIndexClashPoint::inquireALL(BlockIndexClashPoint* Head, stri
         }
         n = n->next;
     }
-    LocatedBlocks* fail;
-    fail = new LocatedBlocks;
-    return fail;
+    return nullptr;
+}
+const LocatedBlock* BlockIndexClashPoint::inquire(BlockIndexClashPoint* Head, string name, uint64_t blockID) {
+    if (Head->name == name) {
+        for (int i = 0; i <= Head->BlockMessage->blocks_size(); i++) {
+            if (Head->BlockMessage->blocks(i).block().blockid()) {
+                return &(Head->BlockMessage->blocks(i));
+            }
+        }
+        return nullptr;
+    }
+    BlockIndexClashPoint* n = Head;
+    while (n->next) {
+        if (n->next->name == name) {
+            for (int i = 0; i <= n->next->BlockMessage->blocks_size(); i++) {
+                if (n->next->BlockMessage->blocks(i).block().blockid()) {
+                    return &(n->next->BlockMessage->blocks(i));
+                }
+            }
+            return nullptr;
+        }
+        n = n->next;
+    }
+    return nullptr;
 }

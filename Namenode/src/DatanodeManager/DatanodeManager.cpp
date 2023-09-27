@@ -62,11 +62,15 @@ DatanodeInfo *DatanodeManager::getDatanode(const std::string &uuid) {
     return datanode;
 }
 
-DatanodeInfo *DatanodeManager::chooseDatanode(const std::string& key) {
+std::vector<DatanodeInfo*> DatanodeManager::chooseDatanode(const std::string& key) {
 
-    std::string uuid = m_consistentHash.Get(key);
-    auto datanode = m_datanodeMap.find(uuid)->second;
-    return datanode;
+    std::vector<DatanodeInfo*> datanodes;
+    for (int i = 0; i < 3; ++i) {
+        std::string uuid = m_consistentHash.Get(key+std::to_string(i));
+        auto datanode = m_datanodeMap.find(uuid)->second;
+        datanodes.push_back(datanode);
+    }
+    return datanodes;
 }
 
 
@@ -82,6 +86,8 @@ std::vector<DatanodeCommand> DatanodeManager::handleHeartBeat(const std::string 
 
     datanode->set_lastupdate(now());
     std::vector<DatanodeCommand> cmds;
+    auto cmd = new DatanodeCommand;
+    cmd->set_commandtype(DatanodeCommand_Type_BlockCommand);
 
 
     return cmds;
