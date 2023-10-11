@@ -22,10 +22,10 @@ public:
     explicit NamenodeClient(std::shared_ptr<grpc::Channel> channel);
     bool create(const std::string& path);
     LocatedBlock* append(const std::string& path);
-    void rename(const std::string& src,const std::string& dst);
-    void deleteFile(const std::string& path);
-    void mkdir(const std::string& path);
-    void listing(const std::string& path);
+    bool rename(const std::string& src,const std::string& dst);
+    bool deleteFile(const std::string& path);
+    bool mkdir(const std::string& path);
+    bool listing(const std::string& path);
     void setPermission(const std::string& path);
     void setOwner(const std::string& path,const std::string& owner);
     void addBlock(const std::string& blkId);
