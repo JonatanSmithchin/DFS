@@ -43,10 +43,76 @@ LocatedBlock *NamenodeClient::append(const std::string &path) {
     }
 }
 
+bool rename(const std::string& src,const std::string& dst){
+    ClientNamenode::RenameRequest request;
+    request.set_src(src);
+    request.set_dst(dst);
+    request.set_clientname(CLIENT_NAME);
+    ClientContext context;
+
+    ClientNamenode::RenameResponse response;
+    auto status = m_stub->Rename(&context,request,&response);
+    if (status.ok()){
+        return response.result;
+    } else{
+        LOG(WARNING) << status.error_code() <<":"<<status.error_message();
+        return false;
+    }
+
+}
+
+bool deleteFile(const std::string& path){
+    ClientNamenode::DeleteRequest request;
+    request.set_src(path);
+    request.set_clientname(CLIENT_NAME);
+    ClientContext context;
+
+    ClientNamenode::DeleteResponse response;
+    auto status = m_stub->Delete(&context,request,&response);
+    if (status.ok()){
+        return response.result;
+    } else{
+        LOG(WARNING) << status.error_code() <<":"<<status.error_message();
+        return false;
+    }
+}
+
+bool mkdir(const std::string& path){
+    ClientNamenode::mkdirRequest request;
+    request.set_src(path);
+    request.set_clientname(CLIENT_NAME);
+    ClientContext context;
+
+    ClientNamenode::mkdirResponse response;
+    auto status = m_stub->mkdir(&context,request,&response);
+    if (status.ok()){
+        return true;
+    } else{
+        LOG(WARNING) << status.error_code() <<":"<<status.error_message();
+        return false;
+    }
+}
+
+bool listing(const std::string& path){
+    ClientNamenode::GetListingRequest request;
+    request.set_src(path);
+    request.set_clientname(CLIENT_NAME);
+    ClientContext context;
+
+    ClientNamenode::GetListingResponse response;
+    auto status = m_stub->Listing(&context,request,&response);
+    if (status.ok()){
+        return true;
+    } else{
+        LOG(WARNING) << status.error_code() <<":"<<status.error_message();
+        return false;
+    }
+}
+
 LocatedBlocks *NamenodeClient::locate(const std::string& path) {
     ClientNamenode::GetFileBlockLocationsRequest request;
     request.set_src(path);
-    
+
     ClientContext context;
 
     ClientNamenode::GetFileBlockLocationsResponse response;
