@@ -6,6 +6,7 @@
 #define DATANODE_CLIENTDATANODESERVICEIMPL_H
 #define CHUNK_SIZE 1024 * 1024
 #include "proto/ClientDatanode.grpc.pb.h"
+#include "Client/DatanodeClient.h"
 
 class ClientDatanodeServiceImpl final : public ClientDatanode::FileService::Service{
 public:

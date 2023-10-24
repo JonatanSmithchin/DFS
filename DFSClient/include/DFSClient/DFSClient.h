@@ -17,7 +17,7 @@
 class DFSClient : public ClientBase{
 private:
     NamenodeClient* m_namenodeClient;
-    DatanodeClient* m_datanodeClient;
+
 public:
     DFSClient(NamenodeClient* namenodeClient);
     static DatanodeClient* getDatanode(const std::string& uuid);

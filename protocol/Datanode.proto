@@ -1,0 +1,26 @@
+syntax="proto3";
+
+import "dfs.proto";
+
+package Datanode;
+
+message copyBlockRequest{
+	uint64 blockId = 1;
+	uint64 size = 2;
+	bytes Content = 3;
+    uint32 checkSum = 4;
+}
+
+message copyBlockResponse{
+    copyStatus status = 1;
+}
+
+enum copyStatus{
+    Unknown = 0;
+    OK = 1;
+    Failed = 2;
+}
+
+service BackupService {
+    rpc copyBlock(stream copyBlockRequest) returns (copyBlockResponse);
+}

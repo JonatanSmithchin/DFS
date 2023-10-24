@@ -27,7 +27,6 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
     }
 
     //获取已经分割的所有暂存数据块
-    //TODO: 配置暂存文件路径
     auto blocks = FileUtils::getFiles(UPLOAD_TEMP_FILE_DIR);
     //添加数据块
     for (const auto& blk:blocks){
@@ -35,7 +34,14 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
         //TODO: 还要选择一个datanode
         auto ipAddr = block->locs(0).id().ipaddr() + ":" + std::to_string(block->locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);
-        datanode->uploadBlock(blk,block->block().blockid());
+
+        auto ipAddr1 = block->locs(1).id().ipaddr() + ":" + std::to_string(block->locs(1).id().xferport());
+        auto ipAddr2 = block->locs(2).id().ipaddr() + ":" + std::to_string(block->locs(2).id().xferport());
+        vector<string> ipAddrs;
+        ipAddrs.emplace_back(ipAddr1);
+        ipAddrs.emplace_back(ipAddr2);
+
+        datanode->uploadBlock(blk,block->block().blockid(),ipAddrs);
         delete datanode;
     }
 
@@ -64,7 +70,7 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
         google::protobuf::uint64 block_id = file_block.block().blockid();
         // 下载文件块并放入set
         std::string temp=std::to_string(i)+".temp";
-        temp=DOWNLOAD_TEMP_FILE_DIR+"/"+temp;  // 随便写了一个，要改成别的路径！！！！
+        temp=DOWNLOAD_TEMP_FILE_DIR+"/"+temp; 
 
         auto ipAddr = file_block.locs(0).id().ipaddr() + ":" + std::to_string(file_block.locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);

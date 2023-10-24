@@ -13,4 +13,4 @@ add_library(Server STATIC ${SERVER})
 target_link_libraries(Server PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
         gRPC::gpr gRPC::grpc gRPC::grpc++ protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
-target_link_libraries(Server PRIVATE glog::glog)
+target_link_libraries(Server PRIVATE glog::glog Client)

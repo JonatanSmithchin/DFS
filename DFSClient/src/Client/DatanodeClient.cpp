@@ -12,7 +12,7 @@ DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel):
 
 }
 
-void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
+void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,vector<string> ipAddrs) {
     transferBlockRequest request;
     transferBlockResponse response;
     // char data[CHUNK_SIZE];
@@ -33,6 +33,8 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId) {
         request.set_size(size);
         request.set_blockid(blockId);
         request.set_checksum(FileUtils::checkSum((const unsigned char*)data.data(),size));
+        request.add_ipaddrs(ipAddrs[0]);
+        request.add_ipaddrs(ipAddrs[1]);
 
         if (!writer->Write(request)){
             break;

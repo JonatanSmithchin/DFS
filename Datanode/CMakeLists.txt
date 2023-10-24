@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(DataNode)
 
+list(APPEND CMAKE_MODULE_PATH "/home/parallels/Desktop/vcpkg/scripts/buildsystems")
+include(vcpkg)
+
 find_package(gRPC CONFIG REQUIRED)
 
 find_package(Protobuf REQUIRED)

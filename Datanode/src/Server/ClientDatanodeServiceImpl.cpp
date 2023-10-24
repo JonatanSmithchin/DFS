@@ -3,11 +3,40 @@
 //
 
 #include <fstream>
+#include <pthread.h>
+#include <vector>
+#include <string>
 #include "Server/ClientDatanodeServiceImpl.h"
 #include "utils/checkSum.h"
 
 ClientDatanodeServiceImpl::~ClientDatanodeServiceImpl() {
 
+}
+
+struct Args{
+    std::vector<std::string> ipAddrs;
+    uint64_t blockId;
+};
+
+DatanodeClient* getDatanode(const std::string &ipAddr) {
+    std::string s="/mnt/d/test/rcv/";
+    auto client = new DatanodeClient(grpc::CreateChannel(
+            ipAddr,grpc::InsecureChannelCredentials()
+    ),s);
+
+    return client;
+}
+
+void * backup(void * arg) {
+    // 找datanode 传输
+    Args* args=(Args *)arg;
+
+    auto datanode1=getDatanode(args->ipAddrs[0]);
+    auto datanode2=getDatanode(args->ipAddrs[1]);
+
+    datanode1->copyBlock(args->blockId);
+    datanode2->copyBlock(args->blockId);
+    return NULL;
 }
 
 grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *context,
@@ -35,6 +64,27 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
     }while (reader->Read(&request));
 
     outfile.close();
+
+    Args args;
+    for (int i = 0; i < request.ipaddrs_size(); ++i) {
+        args.ipAddrs.push_back(request.ipaddrs(i));
+    }
+    args.blockId=request.blockid();
+
+    // 创建子线程来完成block备份工作（datanode之间
+    pthread_t tid;
+    int ret = pthread_create(&tid, NULL, backup, (void *)&args);
+    if(ret != 0) {
+        char * errstr = strerror(ret);
+        printf("error1 : %s\n", errstr); // 好像应该用LOG？？
+    }
+
+    ret = pthread_detach(tid); // 设置线程分离
+    if(ret != 0) {
+        char * errstr = strerror(ret);
+        printf("error2 : %s\n", errstr);
+    }
+
     return grpc::Status::OK;
 }
 
@@ -44,7 +94,7 @@ grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *con
     ClientDatanode::downloadBlockResponse response;
     char data[CHUNK_SIZE];
     std::ifstream infile;
-    auto file = "/mnt/d/test/rcv/"+std::to_string(request->blockid());
+    std::string file = "/mnt/d/test/rcv/"+std::to_string(request->blockid(0));
     infile.open(file,std::ifstream::in|std::ifstream::binary);
 
     while (!infile.eof()){
@@ -54,7 +104,7 @@ grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *con
 
         response.set_content(data,size);
         response.set_checksum(checkSum((const unsigned char*)data, size));
-        response.set_size(size);
+        // response.set_size(size);
 
         writer->Write(response);
     }

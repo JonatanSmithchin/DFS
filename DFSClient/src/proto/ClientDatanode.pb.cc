@@ -45,7 +45,8 @@ struct shutdownDatanodeResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 shutdownDatanodeResponseDefaultTypeInternal _shutdownDatanodeResponse_default_instance_;
 PROTOBUF_CONSTEXPR transferBlockRequest::transferBlockRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.ipaddrs_)*/{}
+  , /*decltype(_impl_.content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.blockid_)*/uint64_t{0u}
   , /*decltype(_impl_.size_)*/uint64_t{0u}
   , /*decltype(_impl_.checksum_)*/0u
@@ -74,7 +75,8 @@ struct transferBlockResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 transferBlockResponseDefaultTypeInternal _transferBlockResponse_default_instance_;
 PROTOBUF_CONSTEXPR downloadBlockRequest::downloadBlockRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.blockid_)*/uint64_t{0u}
+    /*decltype(_impl_.blockid_)*/{}
+  , /*decltype(_impl_._blockid_cached_byte_size_)*/{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct downloadBlockRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR downloadBlockRequestDefaultTypeInternal()
@@ -90,7 +92,6 @@ PROTOBUF_CONSTEXPR downloadBlockResponse::downloadBlockResponse(
     /*decltype(_impl_.content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.checksum_)*/0u
   , /*decltype(_impl_.status_)*/0
-  , /*decltype(_impl_.size_)*/uint64_t{0u}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct downloadBlockResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR downloadBlockResponseDefaultTypeInternal()
@@ -129,6 +130,7 @@ const uint32_t TableStruct_ClientDatanode_2eproto::offsets[] PROTOBUF_SECTION_VA
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::transferBlockRequest, _impl_.size_),
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::transferBlockRequest, _impl_.content_),
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::transferBlockRequest, _impl_.checksum_),
+  PROTOBUF_FIELD_OFFSET(::ClientDatanode::transferBlockRequest, _impl_.ipaddrs_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::transferBlockResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -152,15 +154,14 @@ const uint32_t TableStruct_ClientDatanode_2eproto::offsets[] PROTOBUF_SECTION_VA
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::downloadBlockResponse, _impl_.content_),
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::downloadBlockResponse, _impl_.checksum_),
   PROTOBUF_FIELD_OFFSET(::ClientDatanode::downloadBlockResponse, _impl_.status_),
-  PROTOBUF_FIELD_OFFSET(::ClientDatanode::downloadBlockResponse, _impl_.size_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::ClientDatanode::shutdownDatanodeRequest)},
   { 6, -1, -1, sizeof(::ClientDatanode::shutdownDatanodeResponse)},
   { 12, -1, -1, sizeof(::ClientDatanode::transferBlockRequest)},
-  { 22, -1, -1, sizeof(::ClientDatanode::transferBlockResponse)},
-  { 29, -1, -1, sizeof(::ClientDatanode::downloadBlockRequest)},
-  { 36, -1, -1, sizeof(::ClientDatanode::downloadBlockResponse)},
+  { 23, -1, -1, sizeof(::ClientDatanode::transferBlockResponse)},
+  { 30, -1, -1, sizeof(::ClientDatanode::downloadBlockRequest)},
+  { 37, -1, -1, sizeof(::ClientDatanode::downloadBlockResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -175,29 +176,29 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_ClientDatanode_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\024ClientDatanode.proto\022\016ClientDatanode\032\t"
   "dfs.proto\"\031\n\027shutdownDatanodeRequest\"\032\n\030"
-  "shutdownDatanodeResponse\"X\n\024transferBloc"
+  "shutdownDatanodeResponse\"i\n\024transferBloc"
   "kRequest\022\017\n\007blockId\030\001 \001(\004\022\014\n\004size\030\002 \001(\004\022"
-  "\017\n\007Content\030\003 \001(\014\022\020\n\010checkSum\030\004 \001(\r\"G\n\025tr"
-  "ansferBlockResponse\022.\n\006status\030\001 \001(\0162\036.Cl"
-  "ientDatanode.transferStatus\"\'\n\024downloadB"
-  "lockRequest\022\017\n\007blockId\030\001 \001(\004\"x\n\025download"
-  "BlockResponse\022\017\n\007Content\030\001 \001(\014\022\020\n\010checkS"
-  "um\030\002 \001(\r\022.\n\006status\030\003 \001(\0162\036.ClientDatanod"
-  "e.transferStatus\022\014\n\004size\030\004 \001(\004*1\n\016transf"
-  "erStatus\022\013\n\007Unknoen\020\000\022\006\n\002OK\020\001\022\n\n\006Failed\020"
-  "\0022\315\001\n\013FileService\022^\n\rtransferBlock\022$.Cli"
-  "entDatanode.transferBlockRequest\032%.Clien"
-  "tDatanode.transferBlockResponse(\001\022^\n\rdow"
-  "nloadBlock\022$.ClientDatanode.downloadBloc"
-  "kRequest\032%.ClientDatanode.downloadBlockR"
-  "esponse0\001b\006proto3"
+  "\017\n\007Content\030\003 \001(\014\022\020\n\010checkSum\030\004 \001(\r\022\017\n\007ip"
+  "Addrs\030\005 \003(\t\"G\n\025transferBlockResponse\022.\n\006"
+  "status\030\001 \001(\0162\036.ClientDatanode.transferSt"
+  "atus\"\'\n\024downloadBlockRequest\022\017\n\007blockId\030"
+  "\001 \003(\004\"j\n\025downloadBlockResponse\022\017\n\007Conten"
+  "t\030\001 \001(\014\022\020\n\010checkSum\030\002 \001(\r\022.\n\006status\030\003 \001("
+  "\0162\036.ClientDatanode.transferStatus*1\n\016tra"
+  "nsferStatus\022\013\n\007Unknown\020\000\022\006\n\002OK\020\001\022\n\n\006Fail"
+  "ed\020\0022\315\001\n\013FileService\022^\n\rtransferBlock\022$."
+  "ClientDatanode.transferBlockRequest\032%.Cl"
+  "ientDatanode.transferBlockResponse(\001\022^\n\r"
+  "downloadBlock\022$.ClientDatanode.downloadB"
+  "lockRequest\032%.ClientDatanode.downloadBlo"
+  "ckResponse0\001b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_ClientDatanode_2eproto_deps[1] = {
   &::descriptor_table_dfs_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_ClientDatanode_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_ClientDatanode_2eproto = {
-    false, false, 697, descriptor_table_protodef_ClientDatanode_2eproto,
+    false, false, 700, descriptor_table_protodef_ClientDatanode_2eproto,
     "ClientDatanode.proto",
     &descriptor_table_ClientDatanode_2eproto_once, descriptor_table_ClientDatanode_2eproto_deps, 1, 6,
     schemas, file_default_instances, TableStruct_ClientDatanode_2eproto::offsets,
@@ -323,7 +324,8 @@ transferBlockRequest::transferBlockRequest(const transferBlockRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   transferBlockRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.content_){}
+      decltype(_impl_.ipaddrs_){from._impl_.ipaddrs_}
+    , decltype(_impl_.content_){}
     , decltype(_impl_.blockid_){}
     , decltype(_impl_.size_){}
     , decltype(_impl_.checksum_){}
@@ -349,7 +351,8 @@ inline void transferBlockRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.content_){}
+      decltype(_impl_.ipaddrs_){arena}
+    , decltype(_impl_.content_){}
     , decltype(_impl_.blockid_){uint64_t{0u}}
     , decltype(_impl_.size_){uint64_t{0u}}
     , decltype(_impl_.checksum_){0u}
@@ -372,6 +375,7 @@ transferBlockRequest::~transferBlockRequest() {
 
 inline void transferBlockRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.ipaddrs_.~RepeatedPtrField();
   _impl_.content_.Destroy();
 }
 
@@ -385,6 +389,7 @@ void transferBlockRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.ipaddrs_.Clear();
   _impl_.content_.ClearToEmpty();
   ::memset(&_impl_.blockid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.checksum_) -
@@ -428,6 +433,21 @@ const char* transferBlockRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _impl_.checksum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string ipAddrs = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_ipaddrs();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "ClientDatanode.transferBlockRequest.ipAddrs"));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -484,6 +504,16 @@ uint8_t* transferBlockRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_checksum(), target);
   }
 
+  // repeated string ipAddrs = 5;
+  for (int i = 0, n = this->_internal_ipaddrs_size(); i < n; i++) {
+    const auto& s = this->_internal_ipaddrs(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ClientDatanode.transferBlockRequest.ipAddrs");
+    target = stream->WriteString(5, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -499,6 +529,14 @@ size_t transferBlockRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated string ipAddrs = 5;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.ipaddrs_.size());
+  for (int i = 0, n = _impl_.ipaddrs_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      _impl_.ipaddrs_.Get(i));
+  }
 
   // bytes Content = 3;
   if (!this->_internal_content().empty()) {
@@ -540,6 +578,7 @@ void transferBlockRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_impl_.ipaddrs_.MergeFrom(from._impl_.ipaddrs_);
   if (!from._internal_content().empty()) {
     _this->_internal_set_content(from._internal_content());
   }
@@ -571,6 +610,7 @@ void transferBlockRequest::InternalSwap(transferBlockRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.ipaddrs_.InternalSwap(&other->_impl_.ipaddrs_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.content_, lhs_arena,
       &other->_impl_.content_, rhs_arena
@@ -786,11 +826,11 @@ downloadBlockRequest::downloadBlockRequest(const downloadBlockRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   downloadBlockRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.blockid_){}
+      decltype(_impl_.blockid_){from._impl_.blockid_}
+    , /*decltype(_impl_._blockid_cached_byte_size_)*/{0}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.blockid_ = from._impl_.blockid_;
   // @@protoc_insertion_point(copy_constructor:ClientDatanode.downloadBlockRequest)
 }
 
@@ -799,7 +839,8 @@ inline void downloadBlockRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.blockid_){uint64_t{0u}}
+      decltype(_impl_.blockid_){arena}
+    , /*decltype(_impl_._blockid_cached_byte_size_)*/{0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -815,6 +856,7 @@ downloadBlockRequest::~downloadBlockRequest() {
 
 inline void downloadBlockRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.blockid_.~RepeatedField();
 }
 
 void downloadBlockRequest::SetCachedSize(int size) const {
@@ -827,7 +869,7 @@ void downloadBlockRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.blockid_ = uint64_t{0u};
+  _impl_.blockid_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -837,10 +879,13 @@ const char* downloadBlockRequest::_InternalParse(const char* ptr, ::_pbi::ParseC
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint64 blockId = 1;
+      // repeated uint64 blockId = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.blockid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_blockid(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 8) {
+          _internal_add_blockid(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -874,10 +919,13 @@ uint8_t* downloadBlockRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint64 blockId = 1;
-  if (this->_internal_blockid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_blockid(), target);
+  // repeated uint64 blockId = 1;
+  {
+    int byte_size = _impl_._blockid_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt64Packed(
+          1, _internal_blockid(), byte_size, target);
+    }
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -896,9 +944,18 @@ size_t downloadBlockRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint64 blockId = 1;
-  if (this->_internal_blockid() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_blockid());
+  // repeated uint64 blockId = 1;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt64Size(this->_impl_.blockid_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._blockid_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -919,9 +976,7 @@ void downloadBlockRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_blockid() != 0) {
-    _this->_internal_set_blockid(from._internal_blockid());
-  }
+  _this->_impl_.blockid_.MergeFrom(from._impl_.blockid_);
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -939,7 +994,7 @@ bool downloadBlockRequest::IsInitialized() const {
 void downloadBlockRequest::InternalSwap(downloadBlockRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.blockid_, other->_impl_.blockid_);
+  _impl_.blockid_.InternalSwap(&other->_impl_.blockid_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata downloadBlockRequest::GetMetadata() const {
@@ -967,7 +1022,6 @@ downloadBlockResponse::downloadBlockResponse(const downloadBlockResponse& from)
       decltype(_impl_.content_){}
     , decltype(_impl_.checksum_){}
     , decltype(_impl_.status_){}
-    , decltype(_impl_.size_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -980,8 +1034,8 @@ downloadBlockResponse::downloadBlockResponse(const downloadBlockResponse& from)
       _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.checksum_, &from._impl_.checksum_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.size_) -
-    reinterpret_cast<char*>(&_impl_.checksum_)) + sizeof(_impl_.size_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.status_) -
+    reinterpret_cast<char*>(&_impl_.checksum_)) + sizeof(_impl_.status_));
   // @@protoc_insertion_point(copy_constructor:ClientDatanode.downloadBlockResponse)
 }
 
@@ -993,7 +1047,6 @@ inline void downloadBlockResponse::SharedCtor(
       decltype(_impl_.content_){}
     , decltype(_impl_.checksum_){0u}
     , decltype(_impl_.status_){0}
-    , decltype(_impl_.size_){uint64_t{0u}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.content_.InitDefault();
@@ -1028,8 +1081,8 @@ void downloadBlockResponse::Clear() {
 
   _impl_.content_.ClearToEmpty();
   ::memset(&_impl_.checksum_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.size_) -
-      reinterpret_cast<char*>(&_impl_.checksum_)) + sizeof(_impl_.size_));
+      reinterpret_cast<char*>(&_impl_.status_) -
+      reinterpret_cast<char*>(&_impl_.checksum_)) + sizeof(_impl_.status_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1062,14 +1115,6 @@ const char* downloadBlockResponse::_InternalParse(const char* ptr, ::_pbi::Parse
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_status(static_cast<::ClientDatanode::transferStatus>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      // uint64 size = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1121,12 +1166,6 @@ uint8_t* downloadBlockResponse::_InternalSerialize(
       3, this->_internal_status(), target);
   }
 
-  // uint64 size = 4;
-  if (this->_internal_size() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_size(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1161,11 +1200,6 @@ size_t downloadBlockResponse::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
-  // uint64 size = 4;
-  if (this->_internal_size() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_size());
-  }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1193,9 +1227,6 @@ void downloadBlockResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
   }
-  if (from._internal_size() != 0) {
-    _this->_internal_set_size(from._internal_size());
-  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1220,8 +1251,8 @@ void downloadBlockResponse::InternalSwap(downloadBlockResponse* other) {
       &other->_impl_.content_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(downloadBlockResponse, _impl_.size_)
-      + sizeof(downloadBlockResponse::_impl_.size_)
+      PROTOBUF_FIELD_OFFSET(downloadBlockResponse, _impl_.status_)
+      + sizeof(downloadBlockResponse::_impl_.status_)
       - PROTOBUF_FIELD_OFFSET(downloadBlockResponse, _impl_.checksum_)>(
           reinterpret_cast<char*>(&_impl_.checksum_),
           reinterpret_cast<char*>(&other->_impl_.checksum_));

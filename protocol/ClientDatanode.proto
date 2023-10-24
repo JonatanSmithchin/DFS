@@ -23,6 +23,7 @@ message transferBlockRequest{
 	uint64 size = 2;
 	bytes Content = 3;
     uint32 checkSum = 4;
+    repeated string ipAddrs = 5; // 备份的两个datanode的ip地址和端口
 }
 
 message transferBlockResponse{
