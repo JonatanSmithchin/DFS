@@ -128,7 +128,10 @@ ClientServiceImpl::Listing(::grpc::ServerContext *context, const ::ClientNamenod
     for (auto it:res) {
         auto ele = list->add_partiallisting();
         ele->set_path(it->getName());
+        ele->set_length(0);
+        ele->set_modification_time(it->getModifiedTime());
     }
+    response->set_allocated_dirlist(list);
     return grpc::Status::OK;
 }
 

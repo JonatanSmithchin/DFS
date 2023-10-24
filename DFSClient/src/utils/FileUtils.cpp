@@ -11,7 +11,7 @@
 
 namespace FileUtils {
 
-    YAML::Node node = YAML::LoadFile("../../configs/ClientConfig.yaml");
+    YAML::Node node = YAML::LoadFile("../configs/ClientConfig.yaml");
     size_t BUFFER_SIZE = node["buffer_size"].as<size_t>();
     size_t BLOCK_SIZE = node["block_size"].as<size_t>();
 
@@ -104,7 +104,7 @@ namespace FileUtils {
         delete[]buff;
     }
 
-    std::vector<std::string> getFiles(const std::string &dir) {
+    std::vector<std::string> getFiles(const std::string &dir,int offset) {
         if (!std::filesystem::exists(dir)){
             LOG(FATAL) << "Dir does not exist";
         }

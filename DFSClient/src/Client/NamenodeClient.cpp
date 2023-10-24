@@ -43,17 +43,16 @@ LocatedBlock *NamenodeClient::append(const std::string &path) {
     }
 }
 
-bool rename(const std::string& src,const std::string& dst){
+bool NamenodeClient::rename(const std::string& src,const std::string& dst){
     ClientNamenode::RenameRequest request;
     request.set_src(src);
     request.set_dst(dst);
-    request.set_clientname(CLIENT_NAME);
     ClientContext context;
 
     ClientNamenode::RenameResponse response;
     auto status = m_stub->Rename(&context,request,&response);
     if (status.ok()){
-        return response.result;
+        return response.result();
     } else{
         LOG(WARNING) << status.error_code() <<":"<<status.error_message();
         return false;
@@ -61,51 +60,52 @@ bool rename(const std::string& src,const std::string& dst){
 
 }
 
-bool deleteFile(const std::string& path){
+bool NamenodeClient::deleteFile(const std::string& path){
     ClientNamenode::DeleteRequest request;
     request.set_src(path);
-    request.set_clientname(CLIENT_NAME);
     ClientContext context;
 
     ClientNamenode::DeleteResponse response;
     auto status = m_stub->Delete(&context,request,&response);
     if (status.ok()){
-        return response.result;
+        return response.result();
     } else{
         LOG(WARNING) << status.error_code() <<":"<<status.error_message();
         return false;
     }
 }
 
-bool mkdir(const std::string& path){
+bool NamenodeClient::mkdir(const std::string& path){
     ClientNamenode::mkdirRequest request;
     request.set_src(path);
-    request.set_clientname(CLIENT_NAME);
     ClientContext context;
 
     ClientNamenode::mkdirResponse response;
     auto status = m_stub->mkdir(&context,request,&response);
     if (status.ok()){
-        return true;
+        return response.issuccess();
     } else{
         LOG(WARNING) << status.error_code() <<":"<<status.error_message();
         return false;
     }
 }
 
-bool listing(const std::string& path){
+std::vector<FileStatus> NamenodeClient::listing(const std::string& path){
     ClientNamenode::GetListingRequest request;
     request.set_src(path);
-    request.set_clientname(CLIENT_NAME);
     ClientContext context;
 
     ClientNamenode::GetListingResponse response;
     auto status = m_stub->Listing(&context,request,&response);
     if (status.ok()){
-        return true;
+        std::vector<FileStatus> res;
+        for (int i = 0; i < response.dirlist().partiallisting().size(); ++i) {
+            res.push_back(response.dirlist().partiallisting(i));
+        }
+        return res;
     } else{
         LOG(WARNING) << status.error_code() <<":"<<status.error_message();
-        return false;
+        return {};
     }
 }
 

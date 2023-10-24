@@ -28,7 +28,6 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,vector
         infile.read(data.data(),CHUNK_SIZE);
 
         long size = infile.gcount();
-        // request.set_content(data,size);
         request.set_content(data.data(),data.size());
         request.set_size(size);
         request.set_blockid(blockId);

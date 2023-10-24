@@ -11,7 +11,7 @@ namespace FileUtils {
     // constexpr size_t BUFFER_SIZE = 1024 * 1024;
     // constexpr size_t BLOCK_SIZE = 64 * 1024 * 1024;
 
-    std::vector<std::string> getFiles(const std::string& dir);
+    std::vector<std::string> getFiles(const std::string& dir,int offset);
 
     uint32_t checkSum(const unsigned char *buf, size_t len);
 

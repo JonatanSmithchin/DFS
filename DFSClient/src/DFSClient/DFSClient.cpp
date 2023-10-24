@@ -6,7 +6,6 @@
 #include "utils/FileUtils.h"
 #include <grpcpp/grpcpp.h>
 #include <fstream>
-#include <filesystem>
 
 DatanodeClient *DFSClient::getDatanode(const std::string &ipAddr) {
 
@@ -17,31 +16,86 @@ DatanodeClient *DFSClient::getDatanode(const std::string &ipAddr) {
     return client;
 }
 
+void DFSClient::createFile(const std::string &path) {
+    if (m_namenodeClient->create(path)){
+        std::cout << "create new file: " << path << std::endl;
+    } else{
+        std::cout << "Failed" << std::endl;
+    }
+}
+
+void DFSClient::mkdir(const std::string &path) {
+    if(m_namenodeClient->mkdir(path)){
+        std::cout << "create new dir: " << path << std::endl;
+    } else{
+        std::cout << "Failed" << std::endl;
+    }
+}
+
+void DFSClient::deleteNode(const std::string &path) {
+    if(m_namenodeClient->deleteFile(path)){
+        std::cout << "remove node: " << path << std::endl;
+    } else{
+        std::cout << "Failed" << std::endl;
+    }
+}
+
+void DFSClient::rename(const std::string &src, const std::string &dst) {
+    if(m_namenodeClient->rename(src,dst)){
+        std::cout << "rename node: " << src << "to" << dst << std::endl;
+    } else{
+        std::cout << "Failed" << std::endl;
+    }
+
+}
+
+void DFSClient::listing(const std::string &path) {
+    auto list = m_namenodeClient->listing(path);
+    for (const auto& it : list){
+        std::cout << it.path() << " " << it.length() << " " << it.modification_time() << std::endl;
+    }
+}
+
+void DFSClient::append(const std::string &dst, const std::string &file, int offset) {
+    std::fstream input(file,std::ios::in|std::ios::binary);
+
+    auto locs = m_namenodeClient->locate(dst);
+    if (locs->islastblockcomplete()){
+        //TODO: 直接上传从offset开始的内容
+    }else{
+        //TODO：填满最后一个未满数据块后，更新offset，再上传剩下内容
+    }
+
+    auto blocks = FileUtils::getFiles(UPLOAD_TEMP_FILE_DIR, offset);
+    for (const auto& blk:blocks){
+        auto block = m_namenodeClient->append(dst);
+        //TODO: 还要选择一个datanode
+        auto ipAddr = block->locs(0).id().ipaddr() + ":" + std::to_string(block->locs(0).id().xferport());
+        auto datanode = getDatanode(ipAddr);
+        datanode->uploadBlock(blk,block->block().blockid());
+        delete datanode;
+    }
+}
+
 void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
     std::fstream input(file,std::ios::in|std::ios::binary);
 
     FileUtils::SplitFile(&input,UPLOAD_TEMP_FILE_DIR);
-    //申请创建文件
+    //如果文件不存在，申请创建文件
     if(!m_namenodeClient->create(dst)){
         return;
     }
 
     //获取已经分割的所有暂存数据块
-    auto blocks = FileUtils::getFiles(UPLOAD_TEMP_FILE_DIR);
+    //TODO: 配置暂存文件路径
+    auto blocks = FileUtils::getFiles(UPLOAD_TEMP_FILE_DIR,0);
     //添加数据块
     for (const auto& blk:blocks){
         auto block = m_namenodeClient->append(dst);
         //TODO: 还要选择一个datanode
         auto ipAddr = block->locs(0).id().ipaddr() + ":" + std::to_string(block->locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);
-
-        auto ipAddr1 = block->locs(1).id().ipaddr() + ":" + std::to_string(block->locs(1).id().xferport());
-        auto ipAddr2 = block->locs(2).id().ipaddr() + ":" + std::to_string(block->locs(2).id().xferport());
-        vector<string> ipAddrs;
-        ipAddrs.emplace_back(ipAddr1);
-        ipAddrs.emplace_back(ipAddr2);
-
-        datanode->uploadBlock(blk,block->block().blockid(),ipAddrs);
+        datanode->uploadBlock(blk,block->block().blockid());
         delete datanode;
     }
 
@@ -70,7 +124,7 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
         google::protobuf::uint64 block_id = file_block.block().blockid();
         // 下载文件块并放入set
         std::string temp=std::to_string(i)+".temp";
-        temp=DOWNLOAD_TEMP_FILE_DIR+"/"+temp; 
+        temp=DOWNLOAD_TEMP_FILE_DIR+"/"+temp;  // 随便写了一个，要改成别的路径！！！！
 
         auto ipAddr = file_block.locs(0).id().ipaddr() + ":" + std::to_string(file_block.locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);
@@ -91,5 +145,7 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
 DFSClient::DFSClient(NamenodeClient *namenodeClient):m_namenodeClient(namenodeClient) {
 
 }
+
+
 
 

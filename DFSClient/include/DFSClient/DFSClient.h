@@ -22,12 +22,15 @@ public:
     DFSClient(NamenodeClient* namenodeClient);
     static DatanodeClient* getDatanode(const std::string& uuid);
     void mkdir(const std::string& path);
+    void createFile(const std::string& path);
     void deleteNode(const std::string& path);
     void rename(const std::string& src,const std::string& dst);
     void listing(const std::string& path);
+    void append(const std::string& dst,const std::string& file,int offset);
     void uploadFile(const std::string& dst,const std::string& file);
     void downloadFile(const std::string& dst,const std::string& file);
 };
+
 
 
 #endif //DFSCLIENT_DFSCLIENT_H

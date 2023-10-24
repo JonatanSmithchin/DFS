@@ -27,7 +27,7 @@ vector<std::string> resolvePath(const string& path){
     return res;
 }
 
-std::string getFileName(const string& path){
+std::string getName(const string& path){
     return path.substr(path.find_last_of('/')+1,-1);
 }
 
@@ -71,7 +71,7 @@ INodeDir *NameSystem::findParent(const string &path) {
 INodeFile *NameSystem::constructFile(const string &path) {
     auto file = new INodeFile();
     file->setFullPathName(path);
-    file->setName(getFileName(path));
+    file->setName(getName(path));
     auto now =
             std::chrono::duration_cast<std::chrono::milliseconds>(
                     std::chrono::system_clock::now().time_since_epoch());
@@ -134,7 +134,7 @@ bool NameSystem::remove(const string &path) {
     if (p == nullptr){
         return false;
     }
-    return p->removeChild(getFileName(path));
+    return p->removeChild(getName(path));
 }
 
 LocatedBlock* NameSystem::append(const string &path) {
@@ -160,6 +160,7 @@ INode *NameSystem::addDir(const string &path) {
     auto dir = new INodeDir();
     //TODO: INodeDir构造函数
     dir->setFullPathName(path);
+    dir->setName(getName(path));
     p->addChild(dir);
     return dir;
 }

@@ -25,7 +25,7 @@ public:
     bool rename(const std::string& src,const std::string& dst);
     bool deleteFile(const std::string& path);
     bool mkdir(const std::string& path);
-    bool listing(const std::string& path);
+    std::vector<FileStatus> listing(const std::string& path);
     void setPermission(const std::string& path);
     void setOwner(const std::string& path,const std::string& owner);
     void addBlock(const std::string& blkId);
