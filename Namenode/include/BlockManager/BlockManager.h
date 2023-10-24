@@ -23,9 +23,12 @@ public:
     bool removeBlock(string Name);
     LocatedBlocks* getALLBlock(string name);
     const LocatedBlock* getBlock(string name, uint64_t blockID);
+    queue<pair<uint64_t, int> > checkBackups();
 //    bool refrashBlock(int Datanode, string Name);
 //    bool refrashHashTable();//�ú�����Ŀ�����Ż���ѯ�ٶȣ�����hash��
 //    string getBlockALL(string name);
     BlockManager();
+
+    bool addBackups(queue<pair<string, pair<uint64_t, pair<string, string>>>> backups);
 };
 

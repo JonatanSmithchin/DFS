@@ -87,7 +87,7 @@ LocatedBlocks* BlockIndexClashPoint::inquireALL(BlockIndexClashPoint* Head, stri
 }
 const LocatedBlock* BlockIndexClashPoint::inquire(BlockIndexClashPoint* Head, string name, uint64_t blockID) {
     if (Head->name == name) {
-        for (int i = 0; i <= Head->BlockMessage->blocks_size(); i++) {
+        for (int i = 0; i < Head->BlockMessage->blocks_size(); i++) {
             if (Head->BlockMessage->blocks(i).block().blockid()) {
                 return &(Head->BlockMessage->blocks(i));
             }
@@ -97,7 +97,7 @@ const LocatedBlock* BlockIndexClashPoint::inquire(BlockIndexClashPoint* Head, st
     BlockIndexClashPoint* n = Head;
     while (n->next) {
         if (n->next->name == name) {
-            for (int i = 0; i <= n->next->BlockMessage->blocks_size(); i++) {
+            for (int i = 0; i < n->next->BlockMessage->blocks_size(); i++) {
                 if (n->next->BlockMessage->blocks(i).block().blockid()) {
                     return &(n->next->BlockMessage->blocks(i));
                 }
@@ -107,4 +107,78 @@ const LocatedBlock* BlockIndexClashPoint::inquire(BlockIndexClashPoint* Head, st
         n = n->next;
     }
     return nullptr;
+}
+
+queue<pair<uint64_t, int> > BlockIndexClashPoint::checkBackups(BlockIndexClashPoint* Head) {
+    queue<pair<uint64_t, int> > q;
+    for (int i = 0; i < Head->BlockMessage->blocks_size(); i++) {
+        if (Head->BlockMessage->blocks(i).locs_size() < 3) {
+            pair<uint64_t, int> a(Head->BlockMessage->blocks(i).block().blockid(), Head->BlockMessage->blocks(i).locs_size() - 1);
+            q.push(a);
+        }
+    }
+    BlockIndexClashPoint* n = Head;
+    while (n->next) {
+        for (int i = 0; i < n->next->BlockMessage->blocks_size(); i++) {
+            if (n->next->BlockMessage->blocks(i).locs_size() < 3) {
+                pair<uint64_t, int> a(n->next->BlockMessage->blocks(i).block().blockid(), n->next->BlockMessage->blocks(i).locs_size() - 1);
+                q.push(a);
+            }
+        }
+    }
+    return q;
+}
+
+bool BlockIndexClashPoint::insertBackups(BlockIndexClashPoint* Head, string name, uint64_t blockid, pair<string, string> backupsDatanodeid) {
+    if (Head->name == name) {
+        for (int i = 0; i < Head->BlockMessage->blocks_size(); i++) {
+            if (Head->BlockMessage->blocks(i).block().blockid() == blockid) {
+                if (backupsDatanodeid.first != "") {
+                    auto block = Head->BlockMessage->blocks(i);
+                    DatanodeInfo* D = block.add_locs();
+                    DatanodeID* Did;
+                    Did = new DatanodeID;
+                    Did->set_datanodeuuid(backupsDatanodeid.first);
+                    D->set_allocated_id(Did);
+                }
+                if (backupsDatanodeid.second != "") {
+                    auto block = Head->BlockMessage->blocks(i);
+                    DatanodeInfo* D = block.add_locs();
+                    DatanodeID* Did;
+                    Did = new DatanodeID;
+                    Did->set_datanodeuuid(backupsDatanodeid.second);
+                    D->set_allocated_id(Did);
+                }
+            }
+        }
+        return true;
+    }
+    BlockIndexClashPoint* n = Head;
+    while (n->next) {
+        if (n->next->name == name) {
+            for (int i = 0; i < n->next->BlockMessage->blocks_size(); i++) {
+                if (n->next->BlockMessage->blocks(i).block().blockid() == blockid) {
+                    if (backupsDatanodeid.first != "") {
+                        auto block = n->next->BlockMessage->blocks(i);
+                        DatanodeInfo* D = block.add_locs();
+                        DatanodeID* Did;
+                        Did = new DatanodeID;
+                        Did->set_datanodeuuid(backupsDatanodeid.first);
+                        D->set_allocated_id(Did);
+                    }
+                    if (backupsDatanodeid.second != "") {
+                        auto block = n->next->BlockMessage->blocks(i);
+                        DatanodeInfo* D = block.add_locs();
+                        DatanodeID* Did;
+                        Did = new DatanodeID;
+                        Did->set_datanodeuuid(backupsDatanodeid.second);
+                        D->set_allocated_id(Did);
+                    }
+                }
+            }
+            return true;
+        }
+        n = n->next;
+    }
+    return false;
 }

@@ -1,4 +1,6 @@
 #pragma once
+
+#include <queue>
 #include "BlockIndexClashPoint.h"
 #include "BlockIndex.h"
 #define red false 
@@ -24,6 +26,7 @@ private:
 	void incheck(BlockIndexRBTree** root, BlockIndexRBTree** a);
 	BlockIndexRBTree* FindMidOrderSuccessorNode(BlockIndexRBTree** a);
 	void movecheck(BlockIndexRBTree** root, BlockIndexRBTree** a);
+    queue<pair<uint64_t, int> > checkBackups1(BlockIndexRBTree* temp);
 public:
 	bool insert(BlockIndexRBTree** root, int x, string Name, LocatedBlocks* blockMessage);
 	bool remove(BlockIndexRBTree** root, int x, string Name);/////////////////////////////////////////////////////////////////////////////
@@ -32,9 +35,14 @@ public:
 	LocatedBlocks* inquireALL(BlockIndexRBTree** root, int x, string name);
     const LocatedBlock* inquire(BlockIndexRBTree** root, int x, string name, uint64_t blockID);
 	LSMessage GetLeftSon();
+    queue<pair<uint64_t, int> > checkBackups(BlockIndexRBTree* root);
 	BlockIndexRBTree(LocatedBlocks* nul);
 	BlockIndexRBTree(bool b, LocatedBlocks* nul);//root
 	BlockIndexRBTree(BlockIndexRBTree* Fa, int Key, LocatedBlocks* blockMesaage);
 	BlockIndexRBTree();
+
+    bool
+    insertBackups(BlockIndexRBTree **root, int x, string name, uint64_t blockid,
+                  pair<string, string> backupsDatanodeid);
 };
 

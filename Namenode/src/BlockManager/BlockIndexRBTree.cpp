@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstring>
 #include <string>
+
 using namespace std;
 BlockIndexRBTree::BlockIndexRBTree() :BlockIndex() {
 	rson = NULL;
@@ -416,7 +417,7 @@ const LocatedBlock* BlockIndexRBTree::inquire(BlockIndexRBTree** root, int x, st
         }
         if (temp->key == x) {
             if (temp->name == name) {
-                for (int i = 0; i <= temp->BlockMessage->blocks_size(); i++) {
+                for (int i = 0; i < temp->BlockMessage->blocks_size(); i++) {
                     if (temp->BlockMessage->blocks(i).block().blockid()) {
                         return &(temp->BlockMessage->blocks(i));
                     }
@@ -445,4 +446,93 @@ LSMessage BlockIndexRBTree::GetLeftSon() {
 		a.key = this->lson->key;
 		return a;
 	}
+}
+
+queue<pair<uint64_t, int> > BlockIndexRBTree::checkBackups(BlockIndexRBTree* root) {
+    return checkBackups1(root->lson);
+}
+queue<pair<uint64_t, int> > BlockIndexRBTree::checkBackups1(BlockIndexRBTree* temp) {
+
+    queue<pair<uint64_t, int> > q;
+    for (int i = 0; i < temp->BlockMessage->blocks_size(); i++) {
+        if (temp->BlockMessage->blocks(i).locs_size() < 3) {
+            pair<uint64_t, int> a(temp->BlockMessage->blocks(i).block().blockid(), temp->BlockMessage->blocks(i).locs_size() - 1);
+            q.push(a);
+        }
+    }
+    queue<pair<uint64_t, int> > q1;
+    if (checkCPHead()) {
+        q1 = temp->son->checkBackups(temp->son);
+        for (; q1.size() > 0; q1.pop()) {
+            q.push(q1.front());
+        }
+    }
+    if (temp->lson->TF) {
+        q1 = checkBackups1(temp->lson);
+        for (; q1.size() > 0; q1.pop()) {
+            q.push(q1.front());
+        }
+    }
+    if (temp->rson->TF) {
+        q1 = checkBackups1(temp->rson);
+        for (; q1.size() > 0; q1.pop()) {
+            q.push(q1.front());
+        }
+    }
+    return q;
+}
+
+bool BlockIndexRBTree::insertBackups(BlockIndexRBTree** root, int x, string name, uint64_t blockid, pair<string, string> backupsDatanodeid) {
+    BlockIndexRBTree* temp = (*root)->lson;
+    int cnt = 0;
+    while (++cnt) {
+        if (temp->key > x) {
+            if (temp->lson->TF != false) {
+                temp = temp->lson;
+                continue;
+            }
+            else return false;
+        }
+        if (temp->key < x) {
+            if (temp->rson->TF != false) {
+                temp = temp->rson;
+                continue;
+            }
+            else return false;
+        }
+        if (temp->key == x) {
+            if (temp->name == name) {
+                for (int i = 0; i < temp->BlockMessage->blocks_size(); i++) {
+                    if (temp->BlockMessage->blocks(i).block().blockid() == blockid) {
+                        if (backupsDatanodeid.first != "") {
+                            auto block = temp->BlockMessage->blocks(i);
+                            auto D = block.add_locs();
+                            DatanodeID* Did;
+                            Did = new DatanodeID;
+                            Did->set_datanodeuuid(backupsDatanodeid.first);
+                            D->set_allocated_id(Did);
+                        }
+                        if (backupsDatanodeid.second != "") {
+                            auto block = temp->BlockMessage->blocks(i);
+                            auto D = block.add_locs();
+                            DatanodeID* Did;
+                            Did = new DatanodeID;
+                            Did->set_datanodeuuid(backupsDatanodeid.second);
+                            D->set_allocated_id(Did);
+                        }
+                        break;
+                    }
+                }
+                return true;
+            }
+            else {
+                if (temp->checkCPHead()) {
+                    return temp->son->insertBackups(temp->son, name, blockid, backupsDatanodeid);
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
 }

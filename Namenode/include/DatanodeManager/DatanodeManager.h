@@ -9,6 +9,7 @@
 #include "proto/dfs.pb.h"
 #include "ConsistentHash.h"
 #include "Report.h"
+#include "BlockManager/BlockManager.h"
 
 using namespace DatanodeNamenode;
 
@@ -17,6 +18,7 @@ private:
     std::mutex mutex;
     std::map<std::string, DatanodeInfo *> m_datanodeMap;
     ConsistentHash m_consistentHash;
+    queue<pair<std::string ,size_t>> backupBlocks;
 public:
     void lock();
 
@@ -31,6 +33,8 @@ public:
     void addDatanode(DatanodeInfo* d);
 
     void removeDatanode(DatanodeInfo* d);
+
+    void backupBlock(const pair<std::string,size_t>& backup);
 
     DatanodeInfo* getDatanode(const std::string& uuid);
 

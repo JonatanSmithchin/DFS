@@ -1,6 +1,8 @@
 #include "BlockManager/BlockManager.h"
 #include <string>
 #include <utility>
+#include <thread>
+
 BlockManager::BlockManager() {
     hashTableSize = 379;
     hashKey = 53;
@@ -65,3 +67,22 @@ const LocatedBlock* BlockManager::getBlock(string name, uint64_t blockID) {
     return (*hashTable1)[getKey(name, hashTableSize, hashKey)]->inquire(getKey(name, hashTableSize2, hashKey2), name, blockID);
 }
 
+queue<pair<uint64_t, int> > BlockManager::checkBackups() {
+    queue<pair<uint64_t, int> > q;
+    queue<pair<uint64_t, int> > q1;
+    for (int i = 0; i < hashTableSize; i++) {
+        q1 = (*hashTable1)[i]->checkBackups();
+        for (; q1.size() > 0; q1.pop()) {
+            q.push(q1.front());
+        }
+    }
+    return q;
+}
+
+bool BlockManager::addBackups(queue<pair<string, pair<uint64_t, pair<string, string> > > > backups) {
+    for (; backups.size(); backups.pop()) {
+        pair<string, pair<uint64_t, pair<string, string> > > a = backups.front();
+        if (!((*hashTable1)[getKey(a.first, hashTableSize, hashKey)]->insertBackups(getKey(a.first, hashTableSize2, hashKey2), a.first, a.second.first, a.second.second))) return false;
+    }
+    return true;
+}

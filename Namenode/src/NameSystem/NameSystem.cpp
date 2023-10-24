@@ -3,6 +3,7 @@
 //
 
 #include <yaml-cpp/yaml.h>
+#include <thread>
 #include "NameSystem/NameSystem.h"
 #include "sstream"
 
@@ -173,6 +174,20 @@ vector<INode *> NameSystem::list(const string &path) {
 
 LocatedBlocks* NameSystem::getBlocks(const string &path) {
     return m_blockManager->getALLBlock(path);
+}
+
+void NameSystem::backupBlocks() {
+    while (true){
+
+        std::this_thread::sleep_for(std::chrono::seconds(60));
+
+        auto blkQueue = m_blockManager->checkBackups();
+
+        while (!blkQueue.empty()){
+            auto backup = blkQueue.front();
+            blkQueue.pop();
+        }
+    }
 }
 
 

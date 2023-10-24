@@ -86,11 +86,30 @@ std::vector<DatanodeCommand> DatanodeManager::handleHeartBeat(const std::string 
 
     datanode->set_lastupdate(now());
     std::vector<DatanodeCommand> cmds;
-    auto cmd = new DatanodeCommand;
-    cmd->set_commandtype(DatanodeCommand_Type_BlockCommand);
 
+    if (backupBlocks.front().first == uuid){
+        auto backup = backupBlocks.front();
+        backupBlocks.pop();
+
+        auto cmd = new DatanodeCommand;
+        cmd->set_commandtype(DatanodeCommand_Type_BlockCommand);
+
+        auto blkCmd = new BlockCommand;
+        blkCmd->set_action(BlockCommand_Action_TRANSFER);
+
+        auto blk = blkCmd->add_blocks();
+        blk->set_blockid(backup.second);
+        auto target = blkCmd->add_targets();
+        target->CopyFrom(*m_datanodeMap.find(backup.first)->second);
+
+        cmd->set_allocated_blkcmd(blkCmd);
+    }
 
     return cmds;
+}
+
+void DatanodeManager::backupBlock(const pair<std::string, size_t>& backup) {
+    backupBlocks.push(backup);
 }
 
 

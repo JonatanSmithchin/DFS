@@ -24,6 +24,7 @@ private:
     INode* find(const std::string& path);
     INodeDir* findParent(const std::string& path);
     static INodeFile* constructFile(const std::string& path);
+    void backupBlocks();
 public:
     NameSystem(INodeDir* root,DatanodeManager* manager,BlockManager* blockManager);
     void readLock();

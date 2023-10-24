@@ -13,7 +13,10 @@ public:
     bool createRBTreeRoot(string name, int xx, LocatedBlocks* blockMessage);//������������ڵ�
     LocatedBlocks* inquireALL(int xx, string name);
     const LocatedBlock* inquire(int xx, string name, uint64_t blockID);
+    queue<pair<uint64_t, int> > checkBackups();
     BlockIndexHash(LocatedBlocks* blockMessage);
     BlockIndexHash();
+
+    bool insertBackups(int xx, string name, uint64_t blockid, pair<string, string> backupsDatanodeid);
 };
 
