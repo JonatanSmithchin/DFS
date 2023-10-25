@@ -10,8 +10,6 @@
 #include "proto/dfs.grpc.pb.h"
 #include "utils/checkSum.h"
 
-
-
 void DatanodeClient::copyBlock(uint64_t blockId) {
     copyBlockRequest request;
     copyBlockResponse response;

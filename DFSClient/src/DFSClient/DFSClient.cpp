@@ -6,6 +6,7 @@
 #include "utils/FileUtils.h"
 #include <grpcpp/grpcpp.h>
 #include <fstream>
+#include <thread>
 
 DatanodeClient *DFSClient::getDatanode(const std::string &ipAddr) {
 
@@ -72,7 +73,7 @@ void DFSClient::append(const std::string &dst, const std::string &file, int offs
         //TODO: 还要选择一个datanode
         auto ipAddr = block->locs(0).id().ipaddr() + ":" + std::to_string(block->locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);
-        datanode->uploadBlock(blk,block->block().blockid());
+        datanode->uploadBlock(blk,block->block().blockid(),{});
         delete datanode;
     }
 }
@@ -95,7 +96,14 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
         //TODO: 还要选择一个datanode
         auto ipAddr = block->locs(0).id().ipaddr() + ":" + std::to_string(block->locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);
-        datanode->uploadBlock(blk,block->block().blockid());
+
+        auto ipAddr1 = block->locs(1).id().ipaddr() + ":" + std::to_string(block->locs(1).id().xferport());
+        auto ipAddr2 = block->locs(2).id().ipaddr() + ":" + std::to_string(block->locs(2).id().xferport());
+        std::vector<std::string> ipAddrs;
+        ipAddrs.emplace_back(ipAddr1);
+        ipAddrs.emplace_back(ipAddr2);
+
+        datanode->uploadBlock(blk,block->block().blockid(),ipAddrs);
         delete datanode;
     }
 

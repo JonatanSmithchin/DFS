@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <vector>
 #include <string>
+#include <thread>
 #include "Server/ClientDatanodeServiceImpl.h"
 #include "utils/checkSum.h"
 
@@ -27,16 +28,14 @@ DatanodeClient* getDatanode(const std::string &ipAddr) {
     return client;
 }
 
-void * backup(void * arg) {
+void backup(Args& args) {
     // 找datanode 传输
-    Args* args=(Args *)arg;
 
-    auto datanode1=getDatanode(args->ipAddrs[0]);
-    auto datanode2=getDatanode(args->ipAddrs[1]);
+    auto datanode1=getDatanode(args.ipAddrs[0]);
+    auto datanode2=getDatanode(args.ipAddrs[1]);
 
-    datanode1->copyBlock(args->blockId);
-    datanode2->copyBlock(args->blockId);
-    return NULL;
+    datanode1->copyBlock(args.blockId);
+    datanode2->copyBlock(args.blockId);
 }
 
 grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *context,
@@ -65,24 +64,20 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
 
     outfile.close();
 
-    Args *args=new Args();
-    for (int i = 0; i < request.ipaddrs_size(); ++i) {
-        args->ipAddrs.push_back(request.ipaddrs(i));
+    Args args;
+    std::cout << request.ipaddrs().size();
+    for (int i = 0; i < request.ipaddrs().size(); ++i) {
+        std::cout << request.ipaddrs(i) << std::endl;
+        args.ipAddrs.push_back(request.ipaddrs(i));
     }
-    args->blockId=request.blockid();
+    args.blockId=request.blockid();
 
     // 创建子线程来完成block备份工作（datanode之间
-    pthread_t tid;
-    int ret = pthread_create(&tid, NULL, backup, (void *)&args);
-    if(ret != 0) {
-        char * errstr = strerror(ret);
-        printf("error1 : %s\n", errstr); // 好像应该用LOG？？
-    }
-
-    ret = pthread_detach(tid); // 设置线程分离
-    if(ret != 0) {
-        char * errstr = strerror(ret);
-        printf("error2 : %s\n", errstr);
+    std::thread th(backup, std::ref(args));
+    if(th.joinable()) {
+        th.join();
+    } else{
+        std::cout << "error";
     }
 
     return grpc::Status::OK;

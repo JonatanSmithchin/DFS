@@ -80,9 +80,11 @@ std::vector<DatanodeCommand> DatanodeManager::handleHeartBeat(const std::string 
 
     auto datanode = getDatanode(uuid);
 
+
     if (datanode == nullptr){
         return {};
     }
+    LOG(INFO) << datanode->id().ipaddr() << ":" << datanode->id().xferport();
 
     datanode->set_lastupdate(now());
     std::vector<DatanodeCommand> cmds;

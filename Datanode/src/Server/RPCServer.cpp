@@ -12,7 +12,9 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
-RPCServer::RPCServer(ClientDatanodeServiceImpl *clientDatanodeService):m_clientService(clientDatanodeService) {
+RPCServer::RPCServer(ClientDatanodeServiceImpl *clientDatanodeService,
+                     DatanodeServiceImpl *datanodeService)
+                     :m_clientService(clientDatanodeService),m_datanodeService(datanodeService) {
 
 }
 
@@ -27,6 +29,7 @@ void RPCServer::RunServer(){
     builder.AddListeningPort(server_address,grpc::InsecureServerCredentials());
 
     builder.RegisterService(m_clientService);
+    builder.RegisterService(m_datanodeService);
 
     auto server(builder.BuildAndStart());
     LOG(INFO) << "Server listening on " << server_address;

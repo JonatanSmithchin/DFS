@@ -4,6 +4,7 @@
 
 #include <thread>
 #include <glog/logging.h>
+#include <yaml-cpp/yaml.h>
 #include "Client/NamenodeClient.h"
 #include "utils/net_utils.h"
 #include "proto/dfs.grpc.pb.h"
@@ -29,6 +30,9 @@ void NameNodeClient::registration() {
 
     std::cout << "registering datanode" << std::endl;
 
+    YAML::Node node = YAML::LoadFile("../configs/DatanodeConfig.yaml");
+    int SERVER_PORT = node["server_port"].as<int>();
+
     auto id = new DatanodeID();
     std::string hostname,ip;
     GetHostInfo(hostname,ip);
@@ -40,7 +44,7 @@ void NameNodeClient::registration() {
 
     auto uuid = new std::string {std::to_string(hash(id))};
     id->set_allocated_datanodeuuid(uuid);
-    id->set_xferport(8501);
+    id->set_xferport(SERVER_PORT);
     m_id->CopyFrom(*id);
     auto info = new DatanodeInfo();
 

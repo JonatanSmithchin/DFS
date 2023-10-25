@@ -10,13 +10,14 @@ DatanodeServiceImpl::~DatanodeServiceImpl() {
     
 }
 
-::grpc::Status DatanodeServiceImpl::copyBlock(::grpc::ServerContext* context, 
+::grpc::Status DatanodeServiceImpl:: copyBlock(::grpc::ServerContext* context,
                                               ::grpc::ServerReader< ::Datanode::copyBlockRequest>* reader,
                                               ::Datanode::copyBlockResponse* response) {
     Datanode::copyBlockRequest request;
     reader->Read(&request);
 
     const std::string& filename = m_work_dir + std::to_string(request.blockid());
+
     std::ofstream outfile;
     outfile.open(filename,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
 

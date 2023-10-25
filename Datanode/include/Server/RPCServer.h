@@ -6,11 +6,14 @@
 #define DATANODE_RPCSERVER_H
 
 #include "ClientDatanodeServiceImpl.h"
+#include "DatanodeServiceImpl.h"
+
 class RPCServer {
 private:
     ClientDatanodeServiceImpl* m_clientService;
+    DatanodeServiceImpl* m_datanodeService;
 public:
-    RPCServer(ClientDatanodeServiceImpl *clientDatanodeService);
+    RPCServer(ClientDatanodeServiceImpl *clientDatanodeService,DatanodeServiceImpl *datanodeService);
     void RunServer();
 };
 

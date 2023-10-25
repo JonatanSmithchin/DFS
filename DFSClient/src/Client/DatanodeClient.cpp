@@ -12,7 +12,7 @@ DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel):
 
 }
 
-void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,vector<string> ipAddrs) {
+void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,std::vector<std::string> ipAddrs) {
     transferBlockRequest request;
     transferBlockResponse response;
     // char data[CHUNK_SIZE];
@@ -23,6 +23,8 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,vector
 
     infile.open(file,std::ifstream::in | std::ifstream::binary);
     std::unique_ptr<grpc::ClientWriter<transferBlockRequest>> writer(m_stub->transferBlock(&context,&response));
+    request.add_ipaddrs(ipAddrs[0]);
+    request.add_ipaddrs(ipAddrs[1]);
     while (!infile.eof()){
 
         infile.read(data.data(),CHUNK_SIZE);
@@ -32,8 +34,6 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,vector
         request.set_size(size);
         request.set_blockid(blockId);
         request.set_checksum(FileUtils::checkSum((const unsigned char*)data.data(),size));
-        request.add_ipaddrs(ipAddrs[0]);
-        request.add_ipaddrs(ipAddrs[1]);
 
         if (!writer->Write(request)){
             break;
@@ -42,7 +42,7 @@ void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,vector
     writer->WritesDone();
     Status status  = writer->Finish();
     if (status.ok()){
-        std::cout << "Transfer blocks finished" << std::endl;
+        std::cout << "Upload blocks finished" << std::endl;
     } else{
         std::cout << status.error_code() << ": " << status.error_message();
     }
@@ -56,12 +56,12 @@ void DatanodeClient::downloadBlock(const std::string& file,const google::protobu
     std::ofstream outfile;
     outfile.open(file,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
         
-    request.set_blockid(block_id);
+    request.add_blockid(block_id);
 
     std::unique_ptr<grpc::ClientReader<downloadBlockResponse>> reader(m_stub->downloadBlock(&context,request));
 
     while (reader->Read(&response)) {
-        outfile.write(response.content().c_str(),response.size());
+        outfile.write(response.content().c_str(),sizeof(response.content()));
     }
 
     Status status  = reader->Finish();

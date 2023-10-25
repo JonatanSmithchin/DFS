@@ -23,7 +23,7 @@ private:
 public:
     explicit DatanodeClient(std::shared_ptr<grpc::Channel> channel);
 
-    void uploadBlock(const std::string& file,uint64_t blockId,vector<string> ipAddrs);
+    void uploadBlock(const std::string& file,uint64_t blockId,std::vector<std::string> ipAddrs);
     void downloadBlock(const std::string& file,const google::protobuf::uint64& block_id);
 };
 

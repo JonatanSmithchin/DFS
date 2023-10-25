@@ -39,8 +39,9 @@ int main(int argc,char** argv) {
     const std::string& work_dir = node["work_dir"].as<std::string>();
 
     ClientDatanodeServiceImpl ClientDatanodeService(work_dir);
+    DatanodeServiceImpl DatanodeService(work_dir);
 
-    RPCServer server(&ClientDatanodeService);
+    RPCServer server(&ClientDatanodeService,&DatanodeService);
 
     server.RunServer();
 
