@@ -65,11 +65,11 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
 
     outfile.close();
 
-    Args args;
+    Args *args=new Args();
     for (int i = 0; i < request.ipaddrs_size(); ++i) {
-        args.ipAddrs.push_back(request.ipaddrs(i));
+        args->ipAddrs.push_back(request.ipaddrs(i));
     }
-    args.blockId=request.blockid();
+    args->blockId=request.blockid();
 
     // 创建子线程来完成block备份工作（datanode之间
     pthread_t tid;
