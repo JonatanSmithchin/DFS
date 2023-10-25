@@ -14,10 +14,16 @@ ClientDatanodeServiceImpl::~ClientDatanodeServiceImpl() {
 
 }
 
-struct Args{
+class Args{
+public:
     std::vector<std::string> ipAddrs;
     uint64_t blockId;
+    Args(std::vector<std::string> addrs,uint64_t id);
 };
+
+Args::Args(std::vector<std::string> addrs, uint64_t id):ipAddrs(addrs),blockId(id) {
+
+}
 
 DatanodeClient* getDatanode(const std::string &ipAddr) {
     std::string s="/mnt/d/test/rcv/";
@@ -28,7 +34,7 @@ DatanodeClient* getDatanode(const std::string &ipAddr) {
     return client;
 }
 
-void backup(Args& args) {
+void* backup(Args args) {
     // 找datanode 传输
 
     auto datanode1=getDatanode(args.ipAddrs[0]);
@@ -36,6 +42,7 @@ void backup(Args& args) {
 
     datanode1->copyBlock(args.blockId);
     datanode2->copyBlock(args.blockId);
+    return nullptr;
 }
 
 grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *context,
@@ -64,18 +71,18 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
 
     outfile.close();
 
-    Args args;
+    std::vector<std::string> ipAddrs;
     std::cout << request.ipaddrs().size();
     for (int i = 0; i < request.ipaddrs().size(); ++i) {
         std::cout << request.ipaddrs(i) << std::endl;
-        args.ipAddrs.push_back(request.ipaddrs(i));
+        ipAddrs.push_back(request.ipaddrs(i));
     }
-    args.blockId=request.blockid();
+//    args.blockId=request.blockid();
 
     // 创建子线程来完成block备份工作（datanode之间
-    std::thread th(backup, std::ref(args));
+    std::thread th(backup,Args(ipAddrs,request.blockid()));
     if(th.joinable()) {
-        th.join();
+        th.detach();
     } else{
         std::cout << "error";
     }

@@ -32,6 +32,7 @@ void NameNodeClient::registration() {
 
     YAML::Node node = YAML::LoadFile("../configs/DatanodeConfig.yaml");
     int SERVER_PORT = node["server_port"].as<int>();
+    int IPC_PORT = node["ipc_port"].as<int>();
 
     auto id = new DatanodeID();
     std::string hostname,ip;
@@ -45,6 +46,7 @@ void NameNodeClient::registration() {
     auto uuid = new std::string {std::to_string(hash(id))};
     id->set_allocated_datanodeuuid(uuid);
     id->set_xferport(SERVER_PORT);
+    id->set_ipcport(IPC_PORT);
     m_id->CopyFrom(*id);
     auto info = new DatanodeInfo();
 

@@ -6,4 +6,4 @@
 work_dir: "/mnt/d/test/rcv2/"
 server_port: 8503
 client_port: 8500
-ipc_port: 8601
+ipc_port: 8603

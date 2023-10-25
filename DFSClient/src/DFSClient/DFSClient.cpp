@@ -97,8 +97,8 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
         auto ipAddr = block->locs(0).id().ipaddr() + ":" + std::to_string(block->locs(0).id().xferport());
         auto datanode = getDatanode(ipAddr);
 
-        auto ipAddr1 = block->locs(1).id().ipaddr() + ":" + std::to_string(block->locs(1).id().xferport());
-        auto ipAddr2 = block->locs(2).id().ipaddr() + ":" + std::to_string(block->locs(2).id().xferport());
+        auto ipAddr1 = block->locs(1).id().ipaddr() + ":" + std::to_string(block->locs(1).id().ipcport());
+        auto ipAddr2 = block->locs(2).id().ipaddr() + ":" + std::to_string(block->locs(2).id().ipcport());
         std::vector<std::string> ipAddrs;
         ipAddrs.emplace_back(ipAddr1);
         ipAddrs.emplace_back(ipAddr2);
