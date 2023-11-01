@@ -9,7 +9,6 @@
 
 DatanodeClient::DatanodeClient(std::shared_ptr<grpc::Channel> channel):
     m_stub(FileService::NewStub(channel)){
-
 }
 
 void DatanodeClient::uploadBlock(const std::string& file,uint64_t blockId,std::vector<std::string> ipAddrs) {
@@ -61,7 +60,8 @@ void DatanodeClient::downloadBlock(const std::string& file,const google::protobu
     std::unique_ptr<grpc::ClientReader<downloadBlockResponse>> reader(m_stub->downloadBlock(&context,request));
 
     while (reader->Read(&response)) {
-        outfile.write(response.content().c_str(),sizeof(response.content()));
+        outfile.write(response.content().c_str(),response.content().size());
+        //std::cout << "read from datanode: " << response.content().size();
     }
 
     Status status  = reader->Finish();

@@ -3,7 +3,7 @@
 # 
 
 # DataNode:
-work_dir: "/mnt/d/test/rcv2/"
-server_port: 8503
+work_dir: "/mnt/d/test/rcv/"
+server_port: 8501
 client_port: 8500
-ipc_port: 8603
+ipc_port: 8601

@@ -103,7 +103,7 @@ grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *con
         infile.read(data,CHUNK_SIZE);
 
         long size = infile.gcount();
-
+        //std::cout << "send content to client: " << size;
         response.set_content(data,size);
         response.set_checksum(checkSum((const unsigned char*)data, size));
         // response.set_size(size);

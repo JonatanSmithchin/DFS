@@ -65,6 +65,10 @@ DatanodeInfo *DatanodeManager::getDatanode(const std::string &uuid) {
 std::vector<DatanodeInfo*> DatanodeManager::chooseDatanode(const std::string& key) {
 
     std::vector<DatanodeInfo*> datanodes;
+//    datanodes.reserve(m_datanodeMap.size());
+//    for(auto& it:m_datanodeMap){
+//        datanodes.push_back(it.second);
+//    }
     for (int i = 0; i < 3; ++i) {
         std::string uuid = m_consistentHash.Get(key+std::to_string(i));
         auto datanode = m_datanodeMap.find(uuid)->second;
