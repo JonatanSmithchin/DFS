@@ -11,8 +11,6 @@
 #include <mutex>
 #include <future>
 
-#define THREAD_POOL_MAX_NUM 16
-
 class ThreadPool {
 public:
     ThreadPool(size_t);

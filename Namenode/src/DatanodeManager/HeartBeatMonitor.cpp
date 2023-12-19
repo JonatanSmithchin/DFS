@@ -5,7 +5,10 @@
 #include <thread>
 #include "glog/logging.h"
 #include "DatanodeManager/HeartBeatMonitor.h"
-#define CHECK_INTERVAL std::chrono::seconds(30).count()
+#include <yaml-cpp/yaml.h>
+
+auto node = YAML::LoadFile("../configs/NamenodeConfig.yaml");
+auto CHECK_INTERVAL = std::chrono::seconds(node["check_interval"].as<int>()).count();
 
 HeartBeatMonitor::HeartBeatMonitor(DatanodeManager *manager):m_manager(manager){}
 

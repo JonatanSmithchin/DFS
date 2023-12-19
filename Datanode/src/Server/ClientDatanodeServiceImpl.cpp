@@ -3,10 +3,10 @@
 //
 
 #include <fstream>
-#include <pthread.h>
 #include <vector>
 #include <string>
 #include <thread>
+#include <yaml-cpp/yaml.h>
 #include "Server/ClientDatanodeServiceImpl.h"
 #include "utils/checkSum.h"
 
@@ -26,10 +26,11 @@ Args::Args(std::vector<std::string> addrs, uint64_t id):ipAddrs(addrs),blockId(i
 }
 
 DatanodeClient* getDatanode(const std::string &ipAddr) {
-    std::string s="/mnt/d/test/rcv/";
+    YAML::Node node = YAML::LoadFile("../configs/DatanodeConfig.yaml");
+    const std::string& work_dir = node["work_dir"].as<std::string>();
     auto client = new DatanodeClient(grpc::CreateChannel(
             ipAddr,grpc::InsecureChannelCredentials()
-    ),s);
+    ),work_dir);
 
     return client;
 }
@@ -52,7 +53,7 @@ grpc::Status ClientDatanodeServiceImpl::transferBlock(::grpc::ServerContext *con
     ClientDatanode::transferBlockRequest request;
     //第一次先获取blockid创建对应文件
     reader->Read(&request);
-
+    std::cout << "receive block " << request.blockid() << "\n";
     const std::string& filename = m_work_dir + std::to_string(request.blockid());
     std::ofstream outfile;
     outfile.open(filename,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
@@ -96,14 +97,14 @@ grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *con
     ClientDatanode::downloadBlockResponse response;
     char data[CHUNK_SIZE];
     std::ifstream infile;
-    std::string file = "/mnt/d/test/rcv/"+std::to_string(request->blockid(0));
+    std::string file = m_work_dir + std::to_string(request->blockid(0));
     infile.open(file,std::ifstream::in|std::ifstream::binary);
 
     while (!infile.eof()){
         infile.read(data,CHUNK_SIZE);
 
         long size = infile.gcount();
-        //std::cout << "send content to client: " << size;
+        std::cout << "send content to client: " << size;
         response.set_content(data,size);
         response.set_checksum(checkSum((const unsigned char*)data, size));
         // response.set_size(size);

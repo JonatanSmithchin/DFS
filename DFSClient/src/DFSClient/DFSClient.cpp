@@ -81,6 +81,7 @@ void DFSClient::append(const std::string &dst, const std::string &file, int offs
 void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
     std::fstream input(file,std::ios::in|std::ios::binary);
 
+    std::cout << "split file: " + file + "\n";
     FileUtils::SplitFile(&input,UPLOAD_TEMP_FILE_DIR);
     //如果文件不存在，申请创建文件
     if(!m_namenodeClient->create(dst)){
@@ -91,6 +92,8 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
     //TODO: 配置暂存文件路径
     auto blocks = FileUtils::getFiles(UPLOAD_TEMP_FILE_DIR,0);
     //添加数据块
+    std::cout << "upload block\n";
+    auto start = std::chrono::steady_clock::now();
     for (const auto& blk:blocks){
         auto block = m_namenodeClient->append(dst);
         //TODO: 还要选择一个datanode
@@ -106,7 +109,9 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
         datanode->uploadBlock(blk,block->block().blockid(),ipAddrs);
         delete datanode;
     }
-
+    auto end = std::chrono::steady_clock::now();
+    auto duration_millsecond = std::chrono::duration<double, std::milli>(end - start).count();
+    std::cout << "upload File finished, used " << duration_millsecond << " millsec.\n";
 }
 
 struct temp_file{
@@ -123,6 +128,12 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
     std::vector<google::protobuf::uint64> block_ids;
     // 向namenode请求文件位置
     LocatedBlocks *file_blocks = m_namenodeClient->locate(file);
+    for (auto& b:file_blocks->blocks()) {
+        std::cout << "Located block " << b.block().blockid() << "at :" << "\n";
+        for(const auto& l:b.locs()){
+            std::cout << l.id().ipaddr() << "\n";
+        }
+    }
 
     std::set<temp_file> temp_files; // 借用set为文件块排序
     std::vector<std::string> files; // 排序后的文件块

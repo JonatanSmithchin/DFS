@@ -24,9 +24,11 @@ int main(int argc,char** argv) {
     LOG(INFO) << "Starting DataNode";
 
     YAML::Node node = YAML::LoadFile("../configs/DatanodeConfig.yaml");
-    int CLIENT_PORT = node["client_port"].as<int>();
 
-    std::string client_addr = "localhost:" + std::to_string(CLIENT_PORT);
+    std::string NAMENODE_HOST = node["client_host"].as<std::string>();
+    int NAMENODE_PORT = node["client_port"].as<int>();
+
+    std::string client_addr = NAMENODE_HOST + ":" +std::to_string(NAMENODE_PORT);
 
     NameNodeClient client(grpc::CreateChannel(
             client_addr, grpc::InsecureChannelCredentials()

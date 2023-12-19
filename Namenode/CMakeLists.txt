@@ -31,3 +31,17 @@ target_link_libraries(NameNode PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
 target_link_libraries(NameNode PRIVATE glog::glog yaml-cpp)
 
 target_link_libraries(NameNode PRIVATE dfsProto Server NameSystem DatanodeManager BlockManager INode)
+
+add_custom_command(
+        OUTPUT
+        ${CMAKE_CURRENT_BINARY_DIR}/namenode.sh
+        COMMAND
+        ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/namenode.sh
+        ${CMAKE_CURRENT_BINARY_DIR}/namenode.sh
+        DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/namenode.sh
+)
+
+target_sources(NameNode
+        PRIVATE
+        ${CMAKE_CURRENT_BINARY_DIR}/namenode.sh)

@@ -31,6 +31,7 @@ void DatanodeClient::copyBlock(uint64_t blockId) {
         infile.read(data.data(),CHUNK_SIZE);
 
         long size = infile.gcount();
+        std::cout << "read from " << file;
         std::cout << "send content" << size << std::endl;
         // request.set_content(data,size);
         request.set_content(data.data(),data.size());
@@ -49,4 +50,5 @@ void DatanodeClient::copyBlock(uint64_t blockId) {
     } else{
         std::cout << status.error_code() << ": " << status.error_message();
     }
+    infile.close();
 }

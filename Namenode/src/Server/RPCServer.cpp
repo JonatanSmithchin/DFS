@@ -22,7 +22,7 @@ void RPCServer::RunServer() {
     YAML::Node node = YAML::LoadFile("../configs/NamenodeConfig.yaml");
     int SERVER_PORT = node["server_port"].as<int>();
 
-    std::string server_address = "[::]:" + std::to_string(SERVER_PORT);
+    std::string server_address = "0.0.0.0:" + std::to_string(SERVER_PORT);
 
     ServerBuilder builder;
 

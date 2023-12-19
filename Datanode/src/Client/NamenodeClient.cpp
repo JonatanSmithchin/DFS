@@ -35,8 +35,9 @@ void NameNodeClient::registration() {
     int IPC_PORT = node["ipc_port"].as<int>();
 
     auto id = new DatanodeID();
-    std::string hostname,ip;
-    GetHostInfo(hostname,ip);
+    auto hostname = node["host"]["name"].as<std::string>();
+    auto ip = node["host"]["ip"].as<std::string>();
+//    GetHostInfo(hostname,ip);
     id->set_ipaddr(ip);
     id->set_hostname(hostname);
 

@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <filesystem>
 #include "Server/DatanodeServiceImpl.h"
 #include "utils/checkSum.h"
 
@@ -16,7 +17,16 @@ DatanodeServiceImpl::~DatanodeServiceImpl() {
     Datanode::copyBlockRequest request;
     reader->Read(&request);
 
-    const std::string& filename = m_work_dir + std::to_string(request.blockid());
+    const std::string& replica_dir = m_work_dir + "replica/";
+
+    if (!std::filesystem::exists(replica_dir)){
+        std::filesystem::create_directory(replica_dir);
+    }
+    const std::string& filename = replica_dir + std::to_string(request.blockid());
+
+    if (std::filesystem::exists(filename)){
+        return grpc::Status::OK;
+    }
 
     std::ofstream outfile;
     outfile.open(filename,std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);

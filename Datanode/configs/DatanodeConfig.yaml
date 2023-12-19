@@ -5,5 +5,9 @@
 # DataNode:
 work_dir: "/mnt/d/test/rcv/"
 server_port: 8501
+client_host: "localhost"
 client_port: 8500
 ipc_port: 8601
+host:
+  name: "lx-machine"
+  ip: "localhost"

@@ -10,11 +10,11 @@ int main(int argc, char** argv){
 
     LOG(INFO) << "Starting NameNode";
 
-    auto datanodeManager = new DatanodeManager();
+    auto blockManager = new BlockManager();
+
+    auto datanodeManager = new DatanodeManager(blockManager);
     auto heartBeatMonitor = new HeartBeatMonitor(datanodeManager);
     heartBeatMonitor->run();
-
-    auto blockManager = new BlockManager();
 
     auto root = new INodeDir();
     root->setFullPathName("/");

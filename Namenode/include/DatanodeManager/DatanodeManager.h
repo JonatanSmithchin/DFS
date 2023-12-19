@@ -19,12 +19,15 @@ private:
     std::map<std::string, DatanodeInfo *> m_datanodeMap;
     ConsistentHash m_consistentHash;
     queue<pair<std::string ,size_t>> backupBlocks;
+    BlockManager* m_blockManager;
 public:
     void lock();
 
     void unlock();
 
     explicit DatanodeManager();
+
+    explicit DatanodeManager(BlockManager* blockManager);
 
     static long long now();
 

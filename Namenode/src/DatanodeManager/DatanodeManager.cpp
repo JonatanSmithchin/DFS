@@ -118,6 +118,10 @@ void DatanodeManager::backupBlock(const pair<std::string, size_t>& backup) {
     backupBlocks.push(backup);
 }
 
+DatanodeManager::DatanodeManager(BlockManager* blockManager):m_blockManager(blockManager) {
+
+}
+
 
 
 
