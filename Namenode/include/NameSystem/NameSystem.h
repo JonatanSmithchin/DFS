@@ -11,6 +11,8 @@
 #include "DatanodeManager/DatanodeManager.h"
 #include "INode/INodeFile.h"
 #include "BlockManager/BlockManager.h"
+#include "CacheManager/CacheManager.h"
+
 constexpr size_t BLOCK_SIZE = 64 * 1024 * 1024;
 class NameSystem {
 private:
@@ -21,12 +23,14 @@ private:
     INodeDir* workingDir;
     DatanodeManager* m_datanodeManager;
     BlockManager* m_blockManager;
+    CacheManager* m_cacheManager;
     INode* find(const std::string& path);
     INodeDir* findParent(const std::string& path);
     static INodeFile* constructFile(const std::string& path);
     void backupBlocks();
+    void cache(const string& path,uint64_t blk);
 public:
-    NameSystem(INodeDir* root,DatanodeManager* manager,BlockManager* blockManager);
+    NameSystem(INodeDir* root,DatanodeManager* manager,BlockManager* blockManager,CacheManager* cacheManager);
     void readLock();
     void writeLock();
     void readUnLock();

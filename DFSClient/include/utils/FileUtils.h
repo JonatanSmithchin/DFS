@@ -18,6 +18,8 @@ namespace FileUtils {
     void SplitFile(std::fstream *input, const std::string des_dir);
 
     void MergeFile(std::fstream *output, const std::vector<std::string>& files);
+
+    void removeFilesInDir(const std::string& dir);
 }
 
 

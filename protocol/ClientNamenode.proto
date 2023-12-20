@@ -11,15 +11,7 @@ message GetBlockLocationRequest{
 }
 
 message GetBlockLocationResponse{
-	optional LocatedBlock location = 1;
-}
-
-message GetFileBlockLocationsRequest{
-	 string src = 1;
-}
-
-message GetFileBlockLocationsResponse{
-	optional LocatedBlocks locations = 1;
+	optional LocatedBlocks location = 1;
 }
 
 message GetServerDefaultsRequest{
@@ -46,7 +38,7 @@ message CreateRequest{
 }
 
 message CreateResponse{
-	optional FileStatus status = 1;
+	optional FileStatus  status = 1;
 }
 
 message AppendRequest{
@@ -139,8 +131,7 @@ message RenewLeaseResponse{
 //����RPC�ӿ�
 service ClientService{
 	//�ļ������ӿ�
-	rpc GetBlockLocation(GetBlockLocationRequest) returns (GetBlockLocationResponse);
-	rpc GetFileBlockLocations(GetFileBlockLocationsRequest) returns (GetFileBlockLocationsResponse);
+	rpc GetBlockLocation(GetBlockLocationsRequest) returns (GetBlockLocationResponse);
 	rpc GetServerDefaults(GetServerDefaultsRequest) returns (GetServerDefaultsResponse);
 	rpc Create(CreateRequest) returns (CreateResponse);
 	rpc Append(AppendRequest) returns (AppendResponse);

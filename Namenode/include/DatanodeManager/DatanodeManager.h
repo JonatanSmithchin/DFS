@@ -10,13 +10,14 @@
 #include "ConsistentHash.h"
 #include "Report.h"
 #include "BlockManager/BlockManager.h"
+#include "DatanodeDescriptor.h"
 
 using namespace DatanodeNamenode;
 
 class DatanodeManager {
 private:
     std::mutex mutex;
-    std::map<std::string, DatanodeInfo *> m_datanodeMap;
+    std::map<std::string, DatanodeDescriptor *> m_datanodeMap;
     ConsistentHash m_consistentHash;
     queue<pair<std::string ,size_t>> backupBlocks;
     BlockManager* m_blockManager;
@@ -31,7 +32,7 @@ public:
 
     static long long now();
 
-    [[nodiscard]] const std::map<std::string, DatanodeInfo *> &getDatanodeMap() const;
+    [[nodiscard]] const std::map<std::string, DatanodeDescriptor *> &getDatanodeMap() const;
 
     void addDatanode(DatanodeInfo* d);
 
@@ -40,6 +41,8 @@ public:
     void backupBlock(const pair<std::string,size_t>& backup);
 
     DatanodeInfo* getDatanode(const std::string& uuid);
+
+    DatanodeDescriptor* getDatanodeDes(const std::string& uuid);
 
     std::vector<DatanodeInfo*> chooseDatanode(const std::string& key);
 

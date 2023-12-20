@@ -28,19 +28,20 @@ int main(int argc,char** argv) {
     std::string NAMENODE_HOST = node["client_host"].as<std::string>();
     int NAMENODE_PORT = node["client_port"].as<int>();
 
+    const std::string& work_dir = node["work_dir"].as<std::string>();
+
+    auto cache = new Cache(work_dir);
+
     std::string client_addr = NAMENODE_HOST + ":" +std::to_string(NAMENODE_PORT);
 
     NameNodeClient client(grpc::CreateChannel(
             client_addr, grpc::InsecureChannelCredentials()
-    ));
+    ),cache);
 
     client.registration();
 
     client.run();
-
-    const std::string& work_dir = node["work_dir"].as<std::string>();
-
-    ClientDatanodeServiceImpl ClientDatanodeService(work_dir);
+    ClientDatanodeServiceImpl ClientDatanodeService(work_dir,cache);
     DatanodeServiceImpl DatanodeService(work_dir);
 
     RPCServer server(&ClientDatanodeService,&DatanodeService);

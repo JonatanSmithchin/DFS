@@ -96,14 +96,22 @@ grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *con
                                                       ::grpc::ServerWriter<::ClientDatanode::downloadBlockResponse> *writer) {
     ClientDatanode::downloadBlockResponse response;
     char data[CHUNK_SIZE];
-    std::ifstream infile;
-    std::string file = m_work_dir + std::to_string(request->blockid(0));
-    infile.open(file,std::ifstream::in|std::ifstream::binary);
+    std::istream* istream;
+    if (m_cache->hit(request->blockid(0))){
+        auto value = m_cache->get(request->blockid(0));
+        auto ss = new std::stringstream(value);
+        istream = ss;
+    } else{
+        auto infile = new std::ifstream;
+        std::string file = m_work_dir + std::to_string(request->blockid(0));
+        infile->open(file,std::ifstream::in|std::ifstream::binary);
+        istream = infile;
+    }
 
-    while (!infile.eof()){
-        infile.read(data,CHUNK_SIZE);
+    while (!istream->eof()){
+        istream->read(data,CHUNK_SIZE);
 
-        long size = infile.gcount();
+        long size = istream->gcount();
         std::cout << "send content to client: " << size;
         response.set_content(data,size);
         response.set_checksum(checkSum((const unsigned char*)data, size));
@@ -111,10 +119,10 @@ grpc::Status ClientDatanodeServiceImpl::downloadBlock(::grpc::ServerContext *con
 
         writer->Write(response);
     }
-
+    delete istream;
     return grpc::Status::OK;
 }
 
-ClientDatanodeServiceImpl::ClientDatanodeServiceImpl(const std::string& work_dir):m_work_dir(work_dir) {
+ClientDatanodeServiceImpl::ClientDatanodeServiceImpl(const std::string& work_dir,Cache* cache):m_work_dir(work_dir),m_cache(cache) {
 
 }

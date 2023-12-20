@@ -75,7 +75,7 @@ message Block{
 }
 
 message BlockWithLocation{
-	 Block block = 1;
+	Block block = 1;
 	repeated string datanodeUuids = 2;
 }
 

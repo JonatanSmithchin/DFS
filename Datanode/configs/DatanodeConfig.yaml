@@ -3,11 +3,11 @@
 # 
 
 # DataNode:
-work_dir: "/mnt/d/test/rcv/"
-server_port: 8501
+work_dir: "/mnt/d/test/rcv1/"
+server_port: 8502
 client_host: "localhost"
 client_port: 8500
-ipc_port: 8601
+ipc_port: 8602
 host:
-  name: "lx-machine"
+  name: "lx-machine1"
   ip: "localhost"

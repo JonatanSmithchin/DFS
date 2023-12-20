@@ -21,6 +21,7 @@ message DatanodeCommand{
     UnusedUpgradeCommand = 6;
     NullDatanodeCommand = 7;
     BlockIdCommand = 8;
+    CacheCommand = 9;
   }
 
   Type commandType = 1;
@@ -32,6 +33,7 @@ message DatanodeCommand{
   optional KeyUpdate keyUpdateCmd = 6;
   optional Register registerCmd = 7;
   optional BlockId blkIdCmd = 8;
+  optional CacheCommand cacheCmd = 9;
 }
 
 message BalanceBandwidth{
@@ -64,6 +66,10 @@ message KeyUpdate{
 
 message Register{
   //void
+}
+
+message CacheCommand{
+  repeated Block blocks = 1;
 }
 
 message BlockId{

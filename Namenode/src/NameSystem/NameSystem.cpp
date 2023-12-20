@@ -81,8 +81,8 @@ INodeFile *NameSystem::constructFile(const string &path) {
     return file;
 }
 
-NameSystem::NameSystem(INodeDir *root, DatanodeManager *manager, BlockManager *blockManager)
-    :m_root(root),m_datanodeManager(manager),m_blockManager(blockManager) {
+NameSystem::NameSystem(INodeDir *root, DatanodeManager *manager, BlockManager *blockManager, CacheManager* cacheManager)
+    :m_root(root),m_datanodeManager(manager),m_blockManager(blockManager),m_cacheManager(cacheManager) {
     readCount = 0;
     workingDir = m_root;
 }
@@ -174,7 +174,11 @@ vector<INode *> NameSystem::list(const string &path) {
 }
 
 LocatedBlocks* NameSystem::getBlocks(const string &path) {
-    return m_blockManager->getALLBlock(path);
+    auto lblks = m_blockManager->getALLBlock(path);
+    for(int i = 0;i < lblks->blocks().size();i++){
+        cache(path,lblks->blocks(i).block().blockid());
+    }
+    return lblks;
 }
 
 void NameSystem::backupBlocks() {
@@ -189,6 +193,10 @@ void NameSystem::backupBlocks() {
             blkQueue.pop();
         }
     }
+}
+
+void NameSystem::cache(const std::string& path,uint64_t blk) {
+    m_cacheManager->addCache(m_blockManager->getBlock(path,blk));
 }
 
 

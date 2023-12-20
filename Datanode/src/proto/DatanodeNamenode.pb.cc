@@ -47,6 +47,7 @@ PROTOBUF_CONSTEXPR DatanodeCommand::DatanodeCommand(
   , /*decltype(_impl_.keyupdatecmd_)*/nullptr
   , /*decltype(_impl_.registercmd_)*/nullptr
   , /*decltype(_impl_.blkidcmd_)*/nullptr
+  , /*decltype(_impl_.cachecmd_)*/nullptr
   , /*decltype(_impl_.commandtype_)*/0} {}
 struct DatanodeCommandDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DatanodeCommandDefaultTypeInternal()
@@ -129,6 +130,20 @@ struct RegisterDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterDefaultTypeInternal _Register_default_instance_;
+PROTOBUF_CONSTEXPR CacheCommand::CacheCommand(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.blocks_)*/{}
+  , /*decltype(_impl_._blocks_cached_byte_size_)*/{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CacheCommandDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CacheCommandDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CacheCommandDefaultTypeInternal() {}
+  union {
+    CacheCommand _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CacheCommandDefaultTypeInternal _CacheCommand_default_instance_;
 PROTOBUF_CONSTEXPR BlockId::BlockId(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.blockids_)*/{}
@@ -336,7 +351,7 @@ struct ReportBadBlockResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportBadBlockResponseDefaultTypeInternal _ReportBadBlockResponse_default_instance_;
 }  // namespace DatanodeNamenode
-static ::_pb::Metadata file_level_metadata_DatanodeNamenode_2eproto[24];
+static ::_pb::Metadata file_level_metadata_DatanodeNamenode_2eproto[25];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_DatanodeNamenode_2eproto[5];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_DatanodeNamenode_2eproto = nullptr;
 
@@ -364,6 +379,7 @@ const uint32_t TableStruct_DatanodeNamenode_2eproto::offsets[] PROTOBUF_SECTION_
   PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::DatanodeCommand, _impl_.keyupdatecmd_),
   PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::DatanodeCommand, _impl_.registercmd_),
   PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::DatanodeCommand, _impl_.blkidcmd_),
+  PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::DatanodeCommand, _impl_.cachecmd_),
   ~0u,
   0,
   1,
@@ -372,6 +388,7 @@ const uint32_t TableStruct_DatanodeNamenode_2eproto::offsets[] PROTOBUF_SECTION_
   4,
   5,
   6,
+  7,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::BalanceBandwidth, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -412,6 +429,13 @@ const uint32_t TableStruct_DatanodeNamenode_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::CacheCommand, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::CacheCommand, _impl_.blocks_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::DatanodeNamenode::BlockId, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -536,29 +560,30 @@ const uint32_t TableStruct_DatanodeNamenode_2eproto::offsets[] PROTOBUF_SECTION_
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::DatanodeNamenode::DatanodeRegister)},
-  { 9, 23, -1, sizeof(::DatanodeNamenode::DatanodeCommand)},
-  { 31, -1, -1, sizeof(::DatanodeNamenode::BalanceBandwidth)},
-  { 38, -1, -1, sizeof(::DatanodeNamenode::BlockCommand)},
-  { 47, -1, -1, sizeof(::DatanodeNamenode::BlockRecovery)},
-  { 53, -1, -1, sizeof(::DatanodeNamenode::Finalize)},
-  { 59, -1, -1, sizeof(::DatanodeNamenode::KeyUpdate)},
-  { 65, -1, -1, sizeof(::DatanodeNamenode::Register)},
-  { 71, -1, -1, sizeof(::DatanodeNamenode::BlockId)},
-  { 79, -1, -1, sizeof(::DatanodeNamenode::ReceivedDeletedBlockInfo)},
-  { 87, -1, -1, sizeof(::DatanodeNamenode::RegisterDatanodeRequest)},
-  { 94, -1, -1, sizeof(::DatanodeNamenode::RegisterDatanodeResponse)},
-  { 101, 113, -1, sizeof(::DatanodeNamenode::HeartBeatRequest)},
-  { 119, -1, -1, sizeof(::DatanodeNamenode::HeartBeatResponse)},
-  { 126, -1, -1, sizeof(::DatanodeNamenode::blockReportRequest)},
-  { 132, -1, -1, sizeof(::DatanodeNamenode::blockReportResponse)},
-  { 138, -1, -1, sizeof(::DatanodeNamenode::cacheReportRequest)},
-  { 144, -1, -1, sizeof(::DatanodeNamenode::cacheReportResponse)},
-  { 150, -1, -1, sizeof(::DatanodeNamenode::BlockReceivedAndDeletedRequest)},
-  { 158, -1, -1, sizeof(::DatanodeNamenode::BlockReceivedAndDeletedResponse)},
-  { 164, -1, -1, sizeof(::DatanodeNamenode::ErrorReportRequest)},
-  { 173, -1, -1, sizeof(::DatanodeNamenode::ErrorReportResponse)},
-  { 179, -1, -1, sizeof(::DatanodeNamenode::ReportBadBlockRequest)},
-  { 186, -1, -1, sizeof(::DatanodeNamenode::ReportBadBlockResponse)},
+  { 9, 24, -1, sizeof(::DatanodeNamenode::DatanodeCommand)},
+  { 33, -1, -1, sizeof(::DatanodeNamenode::BalanceBandwidth)},
+  { 40, -1, -1, sizeof(::DatanodeNamenode::BlockCommand)},
+  { 49, -1, -1, sizeof(::DatanodeNamenode::BlockRecovery)},
+  { 55, -1, -1, sizeof(::DatanodeNamenode::Finalize)},
+  { 61, -1, -1, sizeof(::DatanodeNamenode::KeyUpdate)},
+  { 67, -1, -1, sizeof(::DatanodeNamenode::Register)},
+  { 73, -1, -1, sizeof(::DatanodeNamenode::CacheCommand)},
+  { 80, -1, -1, sizeof(::DatanodeNamenode::BlockId)},
+  { 88, -1, -1, sizeof(::DatanodeNamenode::ReceivedDeletedBlockInfo)},
+  { 96, -1, -1, sizeof(::DatanodeNamenode::RegisterDatanodeRequest)},
+  { 103, -1, -1, sizeof(::DatanodeNamenode::RegisterDatanodeResponse)},
+  { 110, 122, -1, sizeof(::DatanodeNamenode::HeartBeatRequest)},
+  { 128, -1, -1, sizeof(::DatanodeNamenode::HeartBeatResponse)},
+  { 135, -1, -1, sizeof(::DatanodeNamenode::blockReportRequest)},
+  { 141, -1, -1, sizeof(::DatanodeNamenode::blockReportResponse)},
+  { 147, -1, -1, sizeof(::DatanodeNamenode::cacheReportRequest)},
+  { 153, -1, -1, sizeof(::DatanodeNamenode::cacheReportResponse)},
+  { 159, -1, -1, sizeof(::DatanodeNamenode::BlockReceivedAndDeletedRequest)},
+  { 167, -1, -1, sizeof(::DatanodeNamenode::BlockReceivedAndDeletedResponse)},
+  { 173, -1, -1, sizeof(::DatanodeNamenode::ErrorReportRequest)},
+  { 182, -1, -1, sizeof(::DatanodeNamenode::ErrorReportResponse)},
+  { 188, -1, -1, sizeof(::DatanodeNamenode::ReportBadBlockRequest)},
+  { 195, -1, -1, sizeof(::DatanodeNamenode::ReportBadBlockResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -570,6 +595,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::DatanodeNamenode::_Finalize_default_instance_._instance,
   &::DatanodeNamenode::_KeyUpdate_default_instance_._instance,
   &::DatanodeNamenode::_Register_default_instance_._instance,
+  &::DatanodeNamenode::_CacheCommand_default_instance_._instance,
   &::DatanodeNamenode::_BlockId_default_instance_._instance,
   &::DatanodeNamenode::_ReceivedDeletedBlockInfo_default_instance_._instance,
   &::DatanodeNamenode::_RegisterDatanodeRequest_default_instance_._instance,
@@ -592,7 +618,7 @@ const char descriptor_table_protodef_DatanodeNamenode_2eproto[] PROTOBUF_SECTION
   "\n\026DatanodeNamenode.proto\022\020DatanodeNameno"
   "de\032\tdfs.proto\"a\n\020DatanodeRegister\022\027\n\002id\030"
   "\001 \001(\0132\013.DatanodeID\022\033\n\004info\030\002 \001(\0132\r.Datan"
-  "odeInfo\022\027\n\017softwareVersion\030\003 \001(\t\"\223\006\n\017Dat"
+  "odeInfo\022\027\n\017softwareVersion\030\003 \001(\t\"\351\006\n\017Dat"
   "anodeCommand\022;\n\013commandType\030\001 \001(\0162&.Data"
   "nodeNamenode.DatanodeCommand.Type\022;\n\nbal"
   "anceCmd\030\002 \001(\0132\".DatanodeNamenode.Balance"
@@ -604,86 +630,89 @@ const char descriptor_table_protodef_DatanodeNamenode_2eproto[] PROTOBUF_SECTION
   "(\0132\033.DatanodeNamenode.KeyUpdateH\004\210\001\001\0224\n\013"
   "registerCmd\030\007 \001(\0132\032.DatanodeNamenode.Reg"
   "isterH\005\210\001\001\0220\n\010blkIdCmd\030\010 \001(\0132\031.DatanodeN"
-  "amenode.BlockIdH\006\210\001\001\"\327\001\n\004Type\022\034\n\030Balance"
-  "rBandwidthCommand\020\000\022\020\n\014BlockCommand\020\001\022\030\n"
-  "\024BlockRecoveryCommand\020\002\022\023\n\017FinalizeComma"
-  "nd\020\003\022\024\n\020KeyUpdateCommand\020\004\022\023\n\017RegisterCo"
-  "mmand\020\005\022\030\n\024UnusedUpgradeCommand\020\006\022\027\n\023Nul"
-  "lDatanodeCommand\020\007\022\022\n\016BlockIdCommand\020\010B\r"
-  "\n\013_balanceCmdB\t\n\007_blkCmdB\016\n\014_recoveryCmd"
-  "B\016\n\014_finalizeCmdB\017\n\r_keyUpdateCmdB\016\n\014_re"
-  "gisterCmdB\013\n\t_blkIdCmd\"%\n\020BalanceBandwid"
-  "th\022\021\n\tbandwidth\030\001 \001(\004\"\263\001\n\014BlockCommand\0225"
-  "\n\006action\030\001 \001(\0162%.DatanodeNamenode.BlockC"
-  "ommand.Action\022\026\n\006blocks\030\002 \003(\0132\006.Block\022\036\n"
-  "\007targets\030\003 \003(\0132\r.DatanodeInfo\"4\n\006Action\022"
-  "\014\n\010TRANSFER\020\000\022\016\n\nINVALIDATE\020\001\022\014\n\010SHUTDOW"
-  "N\020\002\"\017\n\rBlockRecovery\"\n\n\010Finalize\"\013\n\tKeyU"
-  "pdate\"\n\n\010Register\"o\n\007BlockId\0220\n\006action\030\001"
-  " \001(\0162 .DatanodeNamenode.BlockId.Action\022\020"
-  "\n\010blockIds\030\002 \003(\004\" \n\006Action\022\t\n\005CACHE\020\000\022\013\n"
-  "\007UNCACHE\020\001\"\262\001\n\030ReceivedDeletedBlockInfo\022"
-  "\025\n\005block\030\001 \001(\0132\006.Block\022F\n\006status\030\002 \001(\01626"
-  ".DatanodeNamenode.ReceivedDeletedBlockIn"
-  "fo.BlockStatus\"7\n\013BlockStatus\022\r\n\tRECEIVI"
-  "NG\020\000\022\014\n\010RECEIVED\020\001\022\013\n\007DELETED\020\002\"S\n\027Regis"
-  "terDatanodeRequest\0228\n\014registration\030\001 \001(\013"
-  "2\".DatanodeNamenode.DatanodeRegister\"T\n\030"
-  "RegisterDatanodeResponse\0228\n\014registration"
-  "\030\001 \001(\0132\".DatanodeNamenode.DatanodeRegist"
-  "er\"\252\002\n\020HeartBeatRequest\0228\n\014registration\030"
-  "\001 \001(\0132\".DatanodeNamenode.DatanodeRegiste"
-  "r\022\034\n\017xmitsInProgress\030\003 \001(\rH\000\210\001\001\022\031\n\014xceiv"
-  "erCount\030\004 \001(\rH\001\210\001\001\022\031\n\014failedVolums\030\005 \001(\r"
-  "H\002\210\001\001\022\032\n\rcacheCapacity\030\006 \001(\004H\003\210\001\001\022\026\n\tcac"
-  "heUsed\030\007 \001(\004H\004\210\001\001B\022\n\020_xmitsInProgressB\017\n"
-  "\r_xceiverCountB\017\n\r_failedVolumsB\020\n\016_cach"
-  "eCapacityB\014\n\n_cacheUsed\"D\n\021HeartBeatResp"
-  "onse\022/\n\004cmds\030\001 \003(\0132!.DatanodeNamenode.Da"
-  "tanodeCommand\"\024\n\022blockReportRequest\"\025\n\023b"
-  "lockReportResponse\"\024\n\022cacheReportRequest"
-  "\"\025\n\023cacheReportResponse\"\226\001\n\036BlockReceive"
-  "dAndDeletedRequest\0228\n\014registration\030\001 \001(\013"
-  "2\".DatanodeNamenode.DatanodeRegister\022:\n\006"
-  "blocks\030\002 \003(\0132*.DatanodeNamenode.Received"
-  "DeletedBlockInfo\"!\n\037BlockReceivedAndDele"
-  "tedResponse\"\360\001\n\022ErrorReportRequest\0228\n\014re"
-  "gistration\030\001 \001(\0132\".DatanodeNamenode.Data"
-  "nodeRegister\022A\n\terrorCode\030\002 \001(\0162..Datano"
-  "deNamenode.ErrorReportRequest.ErrorCode\022"
-  "\013\n\003msg\030\003 \001(\t\"P\n\tErrorCode\022\n\n\006NOTIFY\020\000\022\016\n"
-  "\nDISK_ERROR\020\001\022\021\n\rINVALID_BLOCK\020\002\022\024\n\020FATA"
-  "L_DISK_ERROR\020\003\"\025\n\023ErrorReportResponse\"6\n"
-  "\025ReportBadBlockRequest\022\035\n\006blocks\030\001 \003(\0132\r"
-  ".LocatedBlock\"\030\n\026ReportBadBlockResponse2"
-  "\317\005\n\017DatanodeService\022i\n\020registerDatanode\022"
-  ").DatanodeNamenode.RegisterDatanodeReque"
-  "st\032*.DatanodeNamenode.RegisterDatanodeRe"
-  "sponse\022X\n\rsendHeartBeat\022\".DatanodeNameno"
-  "de.HeartBeatRequest\032#.DatanodeNamenode.H"
-  "eartBeatResponse\022Z\n\013blockReport\022$.Datano"
-  "deNamenode.blockReportRequest\032%.Datanode"
-  "Namenode.blockReportResponse\022Z\n\013cacheRep"
-  "ort\022$.DatanodeNamenode.cacheReportReques"
-  "t\032%.DatanodeNamenode.cacheReportResponse"
-  "\022~\n\027blockReceivedAndDeleted\0220.DatanodeNa"
-  "menode.BlockReceivedAndDeletedRequest\0321."
-  "DatanodeNamenode.BlockReceivedAndDeleted"
-  "Response\022Z\n\013errorReport\022$.DatanodeNameno"
-  "de.ErrorReportRequest\032%.DatanodeNamenode"
-  ".ErrorReportResponse\022c\n\016reportBadBlock\022\'"
-  ".DatanodeNamenode.ReportBadBlockRequest\032"
-  "(.DatanodeNamenode.ReportBadBlockRespons"
-  "eb\006proto3"
+  "amenode.BlockIdH\006\210\001\001\0225\n\010cacheCmd\030\t \001(\0132\036"
+  ".DatanodeNamenode.CacheCommandH\007\210\001\001\"\351\001\n\004"
+  "Type\022\034\n\030BalancerBandwidthCommand\020\000\022\020\n\014Bl"
+  "ockCommand\020\001\022\030\n\024BlockRecoveryCommand\020\002\022\023"
+  "\n\017FinalizeCommand\020\003\022\024\n\020KeyUpdateCommand\020"
+  "\004\022\023\n\017RegisterCommand\020\005\022\030\n\024UnusedUpgradeC"
+  "ommand\020\006\022\027\n\023NullDatanodeCommand\020\007\022\022\n\016Blo"
+  "ckIdCommand\020\010\022\020\n\014CacheCommand\020\tB\r\n\013_bala"
+  "nceCmdB\t\n\007_blkCmdB\016\n\014_recoveryCmdB\016\n\014_fi"
+  "nalizeCmdB\017\n\r_keyUpdateCmdB\016\n\014_registerC"
+  "mdB\013\n\t_blkIdCmdB\013\n\t_cacheCmd\"%\n\020BalanceB"
+  "andwidth\022\021\n\tbandwidth\030\001 \001(\004\"\263\001\n\014BlockCom"
+  "mand\0225\n\006action\030\001 \001(\0162%.DatanodeNamenode."
+  "BlockCommand.Action\022\026\n\006blocks\030\002 \003(\0132\006.Bl"
+  "ock\022\036\n\007targets\030\003 \003(\0132\r.DatanodeInfo\"4\n\006A"
+  "ction\022\014\n\010TRANSFER\020\000\022\016\n\nINVALIDATE\020\001\022\014\n\010S"
+  "HUTDOWN\020\002\"\017\n\rBlockRecovery\"\n\n\010Finalize\"\013"
+  "\n\tKeyUpdate\"\n\n\010Register\"\036\n\014CacheCommand\022"
+  "\016\n\006blocks\030\001 \003(\004\"o\n\007BlockId\0220\n\006action\030\001 \001"
+  "(\0162 .DatanodeNamenode.BlockId.Action\022\020\n\010"
+  "blockIds\030\002 \003(\004\" \n\006Action\022\t\n\005CACHE\020\000\022\013\n\007U"
+  "NCACHE\020\001\"\262\001\n\030ReceivedDeletedBlockInfo\022\025\n"
+  "\005block\030\001 \001(\0132\006.Block\022F\n\006status\030\002 \001(\01626.D"
+  "atanodeNamenode.ReceivedDeletedBlockInfo"
+  ".BlockStatus\"7\n\013BlockStatus\022\r\n\tRECEIVING"
+  "\020\000\022\014\n\010RECEIVED\020\001\022\013\n\007DELETED\020\002\"S\n\027Registe"
+  "rDatanodeRequest\0228\n\014registration\030\001 \001(\0132\""
+  ".DatanodeNamenode.DatanodeRegister\"T\n\030Re"
+  "gisterDatanodeResponse\0228\n\014registration\030\001"
+  " \001(\0132\".DatanodeNamenode.DatanodeRegister"
+  "\"\252\002\n\020HeartBeatRequest\0228\n\014registration\030\001 "
+  "\001(\0132\".DatanodeNamenode.DatanodeRegister\022"
+  "\034\n\017xmitsInProgress\030\003 \001(\rH\000\210\001\001\022\031\n\014xceiver"
+  "Count\030\004 \001(\rH\001\210\001\001\022\031\n\014failedVolums\030\005 \001(\rH\002"
+  "\210\001\001\022\032\n\rcacheCapacity\030\006 \001(\004H\003\210\001\001\022\026\n\tcache"
+  "Used\030\007 \001(\004H\004\210\001\001B\022\n\020_xmitsInProgressB\017\n\r_"
+  "xceiverCountB\017\n\r_failedVolumsB\020\n\016_cacheC"
+  "apacityB\014\n\n_cacheUsed\"D\n\021HeartBeatRespon"
+  "se\022/\n\004cmds\030\001 \003(\0132!.DatanodeNamenode.Data"
+  "nodeCommand\"\024\n\022blockReportRequest\"\025\n\023blo"
+  "ckReportResponse\"\024\n\022cacheReportRequest\"\025"
+  "\n\023cacheReportResponse\"\226\001\n\036BlockReceivedA"
+  "ndDeletedRequest\0228\n\014registration\030\001 \001(\0132\""
+  ".DatanodeNamenode.DatanodeRegister\022:\n\006bl"
+  "ocks\030\002 \003(\0132*.DatanodeNamenode.ReceivedDe"
+  "letedBlockInfo\"!\n\037BlockReceivedAndDelete"
+  "dResponse\"\360\001\n\022ErrorReportRequest\0228\n\014regi"
+  "stration\030\001 \001(\0132\".DatanodeNamenode.Datano"
+  "deRegister\022A\n\terrorCode\030\002 \001(\0162..Datanode"
+  "Namenode.ErrorReportRequest.ErrorCode\022\013\n"
+  "\003msg\030\003 \001(\t\"P\n\tErrorCode\022\n\n\006NOTIFY\020\000\022\016\n\nD"
+  "ISK_ERROR\020\001\022\021\n\rINVALID_BLOCK\020\002\022\024\n\020FATAL_"
+  "DISK_ERROR\020\003\"\025\n\023ErrorReportResponse\"6\n\025R"
+  "eportBadBlockRequest\022\035\n\006blocks\030\001 \003(\0132\r.L"
+  "ocatedBlock\"\030\n\026ReportBadBlockResponse2\317\005"
+  "\n\017DatanodeService\022i\n\020registerDatanode\022)."
+  "DatanodeNamenode.RegisterDatanodeRequest"
+  "\032*.DatanodeNamenode.RegisterDatanodeResp"
+  "onse\022X\n\rsendHeartBeat\022\".DatanodeNamenode"
+  ".HeartBeatRequest\032#.DatanodeNamenode.Hea"
+  "rtBeatResponse\022Z\n\013blockReport\022$.Datanode"
+  "Namenode.blockReportRequest\032%.DatanodeNa"
+  "menode.blockReportResponse\022Z\n\013cacheRepor"
+  "t\022$.DatanodeNamenode.cacheReportRequest\032"
+  "%.DatanodeNamenode.cacheReportResponse\022~"
+  "\n\027blockReceivedAndDeleted\0220.DatanodeName"
+  "node.BlockReceivedAndDeletedRequest\0321.Da"
+  "tanodeNamenode.BlockReceivedAndDeletedRe"
+  "sponse\022Z\n\013errorReport\022$.DatanodeNamenode"
+  ".ErrorReportRequest\032%.DatanodeNamenode.E"
+  "rrorReportResponse\022c\n\016reportBadBlock\022\'.D"
+  "atanodeNamenode.ReportBadBlockRequest\032(."
+  "DatanodeNamenode.ReportBadBlockResponseb"
+  "\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_DatanodeNamenode_2eproto_deps[1] = {
   &::descriptor_table_dfs_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_DatanodeNamenode_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_DatanodeNamenode_2eproto = {
-    false, false, 3409, descriptor_table_protodef_DatanodeNamenode_2eproto,
+    false, false, 3527, descriptor_table_protodef_DatanodeNamenode_2eproto,
     "DatanodeNamenode.proto",
-    &descriptor_table_DatanodeNamenode_2eproto_once, descriptor_table_DatanodeNamenode_2eproto_deps, 1, 24,
+    &descriptor_table_DatanodeNamenode_2eproto_once, descriptor_table_DatanodeNamenode_2eproto_deps, 1, 25,
     schemas, file_default_instances, TableStruct_DatanodeNamenode_2eproto::offsets,
     file_level_metadata_DatanodeNamenode_2eproto, file_level_enum_descriptors_DatanodeNamenode_2eproto,
     file_level_service_descriptors_DatanodeNamenode_2eproto,
@@ -710,6 +739,7 @@ bool DatanodeCommand_Type_IsValid(int value) {
     case 6:
     case 7:
     case 8:
+    case 9:
       return true;
     default:
       return false;
@@ -726,6 +756,7 @@ constexpr DatanodeCommand_Type DatanodeCommand::RegisterCommand;
 constexpr DatanodeCommand_Type DatanodeCommand::UnusedUpgradeCommand;
 constexpr DatanodeCommand_Type DatanodeCommand::NullDatanodeCommand;
 constexpr DatanodeCommand_Type DatanodeCommand::BlockIdCommand;
+constexpr DatanodeCommand_Type DatanodeCommand::CacheCommand;
 constexpr DatanodeCommand_Type DatanodeCommand::Type_MIN;
 constexpr DatanodeCommand_Type DatanodeCommand::Type_MAX;
 constexpr int DatanodeCommand::Type_ARRAYSIZE;
@@ -1159,6 +1190,10 @@ class DatanodeCommand::_Internal {
   static void set_has_blkidcmd(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
+  static const ::DatanodeNamenode::CacheCommand& cachecmd(const DatanodeCommand* msg);
+  static void set_has_cachecmd(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
 };
 
 const ::DatanodeNamenode::BalanceBandwidth&
@@ -1189,6 +1224,10 @@ const ::DatanodeNamenode::BlockId&
 DatanodeCommand::_Internal::blkidcmd(const DatanodeCommand* msg) {
   return *msg->_impl_.blkidcmd_;
 }
+const ::DatanodeNamenode::CacheCommand&
+DatanodeCommand::_Internal::cachecmd(const DatanodeCommand* msg) {
+  return *msg->_impl_.cachecmd_;
+}
 DatanodeCommand::DatanodeCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -1208,6 +1247,7 @@ DatanodeCommand::DatanodeCommand(const DatanodeCommand& from)
     , decltype(_impl_.keyupdatecmd_){nullptr}
     , decltype(_impl_.registercmd_){nullptr}
     , decltype(_impl_.blkidcmd_){nullptr}
+    , decltype(_impl_.cachecmd_){nullptr}
     , decltype(_impl_.commandtype_){}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1232,6 +1272,9 @@ DatanodeCommand::DatanodeCommand(const DatanodeCommand& from)
   if (from._internal_has_blkidcmd()) {
     _this->_impl_.blkidcmd_ = new ::DatanodeNamenode::BlockId(*from._impl_.blkidcmd_);
   }
+  if (from._internal_has_cachecmd()) {
+    _this->_impl_.cachecmd_ = new ::DatanodeNamenode::CacheCommand(*from._impl_.cachecmd_);
+  }
   _this->_impl_.commandtype_ = from._impl_.commandtype_;
   // @@protoc_insertion_point(copy_constructor:DatanodeNamenode.DatanodeCommand)
 }
@@ -1250,6 +1293,7 @@ inline void DatanodeCommand::SharedCtor(
     , decltype(_impl_.keyupdatecmd_){nullptr}
     , decltype(_impl_.registercmd_){nullptr}
     , decltype(_impl_.blkidcmd_){nullptr}
+    , decltype(_impl_.cachecmd_){nullptr}
     , decltype(_impl_.commandtype_){0}
   };
 }
@@ -1272,6 +1316,7 @@ inline void DatanodeCommand::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.keyupdatecmd_;
   if (this != internal_default_instance()) delete _impl_.registercmd_;
   if (this != internal_default_instance()) delete _impl_.blkidcmd_;
+  if (this != internal_default_instance()) delete _impl_.cachecmd_;
 }
 
 void DatanodeCommand::SetCachedSize(int size) const {
@@ -1285,7 +1330,7 @@ void DatanodeCommand::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(_impl_.balancecmd_ != nullptr);
       _impl_.balancecmd_->Clear();
@@ -1313,6 +1358,10 @@ void DatanodeCommand::Clear() {
     if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(_impl_.blkidcmd_ != nullptr);
       _impl_.blkidcmd_->Clear();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(_impl_.cachecmd_ != nullptr);
+      _impl_.cachecmd_->Clear();
     }
   }
   _impl_.commandtype_ = 0;
@@ -1388,6 +1437,14 @@ const char* DatanodeCommand::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_blkidcmd(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .DatanodeNamenode.CacheCommand cacheCmd = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_cachecmd(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1478,6 +1535,13 @@ uint8_t* DatanodeCommand::_InternalSerialize(
         _Internal::blkidcmd(this).GetCachedSize(), target, stream);
   }
 
+  // optional .DatanodeNamenode.CacheCommand cacheCmd = 9;
+  if (_internal_has_cachecmd()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(9, _Internal::cachecmd(this),
+        _Internal::cachecmd(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1495,7 +1559,7 @@ size_t DatanodeCommand::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional .DatanodeNamenode.BalanceBandwidth balanceCmd = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1545,6 +1609,13 @@ size_t DatanodeCommand::ByteSizeLong() const {
           *_impl_.blkidcmd_);
     }
 
+    // optional .DatanodeNamenode.CacheCommand cacheCmd = 9;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.cachecmd_);
+    }
+
   }
   // .DatanodeNamenode.DatanodeCommand.Type commandType = 1;
   if (this->_internal_commandtype() != 0) {
@@ -1571,7 +1642,7 @@ void DatanodeCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_mutable_balancecmd()->::DatanodeNamenode::BalanceBandwidth::MergeFrom(
           from._internal_balancecmd());
@@ -1599,6 +1670,10 @@ void DatanodeCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
     if (cached_has_bits & 0x00000040u) {
       _this->_internal_mutable_blkidcmd()->::DatanodeNamenode::BlockId::MergeFrom(
           from._internal_blkidcmd());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _this->_internal_mutable_cachecmd()->::DatanodeNamenode::CacheCommand::MergeFrom(
+          from._internal_cachecmd());
     }
   }
   if (from._internal_commandtype() != 0) {
@@ -2231,6 +2306,199 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Register::GetClassData() const
 
 // ===================================================================
 
+class CacheCommand::_Internal {
+ public:
+};
+
+CacheCommand::CacheCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:DatanodeNamenode.CacheCommand)
+}
+CacheCommand::CacheCommand(const CacheCommand& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CacheCommand* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.blocks_){from._impl_.blocks_}
+    , /*decltype(_impl_._blocks_cached_byte_size_)*/{0}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:DatanodeNamenode.CacheCommand)
+}
+
+inline void CacheCommand::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.blocks_){arena}
+    , /*decltype(_impl_._blocks_cached_byte_size_)*/{0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CacheCommand::~CacheCommand() {
+  // @@protoc_insertion_point(destructor:DatanodeNamenode.CacheCommand)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CacheCommand::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.blocks_.~RepeatedField();
+}
+
+void CacheCommand::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CacheCommand::Clear() {
+// @@protoc_insertion_point(message_clear_start:DatanodeNamenode.CacheCommand)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.blocks_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CacheCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated uint64 blocks = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_blocks(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 8) {
+          _internal_add_blocks(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CacheCommand::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:DatanodeNamenode.CacheCommand)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated uint64 blocks = 1;
+  {
+    int byte_size = _impl_._blocks_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt64Packed(
+          1, _internal_blocks(), byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:DatanodeNamenode.CacheCommand)
+  return target;
+}
+
+size_t CacheCommand::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:DatanodeNamenode.CacheCommand)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated uint64 blocks = 1;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt64Size(this->_impl_.blocks_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._blocks_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CacheCommand::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    CacheCommand::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CacheCommand::GetClassData() const { return &_class_data_; }
+
+
+void CacheCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CacheCommand*>(&to_msg);
+  auto& from = static_cast<const CacheCommand&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:DatanodeNamenode.CacheCommand)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.blocks_.MergeFrom(from._impl_.blocks_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CacheCommand::CopyFrom(const CacheCommand& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:DatanodeNamenode.CacheCommand)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CacheCommand::IsInitialized() const {
+  return true;
+}
+
+void CacheCommand::InternalSwap(CacheCommand* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.blocks_.InternalSwap(&other->_impl_.blocks_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CacheCommand::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
+      file_level_metadata_DatanodeNamenode_2eproto[8]);
+}
+
+// ===================================================================
+
 class BlockId::_Internal {
  public:
 };
@@ -2449,7 +2717,7 @@ void BlockId::InternalSwap(BlockId* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BlockId::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[8]);
+      file_level_metadata_DatanodeNamenode_2eproto[9]);
 }
 
 // ===================================================================
@@ -2682,7 +2950,7 @@ void ReceivedDeletedBlockInfo::InternalSwap(ReceivedDeletedBlockInfo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ReceivedDeletedBlockInfo::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[9]);
+      file_level_metadata_DatanodeNamenode_2eproto[10]);
 }
 
 // ===================================================================
@@ -2875,7 +3143,7 @@ void RegisterDatanodeRequest::InternalSwap(RegisterDatanodeRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RegisterDatanodeRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[10]);
+      file_level_metadata_DatanodeNamenode_2eproto[11]);
 }
 
 // ===================================================================
@@ -3068,7 +3336,7 @@ void RegisterDatanodeResponse::InternalSwap(RegisterDatanodeResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RegisterDatanodeResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[11]);
+      file_level_metadata_DatanodeNamenode_2eproto[12]);
 }
 
 // ===================================================================
@@ -3429,7 +3697,7 @@ void HeartBeatRequest::InternalSwap(HeartBeatRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata HeartBeatRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[12]);
+      file_level_metadata_DatanodeNamenode_2eproto[13]);
 }
 
 // ===================================================================
@@ -3614,7 +3882,7 @@ void HeartBeatResponse::InternalSwap(HeartBeatResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata HeartBeatResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[13]);
+      file_level_metadata_DatanodeNamenode_2eproto[14]);
 }
 
 // ===================================================================
@@ -3654,7 +3922,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*blockReportRequest::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata blockReportRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[14]);
+      file_level_metadata_DatanodeNamenode_2eproto[15]);
 }
 
 // ===================================================================
@@ -3694,7 +3962,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*blockReportResponse::GetClassD
 ::PROTOBUF_NAMESPACE_ID::Metadata blockReportResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[15]);
+      file_level_metadata_DatanodeNamenode_2eproto[16]);
 }
 
 // ===================================================================
@@ -3734,7 +4002,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*cacheReportRequest::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata cacheReportRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[16]);
+      file_level_metadata_DatanodeNamenode_2eproto[17]);
 }
 
 // ===================================================================
@@ -3774,7 +4042,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*cacheReportResponse::GetClassD
 ::PROTOBUF_NAMESPACE_ID::Metadata cacheReportResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[17]);
+      file_level_metadata_DatanodeNamenode_2eproto[18]);
 }
 
 // ===================================================================
@@ -4001,7 +4269,7 @@ void BlockReceivedAndDeletedRequest::InternalSwap(BlockReceivedAndDeletedRequest
 ::PROTOBUF_NAMESPACE_ID::Metadata BlockReceivedAndDeletedRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[18]);
+      file_level_metadata_DatanodeNamenode_2eproto[19]);
 }
 
 // ===================================================================
@@ -4041,7 +4309,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BlockReceivedAndDeletedRespons
 ::PROTOBUF_NAMESPACE_ID::Metadata BlockReceivedAndDeletedResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[19]);
+      file_level_metadata_DatanodeNamenode_2eproto[20]);
 }
 
 // ===================================================================
@@ -4320,7 +4588,7 @@ void ErrorReportRequest::InternalSwap(ErrorReportRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ErrorReportRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[20]);
+      file_level_metadata_DatanodeNamenode_2eproto[21]);
 }
 
 // ===================================================================
@@ -4360,7 +4628,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ErrorReportResponse::GetClassD
 ::PROTOBUF_NAMESPACE_ID::Metadata ErrorReportResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[21]);
+      file_level_metadata_DatanodeNamenode_2eproto[22]);
 }
 
 // ===================================================================
@@ -4548,7 +4816,7 @@ void ReportBadBlockRequest::InternalSwap(ReportBadBlockRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ReportBadBlockRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[22]);
+      file_level_metadata_DatanodeNamenode_2eproto[23]);
 }
 
 // ===================================================================
@@ -4588,7 +4856,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ReportBadBlockResponse::GetCla
 ::PROTOBUF_NAMESPACE_ID::Metadata ReportBadBlockResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_DatanodeNamenode_2eproto_getter, &descriptor_table_DatanodeNamenode_2eproto_once,
-      file_level_metadata_DatanodeNamenode_2eproto[23]);
+      file_level_metadata_DatanodeNamenode_2eproto[24]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -4625,6 +4893,10 @@ Arena::CreateMaybeMessage< ::DatanodeNamenode::KeyUpdate >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::DatanodeNamenode::Register*
 Arena::CreateMaybeMessage< ::DatanodeNamenode::Register >(Arena* arena) {
   return Arena::CreateMessageInternal< ::DatanodeNamenode::Register >(arena);
+}
+template<> PROTOBUF_NOINLINE ::DatanodeNamenode::CacheCommand*
+Arena::CreateMaybeMessage< ::DatanodeNamenode::CacheCommand >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::DatanodeNamenode::CacheCommand >(arena);
 }
 template<> PROTOBUF_NOINLINE ::DatanodeNamenode::BlockId*
 Arena::CreateMaybeMessage< ::DatanodeNamenode::BlockId >(Arena* arena) {

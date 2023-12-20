@@ -66,6 +66,9 @@ extern BlockReceivedAndDeletedResponseDefaultTypeInternal _BlockReceivedAndDelet
 class BlockRecovery;
 struct BlockRecoveryDefaultTypeInternal;
 extern BlockRecoveryDefaultTypeInternal _BlockRecovery_default_instance_;
+class CacheCommand;
+struct CacheCommandDefaultTypeInternal;
+extern CacheCommandDefaultTypeInternal _CacheCommand_default_instance_;
 class DatanodeCommand;
 struct DatanodeCommandDefaultTypeInternal;
 extern DatanodeCommandDefaultTypeInternal _DatanodeCommand_default_instance_;
@@ -128,6 +131,7 @@ template<> ::DatanodeNamenode::BlockId* Arena::CreateMaybeMessage<::DatanodeName
 template<> ::DatanodeNamenode::BlockReceivedAndDeletedRequest* Arena::CreateMaybeMessage<::DatanodeNamenode::BlockReceivedAndDeletedRequest>(Arena*);
 template<> ::DatanodeNamenode::BlockReceivedAndDeletedResponse* Arena::CreateMaybeMessage<::DatanodeNamenode::BlockReceivedAndDeletedResponse>(Arena*);
 template<> ::DatanodeNamenode::BlockRecovery* Arena::CreateMaybeMessage<::DatanodeNamenode::BlockRecovery>(Arena*);
+template<> ::DatanodeNamenode::CacheCommand* Arena::CreateMaybeMessage<::DatanodeNamenode::CacheCommand>(Arena*);
 template<> ::DatanodeNamenode::DatanodeCommand* Arena::CreateMaybeMessage<::DatanodeNamenode::DatanodeCommand>(Arena*);
 template<> ::DatanodeNamenode::DatanodeRegister* Arena::CreateMaybeMessage<::DatanodeNamenode::DatanodeRegister>(Arena*);
 template<> ::DatanodeNamenode::ErrorReportRequest* Arena::CreateMaybeMessage<::DatanodeNamenode::ErrorReportRequest>(Arena*);
@@ -159,12 +163,13 @@ enum DatanodeCommand_Type : int {
   DatanodeCommand_Type_UnusedUpgradeCommand = 6,
   DatanodeCommand_Type_NullDatanodeCommand = 7,
   DatanodeCommand_Type_BlockIdCommand = 8,
+  DatanodeCommand_Type_CacheCommand = 9,
   DatanodeCommand_Type_DatanodeCommand_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   DatanodeCommand_Type_DatanodeCommand_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool DatanodeCommand_Type_IsValid(int value);
 constexpr DatanodeCommand_Type DatanodeCommand_Type_Type_MIN = DatanodeCommand_Type_BalancerBandwidthCommand;
-constexpr DatanodeCommand_Type DatanodeCommand_Type_Type_MAX = DatanodeCommand_Type_BlockIdCommand;
+constexpr DatanodeCommand_Type DatanodeCommand_Type_Type_MAX = DatanodeCommand_Type_CacheCommand;
 constexpr int DatanodeCommand_Type_Type_ARRAYSIZE = DatanodeCommand_Type_Type_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* DatanodeCommand_Type_descriptor();
@@ -617,6 +622,8 @@ class DatanodeCommand final :
     DatanodeCommand_Type_NullDatanodeCommand;
   static constexpr Type BlockIdCommand =
     DatanodeCommand_Type_BlockIdCommand;
+  static constexpr Type CacheCommand =
+    DatanodeCommand_Type_CacheCommand;
   static inline bool Type_IsValid(int value) {
     return DatanodeCommand_Type_IsValid(value);
   }
@@ -652,6 +659,7 @@ class DatanodeCommand final :
     kKeyUpdateCmdFieldNumber = 6,
     kRegisterCmdFieldNumber = 7,
     kBlkIdCmdFieldNumber = 8,
+    kCacheCmdFieldNumber = 9,
     kCommandTypeFieldNumber = 1,
   };
   // optional .DatanodeNamenode.BalanceBandwidth balanceCmd = 2;
@@ -780,6 +788,24 @@ class DatanodeCommand final :
       ::DatanodeNamenode::BlockId* blkidcmd);
   ::DatanodeNamenode::BlockId* unsafe_arena_release_blkidcmd();
 
+  // optional .DatanodeNamenode.CacheCommand cacheCmd = 9;
+  bool has_cachecmd() const;
+  private:
+  bool _internal_has_cachecmd() const;
+  public:
+  void clear_cachecmd();
+  const ::DatanodeNamenode::CacheCommand& cachecmd() const;
+  PROTOBUF_NODISCARD ::DatanodeNamenode::CacheCommand* release_cachecmd();
+  ::DatanodeNamenode::CacheCommand* mutable_cachecmd();
+  void set_allocated_cachecmd(::DatanodeNamenode::CacheCommand* cachecmd);
+  private:
+  const ::DatanodeNamenode::CacheCommand& _internal_cachecmd() const;
+  ::DatanodeNamenode::CacheCommand* _internal_mutable_cachecmd();
+  public:
+  void unsafe_arena_set_allocated_cachecmd(
+      ::DatanodeNamenode::CacheCommand* cachecmd);
+  ::DatanodeNamenode::CacheCommand* unsafe_arena_release_cachecmd();
+
   // .DatanodeNamenode.DatanodeCommand.Type commandType = 1;
   void clear_commandtype();
   ::DatanodeNamenode::DatanodeCommand_Type commandtype() const;
@@ -806,6 +832,7 @@ class DatanodeCommand final :
     ::DatanodeNamenode::KeyUpdate* keyupdatecmd_;
     ::DatanodeNamenode::Register* registercmd_;
     ::DatanodeNamenode::BlockId* blkidcmd_;
+    ::DatanodeNamenode::CacheCommand* cachecmd_;
     int commandtype_;
   };
   union { Impl_ _impl_; };
@@ -1653,6 +1680,168 @@ class Register final :
 };
 // -------------------------------------------------------------------
 
+class CacheCommand final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:DatanodeNamenode.CacheCommand) */ {
+ public:
+  inline CacheCommand() : CacheCommand(nullptr) {}
+  ~CacheCommand() override;
+  explicit PROTOBUF_CONSTEXPR CacheCommand(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CacheCommand(const CacheCommand& from);
+  CacheCommand(CacheCommand&& from) noexcept
+    : CacheCommand() {
+    *this = ::std::move(from);
+  }
+
+  inline CacheCommand& operator=(const CacheCommand& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CacheCommand& operator=(CacheCommand&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CacheCommand& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CacheCommand* internal_default_instance() {
+    return reinterpret_cast<const CacheCommand*>(
+               &_CacheCommand_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(CacheCommand& a, CacheCommand& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CacheCommand* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CacheCommand* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CacheCommand* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CacheCommand>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CacheCommand& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CacheCommand& from) {
+    CacheCommand::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CacheCommand* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "DatanodeNamenode.CacheCommand";
+  }
+  protected:
+  explicit CacheCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBlocksFieldNumber = 1,
+  };
+  // repeated uint64 blocks = 1;
+  int blocks_size() const;
+  private:
+  int _internal_blocks_size() const;
+  public:
+  void clear_blocks();
+  private:
+  uint64_t _internal_blocks(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+      _internal_blocks() const;
+  void _internal_add_blocks(uint64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+      _internal_mutable_blocks();
+  public:
+  uint64_t blocks(int index) const;
+  void set_blocks(int index, uint64_t value);
+  void add_blocks(uint64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+      blocks() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+      mutable_blocks();
+
+  // @@protoc_insertion_point(class_scope:DatanodeNamenode.CacheCommand)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > blocks_;
+    mutable std::atomic<int> _blocks_cached_byte_size_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_DatanodeNamenode_2eproto;
+};
+// -------------------------------------------------------------------
+
 class BlockId final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:DatanodeNamenode.BlockId) */ {
  public:
@@ -1701,7 +1890,7 @@ class BlockId final :
                &_BlockId_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(BlockId& a, BlockId& b) {
     a.Swap(&b);
@@ -1904,7 +2093,7 @@ class ReceivedDeletedBlockInfo final :
                &_ReceivedDeletedBlockInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(ReceivedDeletedBlockInfo& a, ReceivedDeletedBlockInfo& b) {
     a.Swap(&b);
@@ -2104,7 +2293,7 @@ class RegisterDatanodeRequest final :
                &_RegisterDatanodeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(RegisterDatanodeRequest& a, RegisterDatanodeRequest& b) {
     a.Swap(&b);
@@ -2261,7 +2450,7 @@ class RegisterDatanodeResponse final :
                &_RegisterDatanodeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(RegisterDatanodeResponse& a, RegisterDatanodeResponse& b) {
     a.Swap(&b);
@@ -2418,7 +2607,7 @@ class HeartBeatRequest final :
                &_HeartBeatRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(HeartBeatRequest& a, HeartBeatRequest& b) {
     a.Swap(&b);
@@ -2651,7 +2840,7 @@ class HeartBeatResponse final :
                &_HeartBeatResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(HeartBeatResponse& a, HeartBeatResponse& b) {
     a.Swap(&b);
@@ -2807,7 +2996,7 @@ class blockReportRequest final :
                &_blockReportRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(blockReportRequest& a, blockReportRequest& b) {
     a.Swap(&b);
@@ -2925,7 +3114,7 @@ class blockReportResponse final :
                &_blockReportResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(blockReportResponse& a, blockReportResponse& b) {
     a.Swap(&b);
@@ -3043,7 +3232,7 @@ class cacheReportRequest final :
                &_cacheReportRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(cacheReportRequest& a, cacheReportRequest& b) {
     a.Swap(&b);
@@ -3161,7 +3350,7 @@ class cacheReportResponse final :
                &_cacheReportResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(cacheReportResponse& a, cacheReportResponse& b) {
     a.Swap(&b);
@@ -3280,7 +3469,7 @@ class BlockReceivedAndDeletedRequest final :
                &_BlockReceivedAndDeletedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(BlockReceivedAndDeletedRequest& a, BlockReceivedAndDeletedRequest& b) {
     a.Swap(&b);
@@ -3456,7 +3645,7 @@ class BlockReceivedAndDeletedResponse final :
                &_BlockReceivedAndDeletedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(BlockReceivedAndDeletedResponse& a, BlockReceivedAndDeletedResponse& b) {
     a.Swap(&b);
@@ -3575,7 +3764,7 @@ class ErrorReportRequest final :
                &_ErrorReportRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(ErrorReportRequest& a, ErrorReportRequest& b) {
     a.Swap(&b);
@@ -3792,7 +3981,7 @@ class ErrorReportResponse final :
                &_ErrorReportResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(ErrorReportResponse& a, ErrorReportResponse& b) {
     a.Swap(&b);
@@ -3911,7 +4100,7 @@ class ReportBadBlockRequest final :
                &_ReportBadBlockRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(ReportBadBlockRequest& a, ReportBadBlockRequest& b) {
     a.Swap(&b);
@@ -4067,7 +4256,7 @@ class ReportBadBlockResponse final :
                &_ReportBadBlockResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(ReportBadBlockResponse& a, ReportBadBlockResponse& b) {
     a.Swap(&b);
@@ -5021,6 +5210,96 @@ inline void DatanodeCommand::set_allocated_blkidcmd(::DatanodeNamenode::BlockId*
   // @@protoc_insertion_point(field_set_allocated:DatanodeNamenode.DatanodeCommand.blkIdCmd)
 }
 
+// optional .DatanodeNamenode.CacheCommand cacheCmd = 9;
+inline bool DatanodeCommand::_internal_has_cachecmd() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.cachecmd_ != nullptr);
+  return value;
+}
+inline bool DatanodeCommand::has_cachecmd() const {
+  return _internal_has_cachecmd();
+}
+inline void DatanodeCommand::clear_cachecmd() {
+  if (_impl_.cachecmd_ != nullptr) _impl_.cachecmd_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000080u;
+}
+inline const ::DatanodeNamenode::CacheCommand& DatanodeCommand::_internal_cachecmd() const {
+  const ::DatanodeNamenode::CacheCommand* p = _impl_.cachecmd_;
+  return p != nullptr ? *p : reinterpret_cast<const ::DatanodeNamenode::CacheCommand&>(
+      ::DatanodeNamenode::_CacheCommand_default_instance_);
+}
+inline const ::DatanodeNamenode::CacheCommand& DatanodeCommand::cachecmd() const {
+  // @@protoc_insertion_point(field_get:DatanodeNamenode.DatanodeCommand.cacheCmd)
+  return _internal_cachecmd();
+}
+inline void DatanodeCommand::unsafe_arena_set_allocated_cachecmd(
+    ::DatanodeNamenode::CacheCommand* cachecmd) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.cachecmd_);
+  }
+  _impl_.cachecmd_ = cachecmd;
+  if (cachecmd) {
+    _impl_._has_bits_[0] |= 0x00000080u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000080u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:DatanodeNamenode.DatanodeCommand.cacheCmd)
+}
+inline ::DatanodeNamenode::CacheCommand* DatanodeCommand::release_cachecmd() {
+  _impl_._has_bits_[0] &= ~0x00000080u;
+  ::DatanodeNamenode::CacheCommand* temp = _impl_.cachecmd_;
+  _impl_.cachecmd_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::DatanodeNamenode::CacheCommand* DatanodeCommand::unsafe_arena_release_cachecmd() {
+  // @@protoc_insertion_point(field_release:DatanodeNamenode.DatanodeCommand.cacheCmd)
+  _impl_._has_bits_[0] &= ~0x00000080u;
+  ::DatanodeNamenode::CacheCommand* temp = _impl_.cachecmd_;
+  _impl_.cachecmd_ = nullptr;
+  return temp;
+}
+inline ::DatanodeNamenode::CacheCommand* DatanodeCommand::_internal_mutable_cachecmd() {
+  _impl_._has_bits_[0] |= 0x00000080u;
+  if (_impl_.cachecmd_ == nullptr) {
+    auto* p = CreateMaybeMessage<::DatanodeNamenode::CacheCommand>(GetArenaForAllocation());
+    _impl_.cachecmd_ = p;
+  }
+  return _impl_.cachecmd_;
+}
+inline ::DatanodeNamenode::CacheCommand* DatanodeCommand::mutable_cachecmd() {
+  ::DatanodeNamenode::CacheCommand* _msg = _internal_mutable_cachecmd();
+  // @@protoc_insertion_point(field_mutable:DatanodeNamenode.DatanodeCommand.cacheCmd)
+  return _msg;
+}
+inline void DatanodeCommand::set_allocated_cachecmd(::DatanodeNamenode::CacheCommand* cachecmd) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.cachecmd_;
+  }
+  if (cachecmd) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(cachecmd);
+    if (message_arena != submessage_arena) {
+      cachecmd = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cachecmd, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000080u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000080u;
+  }
+  _impl_.cachecmd_ = cachecmd;
+  // @@protoc_insertion_point(field_set_allocated:DatanodeNamenode.DatanodeCommand.cacheCmd)
+}
+
 // -------------------------------------------------------------------
 
 // BalanceBandwidth
@@ -5158,6 +5437,57 @@ BlockCommand::targets() const {
 // -------------------------------------------------------------------
 
 // Register
+
+// -------------------------------------------------------------------
+
+// CacheCommand
+
+// repeated uint64 blocks = 1;
+inline int CacheCommand::_internal_blocks_size() const {
+  return _impl_.blocks_.size();
+}
+inline int CacheCommand::blocks_size() const {
+  return _internal_blocks_size();
+}
+inline void CacheCommand::clear_blocks() {
+  _impl_.blocks_.Clear();
+}
+inline uint64_t CacheCommand::_internal_blocks(int index) const {
+  return _impl_.blocks_.Get(index);
+}
+inline uint64_t CacheCommand::blocks(int index) const {
+  // @@protoc_insertion_point(field_get:DatanodeNamenode.CacheCommand.blocks)
+  return _internal_blocks(index);
+}
+inline void CacheCommand::set_blocks(int index, uint64_t value) {
+  _impl_.blocks_.Set(index, value);
+  // @@protoc_insertion_point(field_set:DatanodeNamenode.CacheCommand.blocks)
+}
+inline void CacheCommand::_internal_add_blocks(uint64_t value) {
+  _impl_.blocks_.Add(value);
+}
+inline void CacheCommand::add_blocks(uint64_t value) {
+  _internal_add_blocks(value);
+  // @@protoc_insertion_point(field_add:DatanodeNamenode.CacheCommand.blocks)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+CacheCommand::_internal_blocks() const {
+  return _impl_.blocks_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
+CacheCommand::blocks() const {
+  // @@protoc_insertion_point(field_list:DatanodeNamenode.CacheCommand.blocks)
+  return _internal_blocks();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+CacheCommand::_internal_mutable_blocks() {
+  return &_impl_.blocks_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
+CacheCommand::mutable_blocks() {
+  // @@protoc_insertion_point(field_mutable_list:DatanodeNamenode.CacheCommand.blocks)
+  return _internal_mutable_blocks();
+}
 
 // -------------------------------------------------------------------
 
@@ -6175,6 +6505,8 @@ ReportBadBlockRequest::blocks() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

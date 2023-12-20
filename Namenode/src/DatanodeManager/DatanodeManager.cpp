@@ -24,14 +24,17 @@ long long DatanodeManager::now() {
             std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
-const std::map<std::string, DatanodeInfo *> &DatanodeManager::getDatanodeMap() const {
+const std::map<std::string, DatanodeDescriptor *> &DatanodeManager::getDatanodeMap() const {
     return m_datanodeMap;
 }
 
 void DatanodeManager::addDatanode(DatanodeInfo *d) {
     std::string uuid = d->id().datanodeuuid();
     d->set_lastupdate(now());
-    m_datanodeMap.insert(std::map<std::string,DatanodeInfo*>::value_type(uuid,d));
+
+    auto dd = new DatanodeDescriptor;
+    dd->setInfo(d);
+    m_datanodeMap.insert(std::map<std::string,DatanodeDescriptor*>::value_type(uuid,dd));
     m_consistentHash.Add(uuid);
     LOG(INFO) << "add datanode " << d->id().hostname();
 }
@@ -54,12 +57,7 @@ void DatanodeManager::removeDatanode(DatanodeInfo *d) {
 }
 
 DatanodeInfo *DatanodeManager::getDatanode(const std::string &uuid) {
-    auto it = m_datanodeMap.find(uuid);
-    if (it == m_datanodeMap.end()){
-        return nullptr;
-    }
-    auto datanode = it->second;
-    return datanode;
+    return getDatanodeDes(uuid)->getInfo();
 }
 
 std::vector<DatanodeInfo*> DatanodeManager::chooseDatanode(const std::string& key) {
@@ -72,7 +70,7 @@ std::vector<DatanodeInfo*> DatanodeManager::chooseDatanode(const std::string& ke
     for (int i = 0; i < 3; ++i) {
         std::string uuid = m_consistentHash.Get(key+std::to_string(i));
         auto datanode = m_datanodeMap.find(uuid)->second;
-        datanodes.push_back(datanode);
+        datanodes.push_back(datanode->getInfo());
     }
     return datanodes;
 }
@@ -82,15 +80,16 @@ std::vector<DatanodeCommand> DatanodeManager::handleHeartBeat(const std::string 
 
     LOG(INFO) << "get heartBeat from datanode " << uuid;
 
-    auto datanode = getDatanode(uuid);
+    auto des = getDatanodeDes(uuid);
+    auto info = des->getInfo();
 
 
-    if (datanode == nullptr){
+    if (info == nullptr){
         return {};
     }
-    LOG(INFO) << datanode->id().ipaddr() << ":" << datanode->id().xferport();
+    LOG(INFO) << info->id().ipaddr() << ":" << info->id().xferport();
 
-    datanode->set_lastupdate(now());
+    info->set_lastupdate(now());
     std::vector<DatanodeCommand> cmds;
 
     if (backupBlocks.front().first == uuid){
@@ -106,9 +105,20 @@ std::vector<DatanodeCommand> DatanodeManager::handleHeartBeat(const std::string 
         auto blk = blkCmd->add_blocks();
         blk->set_blockid(backup.second);
         auto target = blkCmd->add_targets();
-        target->CopyFrom(*m_datanodeMap.find(backup.first)->second);
+        target->CopyFrom(*m_datanodeMap.find(backup.first)->second->getInfo());
 
         cmd->set_allocated_blkcmd(blkCmd);
+    }
+    if (!des->pendingCacheEmpty()){
+        DatanodeCommand cmd;
+        cmd.set_commandtype(DatanodeCommand_Type_CacheCommand);
+        CacheCommand cacheCmd;
+
+        while(!des->pendingCacheEmpty()){
+            cacheCmd.add_blocks(des->cache());
+        }
+        cmd.mutable_cachecmd()->CopyFrom(cacheCmd);
+        cmds.push_back(cmd);
     }
 
     return cmds;
@@ -120,6 +130,15 @@ void DatanodeManager::backupBlock(const pair<std::string, size_t>& backup) {
 
 DatanodeManager::DatanodeManager(BlockManager* blockManager):m_blockManager(blockManager) {
 
+}
+
+DatanodeDescriptor *DatanodeManager::getDatanodeDes(const string &uuid) {
+    auto it = m_datanodeMap.find(uuid);
+    if (it == m_datanodeMap.end()){
+        return nullptr;
+    }
+    auto datanode = it->second;
+    return datanode;
 }
 
 

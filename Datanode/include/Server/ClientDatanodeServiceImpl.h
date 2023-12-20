@@ -7,10 +7,11 @@
 #define CHUNK_SIZE 1024 * 1024
 #include "proto/ClientDatanode.grpc.pb.h"
 #include "Client/DatanodeClient.h"
+#include "Cache/Cache.h"
 
 class ClientDatanodeServiceImpl final : public ClientDatanode::FileService::Service{
 public:
-    ClientDatanodeServiceImpl(const std::string& work_dir);
+    ClientDatanodeServiceImpl(const std::string& work_dir, Cache* cache);
 
     ~ClientDatanodeServiceImpl() override;
 
@@ -23,6 +24,7 @@ public:
 
 private:
     const std::string& m_work_dir;
+    Cache* m_cache;
 };
 
 

@@ -84,7 +84,7 @@ LocatedBlocks* BlockIndexHash::inquireALL(int xx, string name) {
 const LocatedBlock* BlockIndexHash::inquire(int xx, string name, uint64_t blockID) {
     if (this->name == name) {
         for (int i = 0; i < this->BlockMessage->blocks_size(); i++) {
-            if (this->BlockMessage->blocks(i).block().blockid()) {
+            if (this->BlockMessage->blocks(i).block().blockid() == blockID) {
                 return &(this->BlockMessage->blocks(i));
             }
         }

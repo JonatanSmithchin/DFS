@@ -112,6 +112,8 @@ void DFSClient::uploadFile(const std::string& dst,const std::string &file) {
     auto end = std::chrono::steady_clock::now();
     auto duration_millsecond = std::chrono::duration<double, std::milli>(end - start).count();
     std::cout << "upload File finished, used " << duration_millsecond << " millsec.\n";
+    FileUtils::removeFilesInDir(UPLOAD_TEMP_FILE_DIR);
+
 }
 
 struct temp_file{
@@ -137,7 +139,7 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
 
     std::set<temp_file> temp_files; // 借用set为文件块排序
     std::vector<std::string> files; // 排序后的文件块
-
+    auto start = std::chrono::steady_clock::now();
     for (int i = 0; i < file_blocks->blocks_size(); ++i) {
         const LocatedBlock& file_block = file_blocks->blocks(i);
         google::protobuf::uint64 block_id = file_block.block().blockid();
@@ -159,6 +161,9 @@ void DFSClient::downloadFile(const std::string& dst,const std::string &file) {
     
     std::fstream output(dst,std::ios::out|std::ios::binary);
     FileUtils::MergeFile(&output,files);
+    auto end = std::chrono::steady_clock::now();
+    auto duration_millsecond = std::chrono::duration<double, std::milli>(end - start).count();
+    std::cout << "download File finished, used " << duration_millsecond << " millsec.\n";
 }
 
 DFSClient::DFSClient(NamenodeClient *namenodeClient):m_namenodeClient(namenodeClient) {

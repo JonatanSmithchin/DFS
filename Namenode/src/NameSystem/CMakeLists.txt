@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.22.1)
 
 find_package(YAML-CPP CONFIG REQUIRED)
 
+find_package(glog CONFIG REQUIRED)
+
 add_library(NameSystem SHARED NameSystem.cpp)
 
 target_link_libraries(NameSystem PRIVATE gRPC::grpc++ gRPC::grpc++_reflection

@@ -33,7 +33,7 @@ void HeartBeatMonitor::checkHeartBeat() {
         }
 
         for (const auto& it:m_manager->getDatanodeMap()) {
-            auto info = it.second;
+            auto info = it.second->getInfo();
             LOG(INFO) << "check status: " << info->id().hostname();
             if (info->lastupdate() + CHECK_INTERVAL < now){
                 dead = info;

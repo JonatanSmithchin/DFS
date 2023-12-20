@@ -20,7 +20,7 @@ bool NamenodeClient::create(const std::string &path) {
     if (status.ok()){
         return true;
     } else{
-        LOG(WARNING) << "cannot create file" << status.error_code();
+        LOG(WARNING) << "cannot create file " << status.error_code();
         return false;
     }
 }

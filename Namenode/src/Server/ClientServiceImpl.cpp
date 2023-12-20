@@ -12,7 +12,7 @@ grpc::Status ClientServiceImpl::GetBlockLocation(::grpc::ServerContext *context,
                                                  const ::ClientNamenode::GetBlockLocationRequest *request,
                                                  ::ClientNamenode::GetBlockLocationResponse *response) {
 
-    return Service::GetBlockLocation(context, request, response);
+    return Service::GetBlockLocation(context,request,response);
 }
 
 grpc::Status ClientServiceImpl::GetFileBlockLocations(::grpc::ServerContext *context,

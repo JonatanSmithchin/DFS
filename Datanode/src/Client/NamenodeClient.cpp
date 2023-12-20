@@ -9,7 +9,7 @@
 #include "utils/net_utils.h"
 #include "proto/dfs.grpc.pb.h"
 
-NameNodeClient::NameNodeClient(std::shared_ptr<Channel> channel): m_stub(DatanodeService::NewStub(channel)) {
+NameNodeClient::NameNodeClient(std::shared_ptr<Channel> channel,Cache* cache): m_stub(DatanodeService::NewStub(channel)),m_cache(cache) {
     m_id = new DatanodeID();
 }
 
@@ -20,8 +20,22 @@ void NameNodeClient::heartBeat(){
         LOG(INFO) << "sending heartbeat";
         auto cmds = sendHeartBeat();
 
-        for(auto it : cmds){
-            LOG(INFO) << "do command" << it.commandtype();
+        for(const auto& it : cmds){
+            switch (it.commandtype()) {
+                case 9:{
+                    LOG(INFO) << "do command 9";
+                    auto cmd = it.cachecmd();
+                    LOG(INFO) << cmd.blocks_size();
+                    std::vector<uint64_t> blks;
+                    for (int i = 0; i < cmd.blocks_size(); ++i) {
+                        blks.push_back(cmd.blocks(i));
+                    }
+                    cache(blks);
+                    break;
+                }
+                default:
+                    LOG(INFO) << "do command " << it.commandtype();
+            }
         }
     }
 }
@@ -103,7 +117,7 @@ std::vector<DatanodeCommand> NameNodeClient::sendHeartBeat() {
 
     auto status = m_stub->sendHeartBeat(&context,request,&response);
 
-    std::vector<DatanodeCommand> cmds(response.cmds_size());
+    std::vector<DatanodeCommand> cmds;
 
     for (int i = 0; i < response.cmds_size(); i ++){
         cmds.push_back(response.cmds(i));
@@ -119,6 +133,16 @@ void NameNodeClient::run() {
         heartBeat.detach();
     } else{
         LOG(ERROR) << "Cannot start heartBeat";
+    }
+}
+
+void NameNodeClient::cache(std::vector<uint64_t> blks) {
+    for (auto blk:blks) {
+        if (m_cache->hit(blk)){
+            continue;
+        }
+        LOG(INFO) << "put " << blk << " into memory";
+        m_cache->cacheBlock(blk);
     }
 }
 

@@ -118,4 +118,12 @@ namespace FileUtils {
         }
         return files;
     }
+
+    void removeFilesInDir(const std::string& dir){
+        if (!std::filesystem::exists(dir)){
+            LOG(FATAL) << "Dir does not exist";
+        }
+        std::filesystem::remove_all(dir);
+        std::filesystem::create_directory(dir);
+    }
 }

@@ -6,6 +6,7 @@
 #define NAMENODE_NAMENODECLIENT_H
 
 #include "proto/DatanodeNamenode.grpc.pb.h"
+#include "Cache/Cache.h"
 #include <grpcpp/grpcpp.h>
 #include <memory>
 
@@ -18,10 +19,11 @@ class NameNodeClient{
 private:
     DatanodeID* m_id;
     std::unique_ptr<DatanodeService::Stub> m_stub;
-
+    Cache* m_cache;
+    void cache(std::vector<uint64_t> blks);
     [[noreturn]] void heartBeat();
 public:
-    explicit NameNodeClient(std::shared_ptr<grpc::Channel> channel);
+    NameNodeClient(std::shared_ptr<grpc::Channel> channel,Cache* cache);
 
     void registration();
 

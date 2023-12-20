@@ -21,8 +21,12 @@ TEST(TEST_MERGEFILE,test_mergeFile1){
 }
 
 TEST(TEST_GETFILES,test_getFiles){
-    auto res = FileUtils::getFiles("/mnt/d/test/temp/upload",0;
+    auto res = FileUtils::getFiles("/mnt/d/test/temp/upload",0);
     for (auto it:res){
         std::cout << it;
     }
+}
+
+TEST(TEST_REMOVE,test_removeFiles){
+    FileUtils::removeFilesInDir("/mnt/d/test/temp/upload");
 }

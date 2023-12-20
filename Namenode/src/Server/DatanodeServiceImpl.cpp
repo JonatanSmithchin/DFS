@@ -53,8 +53,21 @@ DatanodeServiceImpl::sendHeartBeat(::grpc::ServerContext *context, const ::Datan
 
     delete(update);
 
-    response->mutable_cmds()->CopyFrom({cmds.begin(),cmds.end()});
+    for (auto& cmd:cmds) {
+        std::cout << cmd.commandtype() << "\n";
+        for (int i = 0; i < cmd.cachecmd().blocks_size(); ++i) {
+            std::cout << cmd.cachecmd().blocks(i);
+        }
+        response->add_cmds()->CopyFrom(cmd);
+    }
 
+    for(int i = 0;i < response->cmds_size();i ++){
+        auto cmd = response->cmds(i);
+        std::cout << cmd.commandtype();
+        for (int j = 0; j < cmd.cachecmd().blocks_size(); ++j) {
+            auto  b = cmd.cachecmd().blocks(j);
+        }
+    }
     return grpc::Status::OK;
 }
 

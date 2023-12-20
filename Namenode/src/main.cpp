@@ -3,6 +3,7 @@
 #include "Server/RPCServer.h"
 #include "DatanodeManager/HeartBeatMonitor.h"
 #include "DatanodeManager/DatanodeManager.h"
+#include "CacheManager/CacheMonitor.h"
 
 int main(int argc, char** argv){
     FLAGS_alsologtostderr = 1;
@@ -10,15 +11,18 @@ int main(int argc, char** argv){
 
     LOG(INFO) << "Starting NameNode";
 
+    auto cacheManager = new CacheManager(5);
     auto blockManager = new BlockManager();
-
     auto datanodeManager = new DatanodeManager(blockManager);
+
+    auto cacheMonitor = new CacheMonitor(cacheManager,datanodeManager);
     auto heartBeatMonitor = new HeartBeatMonitor(datanodeManager);
     heartBeatMonitor->run();
+    cacheMonitor->run();
 
     auto root = new INodeDir();
     root->setFullPathName("/");
-    auto nameSystem = new NameSystem(root,datanodeManager,blockManager);
+    auto nameSystem = new NameSystem(root,datanodeManager,blockManager,cacheManager);
 
     ClientServiceImpl ClientService(nameSystem);
     DatanodeServiceImpl DatanodeService(datanodeManager);

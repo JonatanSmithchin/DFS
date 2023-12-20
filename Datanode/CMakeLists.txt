@@ -30,7 +30,7 @@ target_link_libraries(DataNode PRIVATE gRPC::grpc++ gRPC::grpc++_reflection
 
 target_link_libraries(DataNode PRIVATE glog::glog yaml-cpp)
 
-target_link_libraries(DataNode PRIVATE dfsProto Client Server utils)
+target_link_libraries(DataNode PRIVATE dfsProto Client Server utils Cache)
 
 add_custom_command(
         OUTPUT
